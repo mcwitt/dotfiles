@@ -32,6 +32,8 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'aperezdc/vim-template'
 Plugin 'nathanaelkane/vim-indent-guides'
 
+Plugin 'vim-scripts/dbext.vim'
+
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'davidhalter/jedi-vim'
 
@@ -57,3 +59,5 @@ let g:LatexBox_latexmk_preview_continuously=1
 let g:LatexBox_quickfix=2   " prevent quickfix window from stealing cursor
 " }
 " }
+
+source $HOME/.local/vimrc
