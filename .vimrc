@@ -40,6 +40,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'elzr/vim-json'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'hail2u/vim-css3-syntax'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
