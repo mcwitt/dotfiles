@@ -37,8 +37,9 @@ Plugin 'vim-scripts/dbext.vim'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'davidhalter/jedi-vim'
 
-Plugin 'pangloss/vim-javascript'
 Plugin 'elzr/vim-json'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -58,6 +59,7 @@ let g:LatexBox_viewer='xpdf'
 let g:LatexBox_latexmk_preview_continuously=1
 let g:LatexBox_quickfix=2   " prevent quickfix window from stealing cursor
 " }
+
 " }
 
 source $HOME/.local/vimrc
