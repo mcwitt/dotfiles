@@ -26,21 +26,25 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
+
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'aperezdc/vim-template'
 Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'scrooloose/syntastic'
 
-Plugin 'vim-scripts/dbext.vim'
+Plugin 'tpope/vim-fugitive'
 
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'davidhalter/jedi-vim'
 
 Plugin 'elzr/vim-json'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'hail2u/vim-css3-syntax'
+
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+
+Plugin 'vim-scripts/dbext.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -54,12 +58,26 @@ set background=dark
 colorscheme solarized
 " }
 
+" Syntastic {
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_javascript_checkers = ['eslint']
+" }
+
 " LaTeX-Box {
 let g:tex_flavor='latex'    " assume .tex files are LaTeX
 let g:LatexBox_viewer='xpdf'
 let g:LatexBox_latexmk_preview_continuously=1
 let g:LatexBox_quickfix=2   " prevent quickfix window from stealing cursor
 " }
+
 
 " }
 
