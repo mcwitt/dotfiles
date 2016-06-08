@@ -27,6 +27,8 @@ values."
      better-defaults
      emacs-lisp
      git
+     latex
+     ipython-notebook
      markdown
      python
      ;; org
@@ -34,6 +36,7 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;; spell-checking
+     react
      syntax-checking
      ;; version-control
      )
