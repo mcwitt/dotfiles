@@ -27,24 +27,20 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'aperezdc/vim-template'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'scrooloose/syntastic'
-
-Plugin 'tpope/vim-fugitive'
-
-Plugin 'davidhalter/jedi-vim'
-
-Plugin 'elzr/vim-json'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'hail2u/vim-css3-syntax'
-
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-
 Plugin 'vim-scripts/dbext.vim'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plugin 'scrooloose/syntastic'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'tpope/vim-fugitive'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'pangloss/vim-javascript'
+Plugin 'elzr/vim-json'
+Plugin 'mxw/vim-jsx'
+Plugin 'tpope/vim-surround'
+Plugin 'aperezdc/vim-template'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
