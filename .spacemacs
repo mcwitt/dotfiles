@@ -42,7 +42,9 @@ values."
      yaml
 
      (org :variables
-          org-enable-github-support t)
+          org-enable-github-support t
+          org-babel-load-languages
+          '((python . t)))
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -260,6 +262,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (require 'ox-beamer)  ;; beamer export for org-mode
   (setq-default js2-basic-offset 2
                 js2-indent-level 2)
   )
