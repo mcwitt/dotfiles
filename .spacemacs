@@ -1,6 +1,6 @@
 ;; -*- mode: emacs-lisp -*-
-;; This file is loaded by Spacemacs at startup.
-;; It must be stored in your home directory.
+;; .spacemacs
+;; Matt Wittmann
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -170,6 +170,7 @@ you should place your code here."
   (setq-default
    js-indent-level 2
    js2-basic-offset 2
+   js2-strict-missing-semi-warning nil
    css-indent-offset 2
    web-mode-markup-indent-offset 2
    web-mode-css-indent-offset 2
