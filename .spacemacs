@@ -144,6 +144,8 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+
   ;; changes global emacs behavior
   (setq vc-follow-symlinks)  ;; auto follow symlinks
 
@@ -176,6 +178,30 @@ you should place your code here."
    web-mode-css-indent-offset 2
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
+
+   ;; SQL
+   ;; https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client
+   (add-hook 'sql-interactive-mode-hook
+             (lambda ()
+               (toggle-truncate-lines t)))
+
+   (load "sql-connections.el")
+
+   (defun my-sql-connect (product connection)
+     ;; load the password
+     (require 'sql-my-password "sql-my-password.el.gpg")
+
+     (let* ((sql-product product)
+            (password (cadr (assoc connection sql-my-password)))
+            (sql-connection-alist (cons (list 'password password)
+                                        sql-connection-alist)))
+       ;; Postgres doesn't allow providing password on command line,
+       ;; handle that case.  This should go inside sql-postgres.
+       (when (and (eq sql-product 'postgres) password)
+         (setenv "PGPASSWORD" password))
+       (sql-connect connection)
+       (when (and (eq sql-product 'postgres) password)
+         (setenv "PGPASSWORD" nil))))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
