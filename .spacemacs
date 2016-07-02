@@ -144,8 +144,6 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
-
   ;; changes global emacs behavior
   (setq vc-follow-symlinks)  ;; auto follow symlinks
 
@@ -185,11 +183,11 @@ you should place your code here."
              (lambda ()
                (toggle-truncate-lines t)))
 
-   (load "sql-connections.el")
+   (load "~/.sql-connections.el")
 
    (defun my-sql-connect (product connection)
      ;; load the password
-     (require 'sql-my-password "sql-my-password.el.gpg")
+     (require 'sql-my-password "~/.sql-my-password.el.gpg")
 
      (let* ((sql-product product)
             (password (cadr (assoc connection sql-my-password)))
