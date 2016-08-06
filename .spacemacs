@@ -35,10 +35,12 @@ values."
      osx
      python
      react
+     restclient
      spell-checking
      sql
      syntax-checking
      version-control
+     xkcd
      yaml
 
      (org :variables
@@ -149,8 +151,9 @@ you should place your code here."
 
   ;; org-mode
   (setq org-directory "~/Dropbox/org")
-  (setq org-default-notes-file (concat org-directory "/notes.org"))
   (defun mcw/org-file (file) (concat (file-name-as-directory org-directory) file))
+  (setq org-default-notes-file (mcw/org-file "notes.org"))
+  (setq org-agenda-files (mapcar 'mcw/org-file '("gtd.org")))
   (setq org-capture-templates
         '(("t" "Todo" entry (file+headline (mcw/org-file "gtd.org") "Tasks")
            "* TODO %?\nDEADLINE: %t\n%i\n%a")
