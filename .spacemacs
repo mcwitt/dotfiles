@@ -1,4 +1,3 @@
-;; -*- mode: emacs-lisp -*-
 ;; .spacemacs
 ;; Matt Wittmann
 
@@ -55,7 +54,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(ob-ipython)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -147,14 +146,16 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; changes global emacs behavior
-  (setq vc-follow-symlinks)     ;; auto follow symlinks
+  (setq vc-follow-symlinks t)     ;; auto follow symlinks
 
   ;; gpg
   (setq epg-gpg-program "gpg1")
 
   ;; org-mode
+  (require 'ox-beamer)  ;; beamer export for org-mode
   (setq org-directory "~/Dropbox/org")
-  (defun mcw/org-file (file) (concat (file-name-as-directory org-directory) file))
+  (defun mcw/org-file (file)
+    (concat (file-name-as-directory org-directory) file))
   (setq org-default-notes-file (mcw/org-file "notes.org")
         org-agenda-files (mapcar 'mcw/org-file '("gtd.org"))
         org-capture-templates
@@ -166,7 +167,19 @@ you should place your code here."
            "* %?\n  %i\n  %a")
           ("j" "Journal" entry (file+datetree (mcw/org-file "journal.org"))
            "* %?\nEntered on %U\n")))
-  (require 'ox-beamer)  ;; beamer export for org-mode
+
+  ;; shortcut to open notes org file
+  (defun mcw/open-notes-file ()
+    (interactive) (find-file org-default-notes-file))
+  (spacemacs/set-leader-keys "aon" 'mcw/open-notes-file)
+
+  ;; org-babel
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ipython . t)
+     (sql . t)))
+  (setq org-confirm-babel-evaluate nil)
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
 
   ;; projectile
   (setq projectile-globally-ignored-file-suffixes '("pyc"))
@@ -186,20 +199,16 @@ you should place your code here."
   ;; SQL
   ;; database connections
   ;; https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client
-
   (load "~/.sql-connections")
-
   (add-hook 'sql-interactive-mode-hook
             (lambda ()
               (toggle-truncate-lines t)))
-
   (add-hook 'sql-mode-hook
             (lambda ()
               (abbrev-mode t)
               (modify-syntax-entry ?_ "w" sql-mode-syntax-table)
               (when (file-exists-p "~/.sql-abbreviations")
                 (load "~/.sql-abbreviations"))))
-
   (defun my-sql-connect (product connection)
     ;; load the password
     (require 'sql-my-password "~/.sql-my-password.el.gpg")
