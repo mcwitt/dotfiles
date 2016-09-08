@@ -54,7 +54,10 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(ob-ipython)
+   dotspacemacs-additional-packages '(
+                                      cdlatex
+                                      ob-ipython
+                                      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -149,10 +152,11 @@ you should place your code here."
   (setq vc-follow-symlinks t)     ;; auto follow symlinks
 
   ;; org-mode
-  (require 'ox-beamer)  ;; beamer export for org-mode
   (setq org-directory "~/Dropbox/org")
   (defun mcw/org-file (file)
     (concat (file-name-as-directory org-directory) file))
+
+  ;; org capture templates
   (setq org-default-notes-file (mcw/org-file "notes.org")
         org-agenda-files (mapcar 'mcw/org-file '("gtd.org"))
         org-capture-templates
@@ -165,7 +169,7 @@ you should place your code here."
           ("j" "Journal" entry (file+datetree (mcw/org-file "journal.org"))
            "* %?\nEntered on %U\n")))
 
-  ;; shortcut to open notes org file
+  ;; custom org shortcuts
   (defun mcw/open-notes-file ()
     (interactive) (find-file org-default-notes-file))
   (spacemacs/set-leader-keys "aon" 'mcw/open-notes-file)
@@ -173,10 +177,20 @@ you should place your code here."
   ;; org-babel
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((ipython . t)
-     (sql . t)))
+   '(
+     (emacs-lisp . t)
+     (ipython . t)
+     (latex . t)
+     (python . t)
+     (R . t)
+     (sql . t)
+     ))
   (setq org-confirm-babel-evaluate nil)
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
+  ;; org-babel-latex options
+  (require 'ox-beamer)
+  (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
   ;; projectile
   (setq projectile-globally-ignored-file-suffixes '("pyc"))
