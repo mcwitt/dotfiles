@@ -20,14 +20,12 @@ values."
      auto-completion
      better-defaults
      c-c++
-     clojure
      emacs-lisp
      ess
      git
      github
      haskell
      html
-     ipython-notebook
      javascript
      latex
      markdown
@@ -39,9 +37,7 @@ values."
      sql
      syntax-checking
      version-control
-     xkcd
      yaml
-
      (org :variables
           org-enable-github-support t
           org-babel-load-languages
@@ -149,7 +145,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; changes global emacs behavior
-  (setq vc-follow-symlinks t)     ;; auto follow symlinks
+  (setq vc-follow-symlinks t)  ;; auto follow symlinks
 
   ;; org-mode
   (setq org-directory "~/Dropbox/org")
@@ -223,7 +219,6 @@ you should place your code here."
   (defun my-sql-connect (product connection)
     ;; load the password
     (require 'sql-my-password "~/.sql-my-password.el.gpg")
-
     (let* ((sql-product product)
            (password (cadr (assoc connection sql-my-password)))
            (sql-connection-alist (cons (list 'password password)
@@ -237,15 +232,4 @@ you should place your code here."
         (setenv "PGPASSWORD" nil))))
   )
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(epg-gpg-program "gpg1"))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
