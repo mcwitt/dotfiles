@@ -39,9 +39,23 @@ values."
      version-control
      yaml
      (org :variables
-          org-enable-github-support t
           org-babel-load-languages
-          '((python . t)))
+          '((emacs-lisp . t)
+            (ipython . t)
+            (latex . t)
+            (python . t)
+            (R . t)
+            (sql . t))
+          org-confirm-babel-evaluate nil
+          org-enable-github-support t
+          org-latex-listings 'minted
+          org-latex-minted-options
+          '(("fontsize" "\\footnotesize")
+            ("frame" "lines"))
+          org-latex-to-pdf-process
+          '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+            "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -147,22 +161,20 @@ you should place your code here."
   ;; changes global emacs behavior
   (setq vc-follow-symlinks t)  ;; auto follow symlinks
 
-  ;; org-mode
-  (setq org-directory "~/Dropbox/org")
-  (defun mcw/org-file (file)
-    (concat (file-name-as-directory org-directory) file))
-
   ;; org capture templates
-  (setq org-default-notes-file (mcw/org-file "notes.org")
-        org-agenda-files (mapcar 'mcw/org-file '("gtd.org"))
+  (setq mcw/org-directory "~/Dropbox/org")
+  (defun mcw/org-prefix-file (file)
+    (concat (file-name-as-directory mcw/org-directory) file))
+  (setq org-default-notes-file (mcw/org-prefix-file "notes.org")
+        org-agenda-files (mapcar 'mcw/org-prefix-file '("gtd.org"))
         org-capture-templates
-        '(("t" "Todo" entry (file+headline (mcw/org-file "gtd.org") "Tasks")
+        '(("t" "Todo" entry (file+headline (mcw/org-prefix-file "gtd.org") "Tasks")
            "* TODO %?\nDEADLINE: %t\n%i\n%a")
-          ("r" "Read" entry (file+headline (mcw/org-file "gtd.org") "Read")
+          ("r" "Read" entry (file+headline (mcw/org-prefix-file "gtd.org") "Read")
            "* TODO %?\nDEADLINE: %t\n%i\n%a")
-          ("n" "Notes" entry (file+datetree (mcw/org-file "notes.org"))
+          ("n" "Notes" entry (file+datetree (mcw/org-prefix-file "notes.org"))
            "* %?\n  %i\n  %a")
-          ("j" "Journal" entry (file+datetree (mcw/org-file "journal.org"))
+          ("j" "Journal" entry (file+datetree (mcw/org-prefix-file "journal.org"))
            "* %?\nEntered on %U\n")))
 
   ;; custom org shortcuts
@@ -171,21 +183,8 @@ you should place your code here."
   (spacemacs/set-leader-keys "aon" 'mcw/open-notes-file)
 
   ;; org-babel
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '(
-     (emacs-lisp . t)
-     (ipython . t)
-     (latex . t)
-     (python . t)
-     (R . t)
-     (sql . t)
-     ))
-  (setq org-confirm-babel-evaluate nil)
+  (require 'ox-beamer) ;; enable latex-beamer export
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
-
-  ;; org-babel-latex options
-  (require 'ox-beamer)
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
   ;; projectile
