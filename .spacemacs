@@ -39,12 +39,12 @@ values."
      version-control
      yaml
      (org :variables
+          org-startup-indented t
           org-babel-load-languages
           '((emacs-lisp . t)
             (ipython . t)
             (latex . t)
             (python . t)
-            (R . t)
             (sql . t))
           org-confirm-babel-evaluate nil
           org-enable-github-support t
@@ -159,23 +159,26 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;; changes global emacs behavior
-  (setq vc-follow-symlinks t)  ;; auto follow symlinks
+  (setq-default
+   vc-follow-symlinks t    ;; auto follow symlinks
+   persp-auto-save-opt 0)
 
   ;; org capture templates
-  (setq mcw/org-directory "~/Dropbox/org")
+  (setq-default mcw/org-directory "~/Dropbox/org")
   (defun mcw/org-prefix-file (file)
     (concat (file-name-as-directory mcw/org-directory) file))
-  (setq org-default-notes-file (mcw/org-prefix-file "notes.org")
-        org-agenda-files (mapcar 'mcw/org-prefix-file '("gtd.org"))
-        org-capture-templates
-        '(("t" "Todo" entry (file+headline (mcw/org-prefix-file "gtd.org") "Tasks")
-           "* TODO %?\nDEADLINE: %t\n%i\n%a")
-          ("r" "Read" entry (file+headline (mcw/org-prefix-file "gtd.org") "Read")
-           "* TODO %?\nDEADLINE: %t\n%i\n%a")
-          ("n" "Notes" entry (file+datetree (mcw/org-prefix-file "notes.org"))
-           "* %?\n  %i\n  %a")
-          ("j" "Journal" entry (file+datetree (mcw/org-prefix-file "journal.org"))
-           "* %?\nEntered on %U\n")))
+  (setq-default
+   org-default-notes-file (mcw/org-prefix-file "notes.org")
+   org-agenda-files (mapcar 'mcw/org-prefix-file '("gtd.org"))
+   org-capture-templates
+   '(("t" "Todo" entry (file+headline (mcw/org-prefix-file "gtd.org") "Tasks")
+      "* TODO %?\nDEADLINE: %t\n%i\n%a")
+     ("r" "Read" entry (file+headline (mcw/org-prefix-file "gtd.org") "Read")
+      "* TODO %?\nDEADLINE: %t\n%i\n%a")
+     ("n" "Notes" entry (file+datetree (mcw/org-prefix-file "notes.org"))
+      "* %?\n  %i\n  %a")
+     ("j" "Journal" entry (file+datetree (mcw/org-prefix-file "journal.org"))
+      "* %?\nEntered on %U\n")))
 
   ;; custom org shortcuts
   (defun mcw/open-notes-file ()
@@ -188,11 +191,11 @@ you should place your code here."
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
   ;; projectile
-  (setq projectile-globally-ignored-file-suffixes '("pyc"))
+  (setq-default projectile-globally-ignored-file-suffixes '("pyc" "swp"))
 
   ;; javascript
-  (setq flycheck-eslintrc "~/.eslintrc")
   (setq-default
+   flycheck-eslintrc "~/.eslintrc"
    js-indent-level 2
    js2-basic-offset 2
    js2-strict-missing-semi-warning nil
