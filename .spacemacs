@@ -20,6 +20,7 @@ values."
      auto-completion
      better-defaults
      c-c++
+     csv
      emacs-lisp
      ess
      git
@@ -164,7 +165,7 @@ you should place your code here."
    persp-auto-save-opt 0)
 
   ;; org capture templates
-  (setq-default mcw/org-directory "~/Dropbox/org")
+  (setq-default mcw/org-directory "~/org")
   (defun mcw/org-prefix-file (file)
     (concat (file-name-as-directory mcw/org-directory) file))
   (setq-default
