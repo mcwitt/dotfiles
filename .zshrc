@@ -1,6 +1,6 @@
 # Antigen config
 ## Load Antigen
-source ~/code/antigen/antigen.zsh
+source ~/code/dotfiles/antigen/antigen.zsh
 
 ## Core library
 antigen use oh-my-zsh
