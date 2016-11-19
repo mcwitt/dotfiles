@@ -1,4 +1,4 @@
 export EDITOR="vim"
 export PYENV_ROOT=/usr/local/var/pyenv
-source ~/.local/zshenv
+if [ -f ~/.local/zshenv ]; then source ~/.local/zshenv; fi
 
