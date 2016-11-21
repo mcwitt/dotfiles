@@ -42,7 +42,8 @@ values."
      (org :variables
           org-startup-indented t
           org-babel-load-languages
-          '((emacs-lisp . t)
+          '((ditaa . t)
+            (emacs-lisp . t)
             (ipython . t)
             (latex . t)
             (python . t)
