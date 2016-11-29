@@ -6,15 +6,8 @@
 You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
-   ;; Base distribution to use. This is a layer contained in the directory
-   ;; `+distribution'. For now available distributions are `spacemacs-base'
-   ;; or `spacemacs'. (default 'spacemacs)
    dotspacemacs-distribution 'spacemacs
-   ;; List of additional paths where to look for configuration layers.
-   ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
-   ;; List of configuration layers to load. If it is the symbol `all' instead
-   ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
      auto-completion
@@ -63,19 +56,11 @@ values."
             shell-default-height 30
             shell-default-position 'bottom)
      )
-   ;; List of additional packages that will be installed without being
-   ;; wrapped in a layer. If you need some configuration for these
-   ;; packages, then consider creating a layer. You can also put the
-   ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       cdlatex
                                       ob-ipython
                                       )
-   ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
-   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-   ;; are declared in a layer which is not a member of
-   ;; the list `dotspacemacs-configuration-layers'. (default t)
    dotspacemacs-delete-orphan-packages t))
 
 (defun dotspacemacs/init ()
@@ -161,12 +146,16 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ;; changes global emacs behavior
+  ;;
+  ;; global emacs behavior
+  ;;
   (setq-default
    vc-follow-symlinks t    ;; auto follow symlinks
    persp-auto-save-opt 0)
 
-  ;; org capture templates
+  ;;
+  ;; org mode
+  ;;
   (setq-default mcw/org-directory "~/org")
   (defun mcw/org-prefix-file (file)
     (concat (file-name-as-directory mcw/org-directory) file))
@@ -188,15 +177,21 @@ you should place your code here."
     (interactive) (find-file org-default-notes-file))
   (spacemacs/set-leader-keys "aon" 'mcw/open-notes-file)
 
-  ;; org-babel
+  ;; org-export
   (require 'ox-beamer) ;; enable latex-beamer export
+
+  ;; org-babel
   (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
   (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
+  ;;
   ;; projectile
+  ;;
   (setq-default projectile-globally-ignored-file-suffixes '("pyc" "swp"))
 
+  ;;
   ;; javascript
+  ;;
   (setq-default
    flycheck-eslintrc "~/.eslintrc"
    js-indent-level 2
@@ -208,9 +203,10 @@ you should place your code here."
    web-mode-code-indent-offset 2
    web-mode-attr-indent-offset 2)
 
-  ;; SQL
-  ;; database connections
+  ;;
+  ;; Database connections
   ;; https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client
+  ;;
   (load "~/.sql-connections")
   (add-hook 'sql-interactive-mode-hook
             (lambda ()
