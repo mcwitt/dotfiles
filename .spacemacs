@@ -34,6 +34,7 @@ values."
      python
      react
      restclient
+     scala
      spell-checking
      sql
      syntax-checking
