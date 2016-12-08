@@ -19,7 +19,7 @@ tmux
 ssh-agent
 virtualenv
 web-search
-zsh-users/zsh-autosuggestions
+#zsh-users/zsh-autosuggestions
 zsh-users/zsh-completions
 zsh-users/zsh-history-substring-search
 zsh-users/zsh-syntax-highlighting
