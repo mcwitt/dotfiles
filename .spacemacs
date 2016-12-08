@@ -9,8 +9,11 @@ values."
    dotspacemacs-distribution 'spacemacs
    dotspacemacs-configuration-layer-path '()
    dotspacemacs-configuration-layers
-   '(
-     auto-completion
+   '((auto-completion :variables
+                      auto-completion-return-key-behavior nil
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence "kj"
+                      auto-completion-complete-with-key-sequence-delay 0.1)
      better-defaults
      c-c++
      csv
@@ -23,21 +26,10 @@ values."
      javascript
      latex
      markdown
-     osx
-     python
-     react
-     restclient
-     scala
-     spell-checking
-     sql
-     syntax-checking
-     version-control
-     yaml
      (org :variables
           org-startup-indented t
           org-babel-load-languages
-          '((ditaa . t)
-            (emacs-lisp . t)
+          '((emacs-lisp . t)
             (ipython . t)
             (latex . t)
             (python . t)
@@ -52,14 +44,20 @@ values."
           '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+     osx
+     python
+     react
+     restclient
+     scala
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     )
-   dotspacemacs-additional-packages '(
-                                      cdlatex
-                                      ob-ipython
-                                      )
+     spell-checking
+     sql
+     syntax-checking
+     version-control
+     yaml)
+   dotspacemacs-additional-packages '(cdlatex ob-ipython)
    dotspacemacs-excluded-packages '()
    dotspacemacs-delete-orphan-packages t))
 
@@ -79,14 +77,12 @@ values."
    dotspacemacs-startup-lists '(recents projects)
    dotspacemacs-startup-recent-list-size 5
    dotspacemacs-scratch-mode 'text-mode
-   dotspacemacs-themes '(
-                         solarized-dark
+   dotspacemacs-themes '(solarized-dark
                          solarized-light
                          spacemacs-dark
                          spacemacs-light
                          zenburn
-                         leuven
-                         )
+                         leuven)
    dotspacemacs-colorize-cursor-according-to-state t
    dotspacemacs-default-font '("Source Code Pro"
                                :size 13
@@ -230,7 +226,6 @@ you should place your code here."
         (setenv "PGPASSWORD" password))
       (sql-connect connection)
       (when (and (eq sql-product 'postgres) password)
-        (setenv "PGPASSWORD" nil))))
-  )
+        (setenv "PGPASSWORD" nil)))))
 (custom-set-variables
  '(epg-gpg-program "gpg1"))
