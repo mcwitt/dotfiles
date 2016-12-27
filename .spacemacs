@@ -19,6 +19,7 @@ values."
      csv
      emacs-lisp
      ess
+     extra-langs
      git
      github
      haskell
