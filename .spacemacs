@@ -23,17 +23,32 @@ values."
      git
      github
      haskell
-     html
-     javascript
+     (html :variables
+           css-indent-offset 2
+           web-mode-markup-indent-offset 2
+           web-mode-css-indent-offset 2
+           web-mode-code-indent-offset 2
+           web-mode-attr-indent-offset 2)
+     (javascript :variables
+                 flycheck-eslintrc "~/.eslintrc"
+                 js-indent-level 2
+                 js2-basic-offset 2
+                 js2-strict-missing-semi-warning nil)
      latex
      markdown
+     octave
      (org :variables
           org-startup-indented t
           org-babel-load-languages
           '((emacs-lisp . t)
+            (haskell . t)
             (ipython . t)
+            (js . t)
+            (julia . t)
             (latex . t)
+            (octave . t)
             (python . t)
+            (R . t)
             (sql . t))
           org-confirm-babel-evaluate nil
           org-enable-github-support t
@@ -59,7 +74,9 @@ values."
      syntax-checking
      version-control
      yaml)
-   dotspacemacs-additional-packages '(cdlatex ob-ipython)
+   dotspacemacs-additional-packages
+   '(cdlatex
+     ob-ipython)
    dotspacemacs-excluded-packages '()
    dotspacemacs-delete-orphan-packages t))
 
@@ -147,59 +164,64 @@ you should place your code here."
   ;;
   ;; global emacs behavior
   ;;
-  (setq-default
+  (setq
    vc-follow-symlinks t    ;; auto follow symlinks
    persp-auto-save-opt 0)
 
   ;;
-  ;; org mode
-  ;;
-  (setq-default mcw/org-directory "~/org")
-  (defun mcw/org-prefix-file (file)
-    (concat (file-name-as-directory mcw/org-directory) file))
-  (setq-default
-   org-default-notes-file (mcw/org-prefix-file "notes.org")
-   org-agenda-files (mapcar 'mcw/org-prefix-file '("gtd.org"))
-   org-capture-templates
-   '(("t" "Todo" entry (file+headline (mcw/org-prefix-file "gtd.org") "Tasks")
-      "* TODO %?\nDEADLINE: %t\n%i\n%a")
-     ("r" "Read" entry (file+headline (mcw/org-prefix-file "gtd.org") "Read")
-      "* TODO %?\nDEADLINE: %t\n%i\n%a")
-     ("n" "Notes" entry (file+datetree (mcw/org-prefix-file "notes.org"))
-      "* %?\n  %i\n  %a")
-     ("j" "Journal" entry (file+datetree (mcw/org-prefix-file "journal.org"))
-      "* %?\nEntered on %U\n")))
-
-  ;; custom org shortcuts
-  (defun mcw/open-notes-file ()
-    (interactive) (find-file org-default-notes-file))
-  (spacemacs/set-leader-keys "aon" 'mcw/open-notes-file)
-
-  ;; org-export
-  (require 'ox-beamer) ;; enable latex-beamer export
-
-  ;; org-babel
-  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
-  (add-hook 'org-mode-hook 'turn-on-org-cdlatex)
-
-  ;;
   ;; projectile
   ;;
-  (setq-default projectile-globally-ignored-file-suffixes '("pyc" "swp"))
+  (setq projectile-globally-ignored-file-suffixes '("pyc" "swp"))
+
 
   ;;
-  ;; javascript
+  ;; julia
   ;;
-  (setq-default
-   flycheck-eslintrc "~/.eslintrc"
-   js-indent-level 2
-   js2-basic-offset 2
-   js2-strict-missing-semi-warning nil
-   css-indent-offset 2
-   web-mode-markup-indent-offset 2
-   web-mode-css-indent-offset 2
-   web-mode-code-indent-offset 2
-   web-mode-attr-indent-offset 2)
+  (setq inferior-julia-program-name "/usr/local/bin/julia")
+
+  ;;
+  ;; maxima
+  ;;
+  (add-to-list 'load-path "/usr/local/Cellar/maxima/5.38.1/share/maxima/5.38.1/emacs")
+  (autoload 'maxima-mode "maxima" "Maxima mode" t)
+  (autoload 'imaxima "imaxima" "Frontend for maxima with Image support" t)
+  (autoload 'maxima "maxima" "Maxima interaction" t)
+  (autoload 'imath-mode "imath" "Imath mode for math formula input" t)
+  (setq imaxima-use-maxima-mode-flag t)
+  (add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
+
+  ;;
+  ;; org mode
+  ;;
+  (eval-after-load 'org
+    (lambda ()
+      (setq mcw/org-directory "~/org")
+      (defun mcw/org-prefix-file (file)
+        (concat (file-name-as-directory mcw/org-directory) file))
+      (setq
+       org-default-notes-file (mcw/org-prefix-file "notes.org")
+       org-agenda-files (mapcar 'mcw/org-prefix-file '("gtd.org"))
+       org-capture-templates
+       '(("t" "Todo" entry (file+headline (mcw/org-prefix-file "gtd.org") "Tasks")
+          "* TODO %?\nDEADLINE: %t\n%i\n%a")
+         ("r" "Read" entry (file+headline (mcw/org-prefix-file "gtd.org") "Read")
+          "* TODO %?\nDEADLINE: %t\n%i\n%a")
+         ("n" "Notes" entry (file+datetree (mcw/org-prefix-file "notes.org"))
+          "* %?\n  %i\n  %a")
+         ("j" "Journal" entry (file+datetree (mcw/org-prefix-file "journal.org"))
+          "* %?\nEntered on %U\n")))
+
+      ;; custom org shortcuts
+      (defun mcw/open-notes-file ()
+        (interactive) (find-file org-default-notes-file))
+      (spacemacs/set-leader-keys "aon" 'mcw/open-notes-file)
+
+      ;; org-export
+      (require 'ox-beamer)
+
+      ;; org-babel
+      (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+      (add-hook 'org-mode-hook 'turn-on-org-cdlatex)))
 
   ;;
   ;; Database connections
