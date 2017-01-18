@@ -214,7 +214,10 @@ you should place your code here."
       ;; custom org shortcuts
       (defun mcw/open-notes-file ()
         (interactive) (find-file org-default-notes-file))
+      (defun mcw/open-gtd-file ()
+        (interactive) (find-file (mcw/org-prefix-file "gtd.org")))
       (spacemacs/set-leader-keys "aon" 'mcw/open-notes-file)
+      (spacemacs/set-leader-keys "aog" 'mcw/open-gtd-file)
 
       ;; org-export
       (require 'ox-beamer)
