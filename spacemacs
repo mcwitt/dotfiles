@@ -240,8 +240,7 @@ you should place your code here."
             (lambda ()
               (abbrev-mode t)
               (modify-syntax-entry ?_ "w" sql-mode-syntax-table)
-              (when (file-exists-p "~/.sql-abbreviations")
-                (load "~/.sql-abbreviations"))))
+              (load "~/.sql-abbreviations")))
   (defun my-sql-connect (product connection)
     ;; load the password
     (require 'sql-my-password "~/.sql-my-password.el.gpg")
