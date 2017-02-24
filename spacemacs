@@ -170,6 +170,15 @@ you should place your code here."
    vc-follow-symlinks t    ;; auto follow symlinks
    persp-auto-save-opt 0)
 
+  (setq mcw/python-scratch-dir "~/scratch")
+  (defun mcw/python-scratch (name)
+    (interactive "sName: ")
+    (find-file (concat (file-name-as-directory mcw/python-scratch-dir)
+                       (shell-command-to-string "echo -n $(date +%Y%m%d)")
+                       "-" name
+                       ".py"))
+    (python-mode))
+
   ;;
   ;; projectile
   ;;
