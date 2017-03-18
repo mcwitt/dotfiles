@@ -17,6 +17,7 @@ values."
      better-defaults
      c-c++
      csv
+     docker
      emacs-lisp
      ess
      extra-langs
