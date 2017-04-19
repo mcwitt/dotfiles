@@ -164,12 +164,18 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   ;;
-  ;; global emacs behavior
+  ;; misc settings
   ;;
   (setq
-   vc-follow-symlinks t    ;; auto follow symlinks
-   persp-auto-save-opt 0)
+   inferior-julia-program-name "/usr/local/bin/julia"
+   persp-auto-save-opt 0
+   projectile-globally-ignored-file-suffixes '("pyc" "swp")
+   vc-follow-symlinks t                 ; auto-follow symlinks
+   )
 
+  ;;
+  ;; python scratch files
+  ;;
   (setq mcw/python-scratch-dir "~/scratch")
   (defun mcw/python-scratch (name)
     (interactive "sName: ")
@@ -178,17 +184,7 @@ you should place your code here."
                        "-" name
                        ".py"))
     (python-mode))
-
-  ;;
-  ;; projectile
-  ;;
-  (setq projectile-globally-ignored-file-suffixes '("pyc" "swp"))
-
-
-  ;;
-  ;; julia
-  ;;
-  (setq inferior-julia-program-name "/usr/local/bin/julia")
+  (global-set-key (kbd "C-c y") 'mcw/python-scratch)
 
   ;;
   ;; maxima
@@ -265,4 +261,4 @@ you should place your code here."
       (when (and (eq sql-product 'postgres) password)
         (setenv "PGPASSWORD" nil)))))
 (custom-set-variables
- '(epg-gpg-program "gpg1"))
+ '(epg-gpg-program "/usr/local/bin/gpg1"))
