@@ -237,7 +237,8 @@ you should place your code here."
   ;; Database connections
   ;; https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client
   ;;
-  (load "~/.sql-connections")
+  (when (file-exists-p "~/.sql-connections")
+    (load "~/.sql-connections"))
   (add-hook 'sql-interactive-mode-hook
             (lambda ()
               (toggle-truncate-lines t)))
