@@ -174,6 +174,15 @@ you should place your code here."
    )
 
   ;;
+  ;; make _ a word character for text objects
+  ;;
+  (defadvice evil-inner-word (around underscore-as-word activate)
+    (let ((table (copy-syntax-table (syntax-table))))
+      (modify-syntax-entry ?_ "w" table)
+      (with-syntax-table table
+        ad-do-it)))
+
+  ;;
   ;; python scratch files
   ;;
   (setq mcw/python-scratch-dir "~/scratch")
