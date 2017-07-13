@@ -255,11 +255,6 @@ you should place your code here."
   (add-hook 'sql-interactive-mode-hook
             (lambda ()
               (toggle-truncate-lines t)))
-  (add-hook 'sql-mode-hook
-            (lambda ()
-              (abbrev-mode t)
-              (modify-syntax-entry ?_ "w" sql-mode-syntax-table)
-              (load "~/.sql-abbreviations")))
   (defun my-sql-connect (product connection)
     ;; load the password
     (require 'sql-my-password "~/.sql-my-password.el.gpg")
