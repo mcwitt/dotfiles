@@ -44,7 +44,6 @@ values."
           org-babel-load-languages
           '((emacs-lisp . t)
             (haskell . t)
-            (ipython . t)
             (js . t)
             (julia . t)
             (latex . t)
@@ -77,9 +76,7 @@ values."
      syntax-checking
      version-control
      yaml)
-   dotspacemacs-additional-packages
-   '(cdlatex
-     ob-ipython)
+   dotspacemacs-additional-packages '(cdlatex)
    dotspacemacs-excluded-packages '()
    dotspacemacs-delete-orphan-packages t))
 
