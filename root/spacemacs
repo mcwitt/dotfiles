@@ -373,6 +373,8 @@ you should place your code here."
   (setq
    inferior-julia-program-name "/usr/local/bin/julia"
    persp-auto-save-opt 0
+   projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
+   projectile-globally-ignored-directories '("node_modules")
    projectile-globally-ignored-file-suffixes '("pyc" "swp")
    vc-follow-symlinks t                 ; auto-follow symlinks
    )
