@@ -48,7 +48,6 @@ values."
      docker
      emacs-lisp
      ess
-     extra-langs
      git
      github
      haskell
