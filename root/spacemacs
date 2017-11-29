@@ -428,11 +428,11 @@ you should place your code here."
           "* TODO %?\nDEADLINE: %t\n%i\n%a")
          ("r" "Reading" entry (file+headline (mcw/org-prefix-file "gtd.org") "Reading")
           "* TODO %?\n%i")
-         ("n" "Note" entry (file+datetree (mcw/org-prefix-file "notes.org"))
+         ("n" "Note" entry (file+olp+datetree (mcw/org-prefix-file "notes.org"))
           "* %?\n%i")
-         ("N" "Note w/ attachment" entry (file+datetree (mcw/org-prefix-file "notes.org"))
+         ("N" "Note w/ attachment" entry (file+olp+datetree (mcw/org-prefix-file "notes.org"))
           "* %?\n%i\n%a")
-         ("j" "Journal" entry (file+datetree (mcw/org-prefix-file "journal.org"))
+         ("j" "Journal" entry (file+olp+datetree (mcw/org-prefix-file "journal.org"))
           "* %?\nEntered on %U\n")))
 
       ;; custom org shortcuts
