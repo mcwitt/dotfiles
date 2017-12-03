@@ -37,25 +37,31 @@ fi
 ## Tell antigen we're done
 antigen apply
 
-# Directory changing
-setopt AUTO_CD
+# Zsh config
+setopt append_history
+setopt auto_cd
+setopt auto_pushd
+setopt complete_in_word
+setopt correct
+setopt extended_glob
+setopt extended_history
+setopt hash_list_all
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt hist_reduce_blanks
+setopt long_list_jobs
+setopt no_beep
+setopt no_glob_dots
+setopt no_hup
+setopt no_sh_word_split
+setopt notify
+setopt pushd_ignore_dups
+setopt unset
+setopt vi
 
-# History
 HISTFILE=~/.histfile
 HISTSIZE=1000
-setopt APPEND_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_REDUCE_BLANKS
 
-# Background jobs
-setopt NOTIFY  # notify of background job status changes
-
-# Key bindings
-setopt VI  # use VI bindings
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 
-# Miscellaneous
-setopt CORRECT
-alias rm="rm -i"
