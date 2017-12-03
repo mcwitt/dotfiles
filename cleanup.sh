@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 cd root
-files=$(find . -depth 1 | xargs basename)
+files=$(find . -mindepth 1 -maxdepth 1)
 for f in $files; do
-    rm -r ~/.$f
+    rm -r ~/.$(basename $f)
 done

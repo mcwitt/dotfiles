@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 cd root
-files=$(find . -depth 1 | xargs basename)
+files=$(find . -mindepth 1 -maxdepth 1)
 for f in $files; do
-    ln -s $(pwd)/$f ~/.$f
+    bn=$(basename $f)
+    ln -s $(pwd)/$bn ~/.$bn
 done
