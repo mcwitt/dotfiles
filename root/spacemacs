@@ -72,7 +72,6 @@ values."
           '((emacs-lisp . t)
             (haskell . t)
             (js . t)
-            (julia . t)
             (latex . t)
             (octave . t)
             (python . t)
@@ -369,13 +368,11 @@ you should place your code here."
   ;;
   ;; misc settings
   ;;
-  (setq
-   persp-auto-save-opt 0
-   projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
-   projectile-globally-ignored-directories '("node_modules")
-   projectile-globally-ignored-file-suffixes '("pyc" "swp")
-   vc-follow-symlinks t                 ; auto-follow symlinks
-   )
+  (setq persp-auto-save-opt 0
+        projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
+        projectile-globally-ignored-directories '("node_modules")
+        projectile-globally-ignored-file-suffixes '("pyc" "swp")
+        vc-follow-symlinks t)
 
   ;;
   ;; make _ a word character for text objects
@@ -387,52 +384,11 @@ you should place your code here."
         ad-do-it)))
 
   ;;
-  ;; python scratch files
-  ;;
-  (setq mcw/python-scratch-dir "~/scratch")
-  (defun mcw/python-scratch (name)
-    (interactive "sName: ")
-    (find-file (concat (file-name-as-directory mcw/python-scratch-dir)
-                       (shell-command-to-string "echo -n $(date +%Y%m%d)")
-                       "-" name
-                       ".py"))
-    (python-mode))
-  (global-set-key (kbd "C-c y") 'mcw/python-scratch)
-
-
-  ;;
   ;; org mode
   ;;
   (eval-after-load 'org
     (lambda ()
-      (setq mcw/org-directory "~/org")
-      (defun mcw/org-prefix-file (file)
-        (concat (file-name-as-directory mcw/org-directory) file))
-      (setq
-       org-default-notes-file (mcw/org-prefix-file "notes.org")
-       org-agenda-files (mapcar 'mcw/org-prefix-file '("gtd.org"))
-       org-capture-templates
-       `(("t" "Task" entry (file+headline ,(mcw/org-prefix-file "gtd.org") "Tasks")
-          "* TODO %?\nDEADLINE: %t\n%i")
-         ("T" "Task w/ attachment" entry (file+headline ,(mcw/org-prefix-file "gtd.org") "Tasks")
-          "* TODO %?\nDEADLINE: %t\n%i\n%a")
-         ("r" "Reading" entry (file+headline ,(mcw/org-prefix-file "gtd.org") "Reading")
-          "* TODO %?\n%i")
-         ("n" "Note" entry (file+olp+datetree ,(mcw/org-prefix-file "notes.org"))
-          "* %?\n%i")
-         ("N" "Note w/ attachment" entry (file+olp+datetree ,(mcw/org-prefix-file "notes.org"))
-          "* %?\n%i\n%a")
-         ("j" "Journal" entry (file+olp+datetree ,(mcw/org-prefix-file "journal.org"))
-          "* %?\nEntered on %U\n")))
-
-      ;; custom org shortcuts
-      (defun mcw/open-notes-file ()
-        (interactive) (find-file org-default-notes-file))
-      (defun mcw/open-gtd-file ()
-        (interactive) (find-file (mcw/org-prefix-file "gtd.org")))
-      (spacemacs/set-leader-keys "aon" 'mcw/open-notes-file)
-      (spacemacs/set-leader-keys "aog" 'mcw/open-gtd-file)
-
+      (setq 
       ;; org-export
       (require 'ox-beamer)
 
