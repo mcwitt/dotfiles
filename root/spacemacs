@@ -386,6 +386,12 @@ you should place your code here."
   ;;
   ;; org mode
   ;;
+  (defun mcw/org-open-inbox ()
+    (interactive) (find-file "~/gtd/inbox.org"))
+
+  (global-set-key (kbd "C-c i") 'mcw/org-open-inbox)
+  (spacemacs/set-leader-keys "aoi" 'mcw/org-open-inbox)
+
   (eval-after-load 'org
     (lambda ()
       (setq org-agenda-files '("~/gtd/inbox.org"
