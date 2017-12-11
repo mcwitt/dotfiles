@@ -419,6 +419,9 @@ you should place your code here."
                                  ("~/gtd/someday.org" :level . 1)
                                  ("~/gtd/tickler.org" :maxlevel . 2)))
 
+      (setq org-tag-alist '(("@work" . ?w)
+                            ("@home" . ?h)))
+
       (setq org-todo-keywords '((sequence "TODO(t)"
                                           "WAITING(w)"
                                           "|"
