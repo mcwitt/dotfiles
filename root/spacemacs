@@ -411,7 +411,7 @@ you should place your code here."
                                      (file+olp+datetree "~/gtd/notes.org" "Note")
                                      "* %?\n%i\n%a")
                                     ("j" "Journal" entry
-                                     (file+olp+datetree "~/.journal.org" "Journal")
+                                     (file+olp+datetree "~/gtd/journal.org.gpg" "Journal")
                                      "* %?\nEntered on %U\n")))
 
       (setq org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
