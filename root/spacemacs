@@ -48,6 +48,7 @@ values."
      docker
      emacs-lisp
      ess
+     evil-snipe
      git
      github
      haskell
