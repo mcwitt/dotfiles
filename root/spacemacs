@@ -406,10 +406,10 @@ you should place your code here."
                                      (file+headline "~/gtd/tickler.org" "Tickler")
                                      "* %i%? \n %U")
                                     ("n" "Note" entry
-                                     (file+olp+datetree "~/gtd/notes.org" "Note")
+                                     (file+olp+datetree "~/gtd/notes.org" "Notes")
                                      "* %?\n%i")
                                     ("N" "Note w/ attachment" entry
-                                     (file+olp+datetree "~/gtd/notes.org" "Note")
+                                     (file+olp+datetree "~/gtd/notes.org" "Notes")
                                      "* %?\n%i\n%a")
                                     ("j" "Journal" entry
                                      (file+olp+datetree "~/gtd/journal.org.gpg" "Journal")
