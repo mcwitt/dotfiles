@@ -1,53 +1,34 @@
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-
 set expandtab
 set nojoinspaces
 
-syntax enable
-
-" hide scroll bar when GUI running
-if has('gui_running')
-    set guioptions-=r  "scrollbar
-endif
-
 "
-" VUNDLE {
+" Plug {
 "
-set nocompatible              " be iMproved, required
-filetype off                  " required
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-surround'
+Plug 'kien/ctrlp.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+Plug 'scrooloose/nerdcommenter'
+Plug 'airblade/vim-gitgutter'
+Plug 'valloric/youcompleteme'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'pangloss/vim-javascript'
+Plug 'klen/python-mode'
+Plug 'mxw/vim-jsx'
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'vim-scripts/dbext.vim'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'scrooloose/syntastic'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'tpope/vim-fugitive'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'pangloss/vim-javascript'
-Plugin 'elzr/vim-json'
-Plugin 'mxw/vim-jsx'
-Plugin 'tpope/vim-surround'
-Plugin 'aperezdc/vim-template'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
+call plug#end()
 " }
 
 "
-" PLUGIN CONFIGURATION {
+" Plugin configuration {
 "
 " Solarized {
 set background=dark
@@ -67,14 +48,6 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_javascript_checkers = ['eslint']
 " }
-
-" LaTeX-Box {
-let g:tex_flavor='latex'    " assume .tex files are LaTeX
-let g:LatexBox_viewer='xpdf'
-let g:LatexBox_latexmk_preview_continuously=1
-let g:LatexBox_quickfix=2   " prevent quickfix window from stealing cursor
-" }
-
 
 " }
 
