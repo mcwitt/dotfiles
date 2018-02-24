@@ -4,6 +4,9 @@ set shiftwidth=4
 set expandtab
 set nojoinspaces
 
+" jk returns to normal mode
+inoremap fd <esc>
+
 "
 " Plug {
 "
