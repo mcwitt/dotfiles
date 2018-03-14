@@ -26,6 +26,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'pangloss/vim-javascript'
 Plug 'klen/python-mode'
 Plug 'mxw/vim-jsx'
+Plug 'tpope/vim-db'
 
 call plug#end()
 " }
