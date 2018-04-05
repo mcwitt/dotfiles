@@ -72,6 +72,7 @@ values."
           org-babel-load-languages
           '((emacs-lisp . t)
             (haskell . t)
+            (ipython . t)
             (js . t)
             (latex . t)
             (octave . t)
@@ -108,6 +109,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(cdlatex
+                                      ob-ipython
                                       yasnippet-snippets)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
