@@ -61,6 +61,7 @@ setopt vi
 
 HISTFILE=~/.histfile
 HISTSIZE=1000
+KEYTIMEOUT=10
 
 bindkey fd vi-cmd-mode
 bindkey -M vicmd 'k' history-substring-search-up
