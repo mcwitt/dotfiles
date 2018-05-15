@@ -373,7 +373,8 @@ you should place your code here."
   ;;
   ;; misc settings
   ;;
-  (setq persp-auto-save-opt 0
+  (setq exec-path-from-shell-check-startup-files nil
+        persp-auto-save-opt 0
         projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
         projectile-globally-ignored-directories '("node_modules")
         projectile-globally-ignored-file-suffixes '("pyc" "swp")
