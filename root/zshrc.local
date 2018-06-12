@@ -2,7 +2,12 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 KEYTIMEOUT=10
 
-source ~/.local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+source-script() {
+    source ~/.local/share/$1/$1.zsh
+}
+
+source-script zsh-history-substring-search
+source-script zsh-syntax-highlighting
 
 bindkey fd vi-cmd-mode
 bindkey -M vicmd 'k' history-substring-search-up

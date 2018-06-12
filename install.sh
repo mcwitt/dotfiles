@@ -8,13 +8,19 @@ done
 
 # zsh {{
 # grml zsh config
-wget -O ~/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+if [ ! -f "~/.zshrc" ]; then
+    wget -O ~/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc
+fi
 
-# install zsh scripts
 script_dir=~/.local/share
 mkdir -p $script_dir
 cd $script_dir
+gh-clone() {
+    if [ ! -d "$2" ]; then
+        git clone git@github.com:$1/$2.git
+    fi
+}
 
-# history substring search
-git clone git@github.com:zsh-users/zsh-history-substring-search.git
+gh-clone zsh-users zsh-history-substring-search
+gh-clone zsh-users zsh-syntax-highlighting
 # }}
