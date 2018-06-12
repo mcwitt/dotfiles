@@ -1,0 +1,12 @@
+HISTFILE=~/.histfile
+HISTSIZE=1000
+KEYTIMEOUT=10
+
+source ~/.local/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+bindkey fd vi-cmd-mode
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+
+alias rm='rm -i'
+if [ -f ~/.local/zshrc ]; then source ~/.local/zshrc; fi
