@@ -370,19 +370,15 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ;;
-  ;; misc settings
-  ;;
-  (setq exec-path-from-shell-check-startup-files nil
-        persp-auto-save-opt 0
-        projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
-        projectile-globally-ignored-directories '("node_modules")
-        projectile-globally-ignored-file-suffixes '("pyc" "swp")
-        vc-follow-symlinks t)
+  (setq vc-follow-symlinks t)
+  (setq persp-auto-save-opt 1)
+  (setq exec-path-from-shell-check-startup-files nil)
 
-  ;;
+  (setq projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
+        projectile-globally-ignored-directories '("node_modules")
+        projectile-globally-ignored-file-suffixes '("pyc" "swp"))
+
   ;; make _ a word character for text objects
-  ;;
   (defadvice evil-inner-word (around underscore-as-word activate)
     (let ((table (copy-syntax-table (syntax-table))))
       (modify-syntax-entry ?_ "w" table)
