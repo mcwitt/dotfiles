@@ -45,6 +45,7 @@ values."
      better-defaults
      c-c++
      csv
+     deft
      docker
      emacs-lisp
      ess
