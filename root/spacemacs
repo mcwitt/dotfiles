@@ -375,6 +375,7 @@ you should place your code here."
   (setq vc-follow-symlinks t)
   (setq persp-auto-save-opt 1)
   (setq exec-path-from-shell-check-startup-files nil)
+  (setq use-dialog-box nil)
 
   (setq projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
         projectile-globally-ignored-directories '("node_modules")
