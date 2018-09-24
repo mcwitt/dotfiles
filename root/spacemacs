@@ -364,31 +364,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   )
 
-(defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
+(defun mcw/config-org-mode ()
+  "Custom configuration for org-mode"
 
-  (setq vc-follow-symlinks t)
-  (setq use-dialog-box nil)
-
-  (setq projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
-        projectile-globally-ignored-directories '("node_modules")
-        projectile-globally-ignored-file-suffixes '("pyc" "swp"))
-
-  ;; make _ a word character for text objects
-  (defadvice evil-inner-word (around underscore-as-word activate)
-    (let ((table (copy-syntax-table (syntax-table))))
-      (modify-syntax-entry ?_ "w" table)
-      (with-syntax-table table
-        ad-do-it)))
-
-  ;;
-  ;; org mode
-  ;;
   (defun mcw/org-open-inbox ()
     (interactive) (find-file "~/gtd/inbox.org"))
 
@@ -437,11 +415,12 @@ you should place your code here."
       ;; org-babel
       (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
       (add-hook 'org-mode-hook 'turn-on-org-cdlatex)))
+  )
 
-  ;;
-  ;; Database connections
-  ;; https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client
-  ;;
+(defun mcw/config-database ()
+  "Database connections. See
+https://truongtx.me/2014/08/23/setup-emacs-as-an-sql-database-client"
+
   (when (file-exists-p "~/.sql-connections.el")
     (load "~/.sql-connections"))
   (add-hook 'sql-interactive-mode-hook
@@ -460,4 +439,32 @@ you should place your code here."
         (setenv "PGPASSWORD" password))
       (sql-connect connection)
       (when (and (eq sql-product 'postgres) password)
-        (setenv "PGPASSWORD" nil)))))
+        (setenv "PGPASSWORD" nil))))
+  )
+
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code.
+This function is called at the very end of Spacemacs initialization after
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place your code here."
+
+  (setq vc-follow-symlinks t)
+  (setq use-dialog-box nil)
+
+  (setq projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
+        projectile-globally-ignored-directories '("node_modules")
+        projectile-globally-ignored-file-suffixes '("pyc" "swp"))
+
+  ;; make _ a word character for text objects
+  (defadvice evil-inner-word (around underscore-as-word activate)
+    (let ((table (copy-syntax-table (syntax-table))))
+      (modify-syntax-entry ?_ "w" table)
+      (with-syntax-table table
+        ad-do-it)))
+
+  (mcw/config-org-mode)
+  (mcw/config-database)
+  )
+
