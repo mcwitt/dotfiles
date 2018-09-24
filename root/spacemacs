@@ -373,8 +373,6 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (setq vc-follow-symlinks t)
-  (setq persp-auto-save-opt 1)
-  (setq exec-path-from-shell-check-startup-files nil)
   (setq use-dialog-box nil)
 
   (setq projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
