@@ -375,47 +375,45 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (eval-after-load 'org
     (lambda ()
-      (setq org-agenda-files '("~/gtd/inbox.org"
-                               "~/gtd/gtd.org"
-                               "~/gtd/tickler.org"))
+      (setq
+       org-agenda-files '("~/gtd/inbox.org"
+                          "~/gtd/gtd.org"
+                          "~/gtd/tickler.org")
 
-      (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                     (file "~/gtd/inbox.org")
-                                     "* %i%?\n%U")
-                                    ("T" "Tickler" entry
-                                     (file "~/gtd/tickler.org")
-                                     "* %i%?\n%U")
-                                    ("n" "Note" entry
-                                     (file+olp+datetree "~/gtd/notes.org")
-                                     "* %?\n%i")
-                                    ("N" "Note w/ attachment" entry
-                                     (file+olp+datetree "~/gtd/notes.org")
-                                     "* %?\n%i\n%a")
-                                    ("j" "Journal" entry
-                                     (file+olp+datetree "~/gtd/journal.org.gpg")
-                                     "* %?")))
+       org-capture-templates '(("t" "Todo [inbox]" entry
+                                (file "~/gtd/inbox.org")
+                                "* %i%?\n%U")
+                               ("T" "Tickler" entry
+                                (file "~/gtd/tickler.org")
+                                "* %i%?\n%U")
+                               ("n" "Note" entry
+                                (file+olp+datetree "~/gtd/notes.org")
+                                "* %?\n%i")
+                               ("N" "Note w/ attachment" entry
+                                (file+olp+datetree "~/gtd/notes.org")
+                                "* %?\n%i\n%a")
+                               ("j" "Journal" entry
+                                (file+olp+datetree "~/gtd/journal.org.gpg")
+                                "* %?"))
 
-      (setq org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
-                                 ("~/gtd/someday.org" :level . 1)
-                                 ("~/gtd/tickler.org" :maxlevel . 2)))
+      org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
+                           ("~/gtd/someday.org" :level . 1)
+                           ("~/gtd/tickler.org" :maxlevel . 2))
 
-      (setq org-tag-alist '(("@work" . ?w)
-                            ("@home" . ?h)))
+      org-tag-alist '(("@work" . ?w)
+                      ("@home" . ?h))
 
-      (setq org-todo-keywords '((sequence "TODO(t)"
-                                          "WAITING(w)"
-                                          "|"
-                                          "DONE(d)"
-                                          "CANCELLED(c)")))
+      org-todo-keywords '((sequence "TODO(t)"
+                                    "WAITING(w)"
+                                    "|"
+                                    "DONE(d)"
+                                    "CANCELLED(c)"))
+      )
 
-
-      ;; org-export
       (require 'ox-beamer)
 
-      ;; org-babel
       (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
-      (add-hook 'org-mode-hook 'turn-on-org-cdlatex)))
-  )
+      (add-hook 'org-mode-hook 'turn-on-org-cdlatex))))
 
 (defun mcw/config-database ()
   "Database connections. See
@@ -450,12 +448,16 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  (setq vc-follow-symlinks t)
-  (setq use-dialog-box nil)
+  (setq
+   vc-follow-symlinks t
+   use-dialog-box nil
+   )
 
-  (setq projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
-        projectile-globally-ignored-directories '("node_modules")
-        projectile-globally-ignored-file-suffixes '("pyc" "swp"))
+  (setq-default
+   projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
+   projectile-globally-ignored-directories '("node_modules")
+   projectile-globally-ignored-file-suffixes '("pyc" "swp")
+   )
 
   ;; make _ a word character for text objects
   (defadvice evil-inner-word (around underscore-as-word activate)
