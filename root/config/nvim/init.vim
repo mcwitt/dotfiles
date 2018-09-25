@@ -52,5 +52,7 @@ let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_javascript_checkers = ['eslint']
 " }
 
+let g:pymode_python = 'python3'
+
 " }
 
