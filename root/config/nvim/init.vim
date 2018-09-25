@@ -8,37 +8,39 @@ set nojoinspaces
 inoremap fd <esc>
 
 "
-" Plug {
+" vim-plug {
 "
 call plug#begin('~/.local/share/nvim/site/plugged')
 
-Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'altercation/vim-colors-solarized'
+Plug 'davidhalter/jedi-vim'
+Plug 'kien/ctrlp.vim'
+Plug 'klen/python-mode'
+Plug 'lambdalisue/vim-pyenv'
+Plug 'mxw/vim-jsx'
+Plug 'pangloss/vim-javascript'
+Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'kien/ctrlp.vim'
-Plug 'altercation/vim-colors-solarized'
-Plug 'bling/vim-airline'
-Plug 'scrooloose/nerdcommenter'
-Plug 'airblade/vim-gitgutter'
 Plug 'valloric/youcompleteme'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'pangloss/vim-javascript'
-Plug 'klen/python-mode'
-Plug 'mxw/vim-jsx'
 
 call plug#end()
 " }
 
 "
-" Plugin configuration {
+" plugin configuration {
 "
-" Solarized {
+" solarized {
 set background=dark
 colorscheme solarized
 " }
 
-" Syntastic {
+" syntastic {
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
