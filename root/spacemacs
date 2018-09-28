@@ -434,6 +434,16 @@ before packages are loaded. If you are unsure, you should try in setting them in
                                 ("CALL" :foreground "#859900" :weight bold)
                                 ("MEETING" :foreground "#859900" :weight bold)
                                 )
+       org-agenda-custom-commands `(("i" "Inbox"
+                                     todo ""
+                                     ((org-agenda-files
+                                       `(,mcw/org-gtd-inbox-file))))
+                                    ("s" "Someday"
+                                     todo ""
+                                     ((org-agenda-files
+                                       `(,mcw/org-gtd-someday-file))))
+                                    )
+       )
 
       (require 'ox-beamer)
 
