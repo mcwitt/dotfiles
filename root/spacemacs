@@ -370,9 +370,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
     (concat (file-name-as-directory mcw/org-gtd-directory) file))
 
   (setq mcw/org-gtd-inbox-file (mcw/org-gtd-get-path "inbox.org")
+        mcw/org-gtd-next-file (mcw/org-gtd-get-path "next.org")
+        mcw/org-gtd-projects-file (mcw/org-gtd-get-path "projects.org")
+        mcw/org-gtd-someday-file (mcw/org-gtd-get-path "someday.org")
         mcw/org-gtd-journal-file (mcw/org-gtd-get-path "journal.org.gpg")
-        mcw/org-gtd-gtd-file (mcw/org-gtd-get-path "gtd.org")
-        mcw/org-gtd-someday-file (mcw/org-gtd-get-path "someday.org"))
+        )
 
   (defun mcw/org-gtd-open-inbox ()
     "Shortcut to open the GTD inbox file"
@@ -384,66 +386,66 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (eval-after-load 'org
     (lambda ()
-      (setq
-       org-agenda-files (mapcar 'mcw/org-gtd-get-path
-                                '("inbox.org"
-                                  "gtd.org"
-                                  "tickler.org"))
+      (setq org-agenda-files (list mcw/org-gtd-next-file
+                                   mcw/org-gtd-projects-file)
 
-       org-capture-templates '(("t" "Todo" entry
-                                (file mcw/org-gtd-inbox-file)
-                                "* TODO %?\n%U\n%a\n"
-                                :clock-in t
-                                :clock-resume t)
-                               ("r" "Respond" entry
-                                (file mcw/org-gtd-inbox-file)
-                                "* NEXT Respond to %:from on %:subject\n SCHEDULED: %t\n%U\n%a\n"
-                                :clock-in t
-                                :clock-resume t)
-                               ("m" "Meeting" entry
-                                (file mcw/org-gtd-inbox-file)
-                                "* MEETING %?\n%U\n"
-                                :clock-in t)
-                               ("j" "Journal" entry
-                                (file+olp+datetree mcw/org-gtd-journal-file)
-                                "* %?"))
+            org-agenda-custom-commands `(("i" "Inbox"
+                                          todo ""
+                                          ((org-agenda-files
+                                            `(,mcw/org-gtd-inbox-file))))
+                                         ("s" "Someday"
+                                          todo ""
+                                          ((org-agenda-files
+                                            `(,mcw/org-gtd-someday-file))))
+                                         )
 
-       org-refile-targets '((mcw/org-gtd-gtd-file :maxlevel . 3)
-                            (mcw/org-gtd-someday-file :level . 1))
+            org-capture-templates '(("t" "Todo" entry
+                                     (file mcw/org-gtd-inbox-file)
+                                     "* TODO %?\n%U\n%a\n"
+                                     :clock-in t
+                                     :clock-resume t)
+                                    ("r" "Respond" entry
+                                     (file mcw/org-gtd-inbox-file)
+                                     "* NEXT Respond to %:from on %:subject\n SCHEDULED: %t\n%U\n%a\n"
+                                     :clock-in t
+                                     :clock-resume t)
+                                    ("m" "Meeting" entry
+                                     (file mcw/org-gtd-inbox-file)
+                                     "* MEETING %?\n%U\n"
+                                     :clock-in t)
+                                    ("j" "Journal" entry
+                                     (file+olp+datetree mcw/org-gtd-journal-file)
+                                     "* %?"))
 
-       org-tag-alist '(("@work" . ?w)
-                       ("@home" . ?h))
+            org-refile-targets '((mcw/org-gtd-next-file :maxlevel . 2)
+                                 (mcw/org-gtd-projects-file :maxlevel . 3)
+                                 (mcw/org-gtd-someday-file :level . 1))
 
-       org-todo-keywords '((sequence "TODO(t)"
-                                     "NEXT(n)"
-                                     "|"
-                                     "DONE(d)")
-                           (sequence "WAITING(w@/!)"
-                                     "HOLD(h@/!)"
-                                     "|"
-                                     "CANCELLED(c@/!)"
-                                     "CALL"
-                                     "MEETING"))
 
-       org-todo-keyword-faces '(("TODO" :foreground "#d30102" :weight bold)
-                                ("NEXT" :foreground "#268bd2" :weight bold)
-                                ("DONE" :foreground "#859900" :weight bold)
-                                ("WAITING" :foreground "#cb4b16" :weight bold)
-                                ("HOLD" :foreground "#d33682" :weight bold)
-                                ("CANCELLED" :foreground "#859900" :weight bold)
-                                ("CALL" :foreground "#859900" :weight bold)
-                                ("MEETING" :foreground "#859900" :weight bold)
-                                )
-       org-agenda-custom-commands `(("i" "Inbox"
-                                     todo ""
-                                     ((org-agenda-files
-                                       `(,mcw/org-gtd-inbox-file))))
-                                    ("s" "Someday"
-                                     todo ""
-                                     ((org-agenda-files
-                                       `(,mcw/org-gtd-someday-file))))
-                                    )
-       )
+            org-tag-alist '(("@work" . ?w)
+                            ("@home" . ?h))
+
+            org-todo-keywords '((sequence "TODO(t)"
+                                          "NEXT(n)"
+                                          "|"
+                                          "DONE(d)")
+                                (sequence "WAITING(w@/!)"
+                                          "HOLD(h@/!)"
+                                          "|"
+                                          "CANCELLED(c@/!)"
+                                          "CALL"
+                                          "MEETING"))
+
+            org-todo-keyword-faces '(("TODO" :foreground "#d30102" :weight bold)
+                                     ("NEXT" :foreground "#268bd2" :weight bold)
+                                     ("DONE" :foreground "#859900" :weight bold)
+                                     ("WAITING" :foreground "#cb4b16" :weight bold)
+                                     ("HOLD" :foreground "#d33682" :weight bold)
+                                     ("CANCELLED" :foreground "#859900" :weight bold)
+                                     ("CALL" :foreground "#859900" :weight bold)
+                                     ("MEETING" :foreground "#859900" :weight bold)
+                                     )
+            )
 
       (require 'ox-beamer)
 
