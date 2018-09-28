@@ -390,21 +390,21 @@ before packages are loaded. If you are unsure, you should try in setting them in
                                   "gtd.org"
                                   "tickler.org"))
 
-       org-capture-templates '(("t" "todo" entry
+       org-capture-templates '(("t" "Todo" entry
                                 (file mcw/org-gtd-inbox-file)
                                 "* TODO %?\n%U\n%a\n"
                                 :clock-in t
                                 :clock-resume t)
-                               ("r" "respond" entry
+                               ("r" "Respond" entry
                                 (file mcw/org-gtd-inbox-file)
                                 "* NEXT Respond to %:from on %:subject\n SCHEDULED: %t\n%U\n%a\n"
                                 :clock-in t
                                 :clock-resume t)
-                               ("m" "meeting" entry
+                               ("m" "Meeting" entry
                                 (file mcw/org-gtd-inbox-file)
                                 "* MEETING %?\n%U\n"
                                 :clock-in t)
-                               ("j" "journal" entry
+                               ("j" "Journal" entry
                                 (file+olp+datetree mcw/org-gtd-journal-file)
                                 "* %?"))
 
