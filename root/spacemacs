@@ -369,15 +369,18 @@ before packages are loaded. If you are unsure, you should try in setting them in
     "Return absolute path to org file by prefixing with `/mcw/org-gtd-directory'"
     (concat (file-name-as-directory mcw/org-gtd-directory) file))
 
+  (setq mcw/org-gtd-inbox-file (mcw/org-gtd-get-path "inbox.org")
+        mcw/org-gtd-journal-file (mcw/org-gtd-get-path "journal.org.gpg")
+        mcw/org-gtd-gtd-file (mcw/org-gtd-get-path "gtd.org")
+        mcw/org-gtd-someday-file (mcw/org-gtd-get-path "someday.org"))
+
   (defun mcw/org-gtd-open-inbox ()
     "Shortcut to open the GTD inbox file"
     (interactive)
-    (find-file (mcw/org-gtd-get-path "inbox.org")))
+    (find-file mcw/org-gtd-inbox-file))
 
   (global-set-key (kbd "C-c i") 'mcw/org-gtd-open-inbox)
   (spacemacs/set-leader-keys "aoi" 'mcw/org-gtd-open-inbox)
-
-  (setq mcw/org-gtd-inbox-file (mcw/org-gtd-get-path "inbox.org"))
 
   (eval-after-load 'org
     (lambda ()
@@ -387,28 +390,26 @@ before packages are loaded. If you are unsure, you should try in setting them in
                                   "gtd.org"
                                   "tickler.org"))
 
-       org-capture-templates `(("t" "todo" entry
-                                (file ,(mcw/org-gtd-get-path "inbox.org"))
+       org-capture-templates '(("t" "todo" entry
+                                (file mcw/org-gtd-inbox-file)
                                 "* TODO %?\n%U\n%a\n"
                                 :clock-in t
                                 :clock-resume t)
                                ("r" "respond" entry
-                                (file ,(mcw/org-gtd-get-path "inbox.org"))
+                                (file mcw/org-gtd-inbox-file)
                                 "* NEXT Respond to %:from on %:subject\n SCHEDULED: %t\n%U\n%a\n"
                                 :clock-in t
                                 :clock-resume t)
                                ("m" "meeting" entry
-                                (file ,(mcw/org-gtd-get-path "inbox.org"))
+                                (file mcw/org-gtd-inbox-file)
                                 "* MEETING %?\n%U\n"
                                 :clock-in t)
                                ("j" "journal" entry
-                                (file+olp+datetree
-                                 ,(mcw/org-gtd-get-path "journal.org.gpg"))
+                                (file+olp+datetree mcw/org-gtd-journal-file)
                                 "* %?"))
 
-       org-refile-targets `((,(mcw/org-gtd-get-path "gtd.org") :maxlevel . 3)
-                            (,(mcw/org-gtd-get-path "someday.org") :level . 1)
-                            (,(mcw/org-gtd-get-path "tickler.org") :maxlevel . 2))
+       org-refile-targets '((mcw/org-gtd-gtd-file :maxlevel . 3)
+                            (mcw/org-gtd-someday-file :level . 1))
 
        org-tag-alist '(("@work" . ?w)
                        ("@home" . ?h))
