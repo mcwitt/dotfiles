@@ -397,6 +397,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
                                 "* NEXT Respond to %:from on %:subject\n SCHEDULED: %t\n%U\n%a\n"
                                 :clock-in t
                                 :clock-resume t)
+                               ("m" "meeting" entry
+                                (file ,(mcw/org-gtd-get-path "inbox.org"))
+                                "* MEETING %?\n%U\n"
+                                :clock-in t)
                                ("j" "journal" entry
                                 (file+olp+datetree
                                  ,(mcw/org-gtd-get-path "journal.org.gpg"))
