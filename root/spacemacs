@@ -422,7 +422,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
                                      "HOLD(h@/!)"
                                      "|"
                                      "CANCELLED(c@/!)"
-                                     "PHONE"
+                                     "CALL"
                                      "MEETING"))
 
        org-todo-keyword-faces '(("TODO" :foreground "#d30102" :weight bold)
@@ -431,8 +431,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
                                 ("WAITING" :foreground "#cb4b16" :weight bold)
                                 ("HOLD" :foreground "#d33682" :weight bold)
                                 ("CANCELLED" :foreground "#859900" :weight bold)
+                                ("CALL" :foreground "#859900" :weight bold)
                                 ("MEETING" :foreground "#859900" :weight bold)
-                                ("PHONE" :foreground "#859900" :weight bold)))
+                                )
 
       (require 'ox-beamer)
 
