@@ -361,13 +361,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
   )
 
 (defun mcw/config-org-mode ()
-  "Custom configuration for org-mode"
+  "Custom configuration for org-mode. Much adapted from http://doc.norang.ca/org-mode.html"
 
   (setq mcw/org-gtd-directory "~/gtd")
 
   (defun mcw/org-gtd-get-path (file)
-    "Return absolute path to org file by prefixing with
-`/mcw/org-gtd-directory'"
+    "Return absolute path to org file by prefixing with `/mcw/org-gtd-directory'"
     (concat (file-name-as-directory mcw/org-gtd-directory) file))
 
   (defun mcw/org-gtd-open-inbox ()
@@ -388,21 +387,17 @@ before packages are loaded. If you are unsure, you should try in setting them in
                                   "gtd.org"
                                   "tickler.org"))
 
-       org-capture-templates `(("t" "Todo [inbox]" entry
+       org-capture-templates `(("t" "todo" entry
                                 (file ,(mcw/org-gtd-get-path "inbox.org"))
-                                "* %i%?\n%U")
-                               ("T" "Tickler" entry
-                                (file ,(mcw/org-gtd-get-path "tickler.org"))
-                                "* %i%?\n%U")
-                               ("n" "Note" entry
-                                (file+olp+datetree
-                                 ,(mcw/org-gtd-get-path "notes.org"))
-                                "* %?\n%i")
-                               ("N" "Note w/ attachment" entry
-                                (file+olp+datetree
-                                 ,(mcw/org-gtd-get-path "notes.org"))
-                                "* %?\n%i\n%a")
-                               ("j" "Journal" entry
+                                "* TODO %?\n%U\n%a\n"
+                                :clock-in t
+                                :clock-resume t)
+                               ("r" "respond" entry
+                                (file ,(mcw/org-gtd-get-path "inbox.org"))
+                                "* NEXT Respond to %:from on %:subject\n SCHEDULED: %t\n%U\n%a\n"
+                                :clock-in t
+                                :clock-resume t)
+                               ("j" "journal" entry
                                 (file+olp+datetree
                                  ,(mcw/org-gtd-get-path "journal.org.gpg"))
                                 "* %?"))
@@ -415,11 +410,24 @@ before packages are loaded. If you are unsure, you should try in setting them in
                        ("@home" . ?h))
 
        org-todo-keywords '((sequence "TODO(t)"
-                                     "WAITING(w)"
+                                     "NEXT(n)"
                                      "|"
-                                     "DONE(d)"
-                                     "CANCELLED(c)"))
-       )
+                                     "DONE(d)")
+                           (sequence "WAITING(w@/!)"
+                                     "HOLD(h@/!)"
+                                     "|"
+                                     "CANCELLED(c@/!)"
+                                     "PHONE"
+                                     "MEETING"))
+
+       org-todo-keyword-faces '(("TODO" :foreground "#d30102" :weight bold)
+                                ("NEXT" :foreground "#268bd2" :weight bold)
+                                ("DONE" :foreground "#859900" :weight bold)
+                                ("WAITING" :foreground "#cb4b16" :weight bold)
+                                ("HOLD" :foreground "#d33682" :weight bold)
+                                ("CANCELLED" :foreground "#859900" :weight bold)
+                                ("MEETING" :foreground "#859900" :weight bold)
+                                ("PHONE" :foreground "#859900" :weight bold)))
 
       (require 'ox-beamer)
 
