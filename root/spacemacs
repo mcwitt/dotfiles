@@ -363,48 +363,63 @@ before packages are loaded. If you are unsure, you should try in setting them in
 (defun mcw/config-org-mode ()
   "Custom configuration for org-mode"
 
-  (defun mcw/org-open-inbox ()
-    (interactive) (find-file "~/gtd/inbox.org"))
+  (setq mcw/org-gtd-directory "~/gtd")
 
-  (global-set-key (kbd "C-c i") 'mcw/org-open-inbox)
-  (spacemacs/set-leader-keys "aoi" 'mcw/org-open-inbox)
+  (defun mcw/org-gtd-get-path (file)
+    "Return absolute path to org file by prefixing with
+`/mcw/org-gtd-directory'"
+    (concat (file-name-as-directory mcw/org-gtd-directory) file))
+
+  (defun mcw/org-gtd-open-inbox ()
+    "Shortcut to open the GTD inbox file"
+    (interactive)
+    (find-file (mcw/org-gtd-get-path "inbox.org")))
+
+  (global-set-key (kbd "C-c i") 'mcw/org-gtd-open-inbox)
+  (spacemacs/set-leader-keys "aoi" 'mcw/org-gtd-open-inbox)
+
+  (setq mcw/org-gtd-inbox-file (mcw/org-gtd-get-path "inbox.org"))
 
   (eval-after-load 'org
     (lambda ()
       (setq
-       org-agenda-files '("~/gtd/inbox.org"
-                          "~/gtd/gtd.org"
-                          "~/gtd/tickler.org")
+       org-agenda-files (mapcar 'mcw/org-gtd-get-path
+                                '("inbox.org"
+                                  "gtd.org"
+                                  "tickler.org"))
 
-       org-capture-templates '(("t" "Todo [inbox]" entry
-                                (file "~/gtd/inbox.org")
+       org-capture-templates `(("t" "Todo [inbox]" entry
+                                (file ,(mcw/org-gtd-get-path "inbox.org"))
                                 "* %i%?\n%U")
                                ("T" "Tickler" entry
-                                (file "~/gtd/tickler.org")
+                                (file ,(mcw/org-gtd-get-path "tickler.org"))
                                 "* %i%?\n%U")
                                ("n" "Note" entry
-                                (file+olp+datetree "~/gtd/notes.org")
+                                (file+olp+datetree
+                                 ,(mcw/org-gtd-get-path "notes.org"))
                                 "* %?\n%i")
                                ("N" "Note w/ attachment" entry
-                                (file+olp+datetree "~/gtd/notes.org")
+                                (file+olp+datetree
+                                 ,(mcw/org-gtd-get-path "notes.org"))
                                 "* %?\n%i\n%a")
                                ("j" "Journal" entry
-                                (file+olp+datetree "~/gtd/journal.org.gpg")
+                                (file+olp+datetree
+                                 ,(mcw/org-gtd-get-path "journal.org.gpg"))
                                 "* %?"))
 
-      org-refile-targets '(("~/gtd/gtd.org" :maxlevel . 3)
-                           ("~/gtd/someday.org" :level . 1)
-                           ("~/gtd/tickler.org" :maxlevel . 2))
+       org-refile-targets `((,(mcw/org-gtd-get-path "gtd.org") :maxlevel . 3)
+                            (,(mcw/org-gtd-get-path "someday.org") :level . 1)
+                            (,(mcw/org-gtd-get-path "tickler.org") :maxlevel . 2))
 
-      org-tag-alist '(("@work" . ?w)
-                      ("@home" . ?h))
+       org-tag-alist '(("@work" . ?w)
+                       ("@home" . ?h))
 
-      org-todo-keywords '((sequence "TODO(t)"
-                                    "WAITING(w)"
-                                    "|"
-                                    "DONE(d)"
-                                    "CANCELLED(c)"))
-      )
+       org-todo-keywords '((sequence "TODO(t)"
+                                     "WAITING(w)"
+                                     "|"
+                                     "DONE(d)"
+                                     "CANCELLED(c)"))
+       )
 
       (require 'ox-beamer)
 
