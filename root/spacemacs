@@ -59,7 +59,6 @@ values."
            web-mode-css-indent-offset 2
            web-mode-code-indent-offset 2
            web-mode-attr-indent-offset 2)
-     ipython-notebook
      (javascript :variables
                  flycheck-eslintrc "~/.eslintrc"
                  js-indent-level 2
@@ -67,7 +66,6 @@ values."
                  js2-strict-missing-semi-warning nil)
      latex
      markdown
-     octave
      (org :variables
           org-startup-indented t
           org-babel-load-languages
@@ -76,7 +74,6 @@ values."
             ;; (ipython . t)
             (js . t)
             (latex . t)
-            (octave . t)
             (python . t)
             (R . t)
             (sql . t))
@@ -96,7 +93,6 @@ values."
      react
      restclient
      scala
-     scheme
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
