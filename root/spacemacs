@@ -381,7 +381,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
       (setq org-tag-alist
             '((:startgroup . nil)
               ("inbox" . ?i)
-              ("project". ?p)
               ("someday" . ?s)
               (:endgroup . nil)
               ("@work" . ?w)
