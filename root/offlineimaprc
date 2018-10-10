@@ -1,0 +1,23 @@
+[general]
+accounts = Gmail
+maxsyncaccounts = 1
+pythonfile = ~/.offlineimap.py
+
+[Account Gmail]
+localrepository = Local
+remoterepository = Remote
+synclabels = yes
+
+[Repository Local]
+type = Maildir
+localfolders = ~/.mail
+
+[Repository Remote]
+type = Gmail
+remoteuser = mcwitt@gmail.com
+remotepasseval = get_password("%(remoteuser)s")
+nametrans = lambda folder: {
+    '[Gmail]/All Mail': 'archive'
+    }.get(folder, folder)
+folderfilter = lambda name: name == '[Gmail]/All Mail'
+keepalive = 60
