@@ -12,12 +12,17 @@ synclabels = yes
 type = Maildir
 localfolders = ~/.mail
 
-[Repository Remote]
+[Repository Remote] # {
 type = Gmail
 remoteuser = mcwitt@gmail.com
-remotepasseval = get_password("%(remoteuser)s")
-nametrans = lambda folder: {
-    '[Gmail]/All Mail': 'archive'
-    }.get(folder, folder)
-folderfilter = lambda name: name == '[Gmail]/All Mail'
+
+remotepasseval = get_password_emacs('imap.gmail.com',
+                                    '%(remoteuser)s',
+                                    993)
+
+nametrans = lambda folder: {'[Gmail]/All Mail': 'archive'
+                            }.get(folder, folder)
+
+folderfilter = lambda name: name in {'[Gmail]/All Mail'}
 keepalive = 60
+# }
