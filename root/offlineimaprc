@@ -3,13 +3,18 @@ accounts = Gmail
 maxsyncaccounts = 1
 pythonfile = ~/.offlineimap.py
 
+[DEFAULT]
+archivefolder = archive
+sentfolder = sent
+trashfolder = trash
+
 [Account Gmail]
 localrepository = Local
 remoterepository = Remote
 synclabels = yes
 
 [Repository Local]
-type = Maildir
+type = GmailMaildir
 localfolders = ~/.mail
 
 [Repository Remote] # {
@@ -20,9 +25,18 @@ remotepasseval = get_password_emacs('imap.gmail.com',
                                     '%(remoteuser)s',
                                     993)
 
-nametrans = lambda folder: {'[Gmail]/All Mail': 'archive'
-                            }.get(folder, folder)
+gmailarchivefolder = [Gmail]/All Mail
+gmailsentfolder = [Gmail]/Sent Mail
+gmailtrashfolder = [Gmail]/Trash
 
-folderfilter = lambda name: name in {'[Gmail]/All Mail'}
+folderfilter = lambda name: name in {'%(gmailarchivefolder)s',
+                                     '%(gmailsentfolder)s',
+                                     '%(gmailtrashfolder)s'}
+
+nametrans = lambda name: {
+    '%(gmailarchivefolder)s': '%(archivefolder)s',
+    '%(gmailsentfolder)s': '%(sentfolder)s',
+    '%(gmailtrashfolder)s': '%(trashfolder)s'}.get(name, name)
+
 keepalive = 60
 # }
