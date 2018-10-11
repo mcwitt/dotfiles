@@ -7,6 +7,9 @@ pythonfile = ~/.offlineimap.py
 archivefolder = archive
 sentfolder = sent
 trashfolder = trash
+gmailarchivefolder = [Gmail]/All Mail
+gmailsentfolder = [Gmail]/Sent Mail
+gmailtrashfolder = [Gmail]/Trash
 
 [Account Gmail]
 localrepository = Local
@@ -16,6 +19,10 @@ synclabels = yes
 [Repository Local]
 type = GmailMaildir
 localfolders = ~/.mail
+nametrans = lambda name: {
+    '%(archivefolder)s': '%(gmailarchivefolder)s',
+    '%(sentfolder)s': '%(gmailsentfolder)s',
+    '%(trashfolder)s': '%(gmailtrashfolder)s'}.get(name, name)
 
 [Repository Remote] # {
 type = Gmail
@@ -24,10 +31,6 @@ remoteuser = mcwitt@gmail.com
 remotepasseval = get_password_emacs('imap.gmail.com',
                                     '%(remoteuser)s',
                                     993)
-
-gmailarchivefolder = [Gmail]/All Mail
-gmailsentfolder = [Gmail]/Sent Mail
-gmailtrashfolder = [Gmail]/Trash
 
 folderfilter = lambda name: name in {'%(gmailarchivefolder)s',
                                      '%(gmailsentfolder)s',
