@@ -52,7 +52,8 @@ values."
      evil-snipe
      git
      github
-     haskell
+     (haskell :variables
+              haskell-completion-backend 'intero)
      (html :variables
            css-indent-offset 2
            web-mode-markup-indent-offset 2
