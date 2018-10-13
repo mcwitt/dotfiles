@@ -60,7 +60,9 @@ values."
            web-mode-css-indent-offset 2
            web-mode-code-indent-offset 2
            web-mode-attr-indent-offset 2)
+
      ipython-notebook
+
      (javascript :variables
                  flycheck-eslintrc "~/.eslintrc"
                  js-indent-level 2
@@ -69,6 +71,32 @@ values."
      latex
      markdown
      ocaml
+
+     (mu4e :variables
+           mu4e-maildir (expand-file-name "~/.mail")
+           mu4e-refile-folder "/archive"
+           mu4e-sent-folder "/sent"
+           mu4e-trash-folder "/trash"
+           mu4e-maildir-shortcuts `((,mu4e-sent-folder . ?s)
+                                    (,mu4e-trash-folder . ?t))
+
+           ;; don't save message to Sent Messages, GMail/IMAP will take care of this
+           mu4e-sent-messages-behavior 'delete
+
+           mu4e-get-mail-command "offlineimap"
+
+           user-mail-address "mcwitt@gmail.com"
+           user-full-name  "Matthew Wittmann"
+
+           message-send-mail-function 'smtpmail-send-it
+           starttls-use-gnutls t
+           smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+           smtpmail-auth-credentials (expand-file-name "~/.authinfo.gpg")
+           smtpmail-default-smtp-server "smtp.gmail.com"
+           smtpmail-smtp-server "smtp.gmail.com"
+           smtpmail-smtp-service 587
+           smtpmail-debug-info t)
+
      (org :variables
           org-startup-indented t
           org-babel-load-languages
@@ -96,9 +124,11 @@ values."
      react
      restclient
      scala
+
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
+
      shell-scripts
      spell-checking
      sql
