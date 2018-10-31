@@ -449,14 +449,9 @@ you should place your code here."
 
   (setq
    vc-follow-symlinks t
-   use-dialog-box nil
-   )
+   use-dialog-box nil)
 
-  (setq-default
-   projectile-globally-ignored-files '("bundle.js" "bundle.js.map")
-   projectile-globally-ignored-directories '("node_modules")
-   projectile-globally-ignored-file-suffixes '("pyc" "swp")
-   )
+  (setq-default projectile-globally-ignored-file-suffixes '("pyc" "swp"))
 
   ;; make _ a word character for text objects
   (defadvice evil-inner-word (around underscore-as-word activate)
