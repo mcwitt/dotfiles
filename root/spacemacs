@@ -451,7 +451,12 @@ you should place your code here."
    vc-follow-symlinks t
    use-dialog-box nil)
 
-  (setq-default projectile-globally-ignored-file-suffixes '("pyc" "swp"))
+  (setq-default projectile-enable-caching t
+                projectile-indexing-method 'native
+                projectile-globally-ignored-file-suffixes
+                '("pyc"
+                  "swp"
+                  "html"))
 
   ;; make _ a word character for text objects
   (defadvice evil-inner-word (around underscore-as-word activate)
