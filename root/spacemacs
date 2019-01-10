@@ -404,7 +404,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
       (setq org-capture-templates
             '(("t" "Todo" entry
                (file mcw/org-gtd-file)
-               "* TODO %?\n%U\n%a\n")))
+               "* TODO %? :inbox:\n%U\n%a\n")))
+
+      (add-hook 'org-capture-mode-hook #'org-align-all-tags)
 
       (setq org-tag-alist
             '((:startgroup . nil)
