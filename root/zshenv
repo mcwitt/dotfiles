@@ -11,3 +11,4 @@ fi
 # }
 
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/Library/TeX/texbin:$PATH"
