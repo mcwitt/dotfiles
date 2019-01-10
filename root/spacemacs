@@ -455,7 +455,6 @@ you should place your code here."
    use-dialog-box nil)
 
   (setq-default projectile-enable-caching t
-                projectile-indexing-method 'native
                 projectile-globally-ignored-file-suffixes
                 '("pyc"
                   "swp"
