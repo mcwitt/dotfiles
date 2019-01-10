@@ -119,7 +119,8 @@ values."
      react
      restclient
      ruby
-     scala
+     (scala :variables
+            ensime-startup-notification nil)
 
      (shell :variables
             shell-default-height 30
