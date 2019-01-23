@@ -139,6 +139,19 @@
   :hook (after-init . global-company-mode))
 
 ;; Magit
+;; surround
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode 1))
+
+;; line numbering
+(use-package nlinum-relative
+  :ensure t
+  :config
+  (nlinum-relative-setup-evil)
+  (add-hook 'prog-mode-hook 'nlinum-relative-mode))
+
 (use-package magit :ensure t)
 (use-package evil-magit :ensure t)
 
