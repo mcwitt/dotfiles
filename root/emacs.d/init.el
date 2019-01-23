@@ -107,9 +107,10 @@
    "pg"  '(projectile-ripgrep :which-key "search project files")
    ;; Version control
    "gs"  '(magit-status :which-key "git status")
+   ;; SQL
+   "sc"  '(sql-connect :which-key "connect to database")
    ;; Others
    "at"  '(ansi-term :which-key "open terminal")))
-
 
 ;; Projectile
 (use-package projectile
@@ -138,7 +139,6 @@
   (define-key company-active-map (kbd "jk") 'company-complete)
   :hook (after-init . global-company-mode))
 
-;; Magit
 ;; surround
 (use-package evil-surround
   :ensure t
@@ -152,15 +152,9 @@
   (nlinum-relative-setup-evil)
   (add-hook 'prog-mode-hook 'nlinum-relative-mode))
 
+;; Magit
 (use-package magit :ensure t)
 (use-package evil-magit :ensure t)
-
-;; ensime
-(use-package ensime
-  :ensure t
-  :pin melpa-stable
-  :custom
-  (ensime-startup-notification 'nil))
 
 ;; perspectives
 (use-package persp-mode
@@ -183,5 +177,44 @@
   (shell-command-to-string (format "brittany --write-mode inplace %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
-(setq custom-file "~/.emacs-custom.el")
+;; Scala
+(use-package ensime
+  :ensure t
+  :pin melpa-stable
+  :custom
+  (ensime-startup-notification 'nil))
 
+(with-eval-after-load 'scala-mode
+  (define-key scala-mode-map (kbd "C-c C-f") #'scala-mode-format-buffer-with-scalafmt))
+
+(defun scala-mode-format-buffer-with-scalafmt ()
+  (interactive)
+  (shell-command-to-string (format "scalafmt %s" buffer-file-name))
+  (revert-buffer :ignore-auto :noconfirm))
+
+;; logview
+(use-package logview
+  :ensure t)
+
+;; deft
+(use-package deft
+  :ensure t)
+
+
+;; pinentry
+(use-package pinentry
+  :ensure t
+  :config
+  (pinentry-start))
+
+;; SQL
+(defun mcw:load-sql-connections ()
+  (interactive)
+  (require 'sql-connections "~/.sql-connections.el.gpg"))
+
+(add-hook 'sql-interactive-mode-hook
+	  (lambda ()
+	    (toggle-truncate-lines t)))
+
+;; custom file
+(setq custom-file "~/.emacs-custom.el")
