@@ -172,12 +172,14 @@
 (use-package intero
   :ensure t
   :config
-  (intero-global-mode 1))
+  (intero-global-mode 1)
+  (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
 
 (with-eval-after-load 'haskell-mode
   (define-key haskell-mode-map (kbd "C-c C-f") #'haskell-mode-format-buffer-with-brittany))
 
-(defun haskell-mode-format-buffer-with-brittany () (interactive)
+(defun haskell-mode-format-buffer-with-brittany ()
+  (interactive)
   (shell-command-to-string (format "brittany --write-mode inplace %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
