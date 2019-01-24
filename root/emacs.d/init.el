@@ -49,7 +49,11 @@
   (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
   (define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-kill-word))
 
-(use-package counsel :ensure t)
+(use-package counsel
+  :ensure t)
+
+(use-package counsel-tramp
+  :ensure t)
 
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "M-x") 'counsel-M-x)
@@ -93,6 +97,7 @@
    ;; Files
    "ff"  '(counsel-find-file :which-key "find files")
    "fr"  '(counsel-recentf :which-key "recent files")
+   "ft"  '(counsel-tramp :which-key "remote files")
    ;; Buffers
    "bb"  '(ivy-switch-buffer :which-key "buffers list")
    ;; Window
