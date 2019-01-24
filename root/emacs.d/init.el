@@ -110,7 +110,8 @@
    ;; SQL
    "sc"  '(sql-connect :which-key "connect to database")
    ;; Others
-   "at"  '(ansi-term :which-key "open terminal")))
+   "at"  '(ansi-term :which-key "open terminal")
+   "aoc" '(org-capture :which-key "org capture")))
 
 ;; Projectile
 (use-package projectile
@@ -162,6 +163,17 @@
   :pin melpa-stable
   :config (persp-mode 1))
 
+;; org-mode
+
+(setq org-capture-templates
+      '(("t" "Todo" entry
+	 (file "~/.gtd/inbox.org")
+	 "* TODO %?\n%U\n"))))
+
+(setq org-refile-targets
+      '(("~/.gtd/gtd.org" :maxlevel . 2)
+	("~/.gtd/someday.org" :level . 1)))
+
 ;; Haskell
 (use-package intero
   :ensure t
@@ -199,7 +211,6 @@
 ;; deft
 (use-package deft
   :ensure t)
-
 
 ;; pinentry
 (use-package pinentry
