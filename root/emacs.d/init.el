@@ -173,20 +173,25 @@
   :config (persp-mode 1))
 
 ;; org-mode
+(use-package evil-org
+  :ensure t
+  :after org
+  :config
+  (add-hook 'org-mode-hook 'evil-org-mode)
+  (add-hook 'evil-org-mode-hook
+            (lambda ()
+              (evil-org-set-key-theme)))
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys))
 
-(setq org-agenda-files
-      '("~/.gtd/inbox.org"
-	"~/.gtd/gtd.org"
-	"~/.gtd/someday.org"))
+(setq org-agenda-files '("~/.gtd/gtd.org"))
 
 (setq org-capture-templates
       '(("t" "Todo" entry
-	 (file "~/.gtd/inbox.org")
-	 "* TODO %?\n%U\n")))
+	 (file "~/.gtd/gtd.org")
+	 "* TODO %? :inbox:\n%U\n")))
 
-(setq org-refile-targets
-      '(("~/.gtd/gtd.org" :maxlevel . 2)
-	("~/.gtd/someday.org" :level . 1)))
+(add-hook 'org-capture-mode-hook #'org-align-all-tags)
 
 ;; Haskell
 (use-package intero
