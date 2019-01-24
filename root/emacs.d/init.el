@@ -90,7 +90,9 @@
    "/"   '(counsel-rg :which-key "ripgrep")
    "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
    "SPC" '(counsel-M-x :which-key "M-x")
+   ;; Files
    "ff"  '(counsel-find-file :which-key "find files")
+   "fr"  '(counsel-recentf :which-key "recent files")
    ;; Buffers
    "bb"  '(ivy-switch-buffer :which-key "buffers list")
    ;; Window
@@ -111,7 +113,8 @@
    "sc"  '(sql-connect :which-key "connect to database")
    ;; Others
    "at"  '(ansi-term :which-key "open terminal")
-   "aoc" '(org-capture :which-key "org capture")))
+   "aoc" '(org-capture :which-key "org capture")
+   "aoa" '(org-agenda :which-key "org agenda")))
 
 ;; Projectile
 (use-package projectile
