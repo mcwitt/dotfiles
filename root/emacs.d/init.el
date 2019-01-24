@@ -165,10 +165,15 @@
 
 ;; org-mode
 
+(setq org-agenda-files
+      '("~/.gtd/inbox.org"
+	"~/.gtd/gtd.org"
+	"~/.gtd/someday.org"))
+
 (setq org-capture-templates
       '(("t" "Todo" entry
 	 (file "~/.gtd/inbox.org")
-	 "* TODO %?\n%U\n"))))
+	 "* TODO %?\n%U\n")))
 
 (setq org-refile-targets
       '(("~/.gtd/gtd.org" :maxlevel . 2)
