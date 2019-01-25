@@ -166,12 +166,6 @@
 (use-package magit :ensure t)
 (use-package evil-magit :ensure t)
 
-;; perspectives
-(use-package persp-mode
-  :ensure t
-  :pin melpa-stable
-  :config (persp-mode 1))
-
 ;; org-mode
 (use-package evil-org
   :ensure t
