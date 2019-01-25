@@ -162,6 +162,12 @@
   (nlinum-relative-setup-evil)
   (add-hook 'prog-mode-hook 'nlinum-relative-mode))
 
+;; highlighting TODO items in comments
+(use-package hl-todo
+  :ensure t
+  :config
+  (hl-todo-mode 1))
+
 ;; Magit
 (use-package magit :ensure t)
 (use-package evil-magit :ensure t)
