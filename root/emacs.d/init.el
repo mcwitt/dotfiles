@@ -116,6 +116,7 @@
    "pp"  '(projectile-switch-project :which-key "switch project")
    "pf"  '(projectile-find-file :which-key "find project file")
    "pg"  '(projectile-ripgrep :which-key "search project files")
+   "pt"  '(neotree-projectile-action :which-key "project file tree")
    ;; Version control
    "gs"  '(magit-status :which-key "git status")
    ;; SQL
@@ -177,6 +178,11 @@
 
 ;; browse at remote
 (use-package browse-at-remote
+  :ensure t
+  :pin melpa-stable)
+
+;; neotree
+(use-package neotree
   :ensure t
   :pin melpa-stable)
 
