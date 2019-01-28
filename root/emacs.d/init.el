@@ -70,6 +70,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-x l") 'counsel-locate)
+(global-set-key (kbd "C-c r") 'browse-at-remote)
 
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 
@@ -173,6 +174,11 @@
 ;; Magit
 (use-package magit :ensure t)
 (use-package evil-magit :ensure t)
+
+;; browse at remote
+(use-package browse-at-remote
+  :ensure t
+  :pin melpa-stable)
 
 ;; org-mode
 (use-package evil-org
