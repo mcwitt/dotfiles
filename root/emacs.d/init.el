@@ -28,6 +28,7 @@
   :ensure t
   :init
   (setq evil-want-C-u-scroll t)
+  (setq evil-want-abbrev-expand-on-insert-exit nil)
   :config
   (evil-mode 1))
 
