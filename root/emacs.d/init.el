@@ -181,6 +181,16 @@
   :pin melpa-stable)
 
 ;; org-mode
+(setq org-startup-indented t)
+(setq org-agenda-files '("~/.gtd/gtd.org"))
+
+(setq org-capture-templates
+      '(("t" "Todo" entry
+	 (file "~/.gtd/gtd.org")
+	 "* TODO %? :inbox:\n%U\n")))
+
+(add-hook 'org-capture-mode-hook #'org-align-all-tags)
+
 (use-package evil-org
   :ensure t
   :after org
@@ -191,15 +201,6 @@
               (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
-
-(setq org-agenda-files '("~/.gtd/gtd.org"))
-
-(setq org-capture-templates
-      '(("t" "Todo" entry
-	 (file "~/.gtd/gtd.org")
-	 "* TODO %? :inbox:\n%U\n")))
-
-(add-hook 'org-capture-mode-hook #'org-align-all-tags)
 
 ;; Haskell
 (use-package intero
