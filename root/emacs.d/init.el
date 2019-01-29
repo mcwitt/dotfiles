@@ -231,6 +231,9 @@
 (with-eval-after-load 'scala-mode
   (define-key scala-mode-map (kbd "C-c C-f") #'scala-mode-format-buffer-with-scalafmt))
 
+(with-eval-after-load 'ensime-mode
+  (define-key ensime-mode-map (kbd "C-c C-v g") #'ensime-edit-definition-of-thing-at-point))
+
 (defun scala-mode-format-buffer-with-scalafmt ()
   (interactive)
   (shell-command-to-string (format "scalafmt %s" buffer-file-name))
