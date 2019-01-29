@@ -164,7 +164,7 @@
   :ensure t
   :config
   (nlinum-relative-setup-evil)
-  (add-hook 'prog-mode-hook 'nlinum-relative-mode))
+  :hook (prog-mode . nlinum-relative-mode))
 
 ;; highlighting TODO items in comments
 (use-package hl-todo
@@ -201,12 +201,10 @@
   :ensure t
   :after org
   :config
-  (add-hook 'org-mode-hook 'evil-org-mode)
-  (add-hook 'evil-org-mode-hook
-            (lambda ()
-              (evil-org-set-key-theme)))
   (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys))
+  (evil-org-agenda-set-keys)
+  :hook ((org-mode . evil-org-mode)
+	 (evil-org-mode . (lambda () (evil-org-set-key-theme)))))
 
 ;; Haskell
 (use-package intero
