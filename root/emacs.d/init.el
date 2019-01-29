@@ -245,6 +245,7 @@
 
 ;; deft
 (use-package deft
+  :init (setq deft-extension "org")
   :ensure t)
 
 ;; pinentry
