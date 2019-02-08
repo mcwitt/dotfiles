@@ -218,6 +218,7 @@
 
 (defun haskell-mode-format-buffer-with-brittany ()
   (interactive)
+  (save-buffer)
   (shell-command-to-string (format "brittany --write-mode inplace %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
@@ -236,6 +237,7 @@
 
 (defun scala-mode-format-buffer-with-scalafmt ()
   (interactive)
+  (save-buffer)
   (shell-command-to-string (format "scalafmt %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
