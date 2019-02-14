@@ -104,6 +104,7 @@
    ;; Buffers
    "bb"  '(ivy-switch-buffer :which-key "buffers list")
    "bp"  '(previous-buffer :which-key "previous buffer")
+   "bn"  '(next-buffer :which-key "next buffer")
    ;; Window
    "wl"  '(windmove-right :which-key "move right")
    "wh"  '(windmove-left :which-key "move left")
