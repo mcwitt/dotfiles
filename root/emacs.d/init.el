@@ -198,14 +198,9 @@
 
 (add-hook 'org-capture-mode-hook #'org-align-all-tags)
 
-(use-package evil-org
-  :ensure t
-  :after org
-  :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys)
-  :hook ((org-mode . evil-org-mode)
-	 (evil-org-mode . (lambda () (evil-org-set-key-theme)))))
+(with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map "j" 'evil-next-line)
+  (define-key org-agenda-mode-map "k" 'evil-previous-line))
 
 ;; Haskell
 (use-package intero
