@@ -241,11 +241,16 @@
   (pinentry-start))
 
 ;; SQL
+(defun mcw:sql-connect ()
+  (interactive)
+  (if (not (boundp 'sql-connections)) (mcw:load-sql-connections) nil)
+  (sql-connect))
+
 (defun mcw:load-sql-connections ()
   (interactive)
   (require 'sql-connections "~/.sql-connections.el.gpg"))
 
-(general-define-key "C-c s" 'sql-connect)
+(general-define-key "C-c s" 'mcw:sql-connect)
 
 (add-hook 'sql-interactive-mode-hook
 	  (lambda ()
