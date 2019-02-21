@@ -173,6 +173,13 @@
   (define-key org-agenda-mode-map "j" 'evil-next-line)
   (define-key org-agenda-mode-map "k" 'evil-previous-line))
 
+;; org-babel
+(with-eval-after-load 'org
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (plantuml . t))))
+
 ;; Haskell
 (use-package intero
   :ensure t
@@ -239,6 +246,15 @@
 (add-hook 'sql-interactive-mode-hook
 	  (lambda ()
 	    (toggle-truncate-lines t)))
+
+;; plantuml
+(use-package plantuml-mode
+  :ensure t
+  :config
+  (setq org-plantuml-jar-path (expand-file-name "~/.local/libexec/plantuml.jar")))
+
+(use-package flycheck-plantuml
+  :ensure t)
 
 ;; custom file
 (setq custom-file "~/.emacs-custom.el")
