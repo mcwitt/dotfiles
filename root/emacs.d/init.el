@@ -167,7 +167,7 @@
 	 (file "~/.gtd/gtd.org")
 	 "* TODO %? :inbox:\n%U\n")))
 
-(add-hook 'org-capture-mode-hook #'org-align-all-tags)
+(add-hook 'org-capture-mode-hook 'org-align-all-tags)
 
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map "j" 'evil-next-line)
