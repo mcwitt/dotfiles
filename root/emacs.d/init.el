@@ -169,6 +169,10 @@
 
 (add-hook 'org-capture-mode-hook 'org-align-all-tags)
 
+(general-define-key
+ "C-c a" 'org-agenda
+ "C-c c" 'org-capture)
+
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map "j" 'evil-next-line)
   (define-key org-agenda-mode-map "k" 'evil-previous-line))
