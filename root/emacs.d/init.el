@@ -165,7 +165,7 @@
 (setq org-capture-templates
       '(("t" "Todo" entry
 	 (file "~/.gtd/gtd.org")
-	 "* TODO %? :inbox:\n%U\n")))
+	 "* TODO %? :Inbox:\n%U\n")))
 
 (add-hook 'org-capture-mode-hook 'org-align-all-tags)
 
