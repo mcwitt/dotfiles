@@ -21,6 +21,7 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
 (require 'use-package)
 
 ;; Vim mode
@@ -42,40 +43,39 @@
 (use-package zenburn-theme :ensure t)
 (load-theme 'zenburn t)
 
+;; Custom keybinding
+(use-package general
+  :ensure t)
+
 (use-package ivy
   :ensure t
   :config
   (ivy-mode 1)
-  (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
-  (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
-  (define-key ivy-minibuffer-map (kbd "C-h") 'ivy-backward-kill-word))
+  (general-define-key
+   "C-x b" 'ivy-switch-buffer
+   "C-c C-r" 'ivy-resume)
+  (general-define-key
+   :keymaps 'ivy-minibuffer-map
+   "C-j" 'ivy-next-line
+   "C-k" 'ivy-previous-line
+   "C-h" 'ivy-backward-kill-word))
 
 (use-package counsel
-  :ensure t)
+  :ensure t
+  :config
+  (general-define-key
+   "C-s" 'swiper
+   "M-x" 'counsel-M-x
+   "C-x C-f" 'counsel-find-file
+   "C-x C-r" 'counsel-recentf
+   "C-c g" 'counsel-git
+   "C-c j" 'counsel-git-grep
+   "C-x l" 'counsel-locate))
 
 (use-package counsel-tramp
-  :ensure t)
-
-(global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "<f1> f") 'counsel-describe-function)
-(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
-(global-set-key (kbd "<f1> l") 'counsel-find-library)
-(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
-(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
-
-(global-set-key (kbd "C-c g") 'counsel-git)
-(global-set-key (kbd "C-c j") 'counsel-git-grep)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
-(global-set-key (kbd "C-x l") 'counsel-locate)
-(global-set-key (kbd "C-c r") 'browse-at-remote)
-
-(global-set-key (kbd "C-c C-r") 'ivy-resume)
-
-(global-set-key (kbd "C-j") 'comint-next-input)
-(global-set-key (kbd "C-k") 'comint-previous-input)
+  :ensure t
+  :config
+  (general-define-key "C-c f" 'counsel-tramp))
 
 ;; Which Key
 (use-package which-key
@@ -86,47 +86,6 @@
   :config
   (which-key-mode 1))
 
-;; Custom keybinding
-(use-package general
-  :ensure t
-  :config
-  (general-define-key
-   :states '(normal visual insert emacs)
-   :prefix "SPC"
-   :non-normal-prefix "M-SPC"
-   "/"   '(counsel-rg :which-key "ripgrep")
-   "TAB" '(switch-to-prev-buffer :which-key "previous buffer")
-   "SPC" '(counsel-M-x :which-key "M-x")
-   ;; Files
-   "ff"  '(counsel-find-file :which-key "find files")
-   "fr"  '(counsel-recentf :which-key "recent files")
-   "ft"  '(counsel-tramp :which-key "remote files")
-   ;; Buffers
-   "bb"  '(ivy-switch-buffer :which-key "buffers list")
-   "bp"  '(previous-buffer :which-key "previous buffer")
-   "bn"  '(next-buffer :which-key "next buffer")
-   ;; Window
-   "wl"  '(windmove-right :which-key "move right")
-   "wh"  '(windmove-left :which-key "move left")
-   "wk"  '(windmove-up :which-key "move up")
-   "wj"  '(windmove-down :which-key "move bottom")
-   "w/"  '(split-window-right :which-key "split right")
-   "w-"  '(split-window-below :which-key "split bottom")
-   "wx"  '(delete-window :which-key "delete window")
-   ;; Projects
-   "pp"  '(projectile-switch-project :which-key "switch project")
-   "pf"  '(projectile-find-file :which-key "find project file")
-   "pg"  '(projectile-ripgrep :which-key "search project files")
-   "pt"  '(neotree-projectile-action :which-key "project file tree")
-   ;; Version control
-   "gs"  '(magit-status :which-key "git status")
-   ;; SQL
-   "sc"  '(sql-connect :which-key "connect to database")
-   ;; Others
-   "at"  '(ansi-term :which-key "open terminal")
-   "aoc" '(org-capture :which-key "org capture")
-   "aoa" '(org-agenda :which-key "org agenda")))
-
 ;; Projectile
 (use-package projectile
   :ensure t
@@ -134,7 +93,11 @@
   (setq projectile-require-project-root nil)
   (setq projectile-completion-system 'ivy)
   (require 'subr-x)  ;; address bug similar to https://github.com/alphapapa/org-protocol-capture-html/issues/7
-  :config (projectile-mode 1))
+  :config
+  (projectile-mode 1)
+  (general-define-key
+   :keymaps 'projectile-mode-map
+   "C-c p" 'projectile-command-map))
 
 (use-package counsel-projectile
   :ensure t
@@ -149,9 +112,11 @@
   :ensure t
   :config
   (company-mode 1)
-  (define-key company-active-map (kbd "C-j") 'company-select-next)
-  (define-key company-active-map (kbd "C-k") 'company-select-previous)
-  (define-key company-active-map (kbd "jk") 'company-complete)
+  (general-define-key
+   :keymaps 'company-active-map
+   "C-j" 'company-select-next
+   "C-k" 'company-select-previous
+   "jk" 'company-complete)
   :hook (after-init . global-company-mode))
 
 ;; surround
@@ -174,12 +139,18 @@
   (hl-todo-mode 1))
 
 ;; Magit
-(use-package magit :ensure t)
+(use-package magit
+  :ensure t
+  :config
+  (general-define-key "C-x g" 'magit-status))
+
 (use-package evil-magit :ensure t)
 
 ;; browse at remote
 (use-package browse-at-remote
   :ensure t
+  :config
+  (general-define-key "C-c r" 'browse-at-remote)
   :pin melpa-stable)
 
 ;; neotree
@@ -210,7 +181,9 @@
   (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
 
 (with-eval-after-load 'haskell-mode
-  (define-key haskell-mode-map (kbd "C-c C-f") #'haskell-mode-format-buffer-with-brittany))
+  (general-define-key
+   :keymaps 'haskell-mode-map
+   "C-c C-f" 'haskell-mode-format-buffer-with-brittany))
 
 (defun haskell-mode-format-buffer-with-brittany ()
   (interactive)
@@ -226,10 +199,14 @@
   (ensime-startup-notification 'nil))
 
 (with-eval-after-load 'scala-mode
-  (define-key scala-mode-map (kbd "C-c C-f") #'scala-mode-format-buffer-with-scalafmt))
+  (general-define-key
+   :keymaps 'scala-mode-map
+   "C-c C-f" 'scala-mode-format-buffer-with-scalafmt))
 
 (with-eval-after-load 'ensime-mode
-  (define-key ensime-mode-map (kbd "C-c C-v g") #'ensime-edit-definition-of-thing-at-point))
+  (general-define-key
+   :keymaps 'ensime-mode-map
+   "C-c C-v g" 'ensime-edit-definition-of-thing-at-point))
 
 (defun scala-mode-format-buffer-with-scalafmt ()
   (interactive)
@@ -256,6 +233,8 @@
 (defun mcw:load-sql-connections ()
   (interactive)
   (require 'sql-connections "~/.sql-connections.el.gpg"))
+
+(general-define-key "C-c s" 'sql-connect)
 
 (add-hook 'sql-interactive-mode-hook
 	  (lambda ()
