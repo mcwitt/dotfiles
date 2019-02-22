@@ -194,9 +194,9 @@
 (with-eval-after-load 'haskell-mode
   (general-define-key
    :keymaps 'haskell-mode-map
-   "C-c C-f" 'haskell-mode-format-buffer-with-brittany))
+   "C-c C-f" 'mcw:haskell-mode-format-buffer-with-brittany))
 
-(defun haskell-mode-format-buffer-with-brittany ()
+(defun mcw:haskell-mode-format-buffer-with-brittany ()
   (interactive)
   (save-buffer)
   (shell-command-to-string (format "brittany --write-mode inplace %s" buffer-file-name))
@@ -212,14 +212,14 @@
 (with-eval-after-load 'scala-mode
   (general-define-key
    :keymaps 'scala-mode-map
-   "C-c C-f" 'scala-mode-format-buffer-with-scalafmt))
+   "C-c C-f" 'mcw:scala-mode-format-buffer-with-scalafmt))
 
 (with-eval-after-load 'ensime-mode
   (general-define-key
    :keymaps 'ensime-mode-map
    "C-c C-v g" 'ensime-edit-definition-of-thing-at-point))
 
-(defun scala-mode-format-buffer-with-scalafmt ()
+(defun mcw:scala-mode-format-buffer-with-scalafmt ()
   (interactive)
   (save-buffer)
   (shell-command-to-string (format "scalafmt %s" buffer-file-name))
