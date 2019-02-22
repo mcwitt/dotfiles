@@ -23,10 +23,10 @@
   (package-install 'use-package))
 
 (require 'use-package)
+(setq use-package-always-ensure t)
 
 ;; Vim mode
 (use-package evil
-  :ensure t
   :init
   (setq evil-want-C-u-scroll t)
   (setq evil-want-abbrev-expand-on-insert-exit nil)
@@ -34,21 +34,18 @@
   (evil-mode 1))
 
 (use-package evil-escape
-  :ensure t
   :init
   (setq-default evil-escape-key-sequence "fd")
   :config
   (evil-escape-mode 1))
 
-(use-package zenburn-theme :ensure t)
+(use-package zenburn-theme)
 (load-theme 'zenburn t)
 
 ;; Custom keybinding
-(use-package general
-  :ensure t)
+(use-package general)
 
 (use-package ivy
-  :ensure t
   :config
   (ivy-mode 1)
   (general-define-key
@@ -61,7 +58,6 @@
    "C-h" 'ivy-backward-kill-word))
 
 (use-package counsel
-  :ensure t
   :config
   (general-define-key
    "C-s" 'swiper
@@ -73,13 +69,11 @@
    "C-x l" 'counsel-locate))
 
 (use-package counsel-tramp
-  :ensure t
   :config
   (general-define-key "C-c f" 'counsel-tramp))
 
 ;; Which Key
 (use-package which-key
-  :ensure t
   :init
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+")
@@ -88,7 +82,6 @@
 
 ;; Projectile
 (use-package projectile
-  :ensure t
   :init
   (setq projectile-require-project-root nil)
   (setq projectile-completion-system 'ivy)
@@ -100,7 +93,6 @@
    "C-c p" 'projectile-command-map))
 
 (use-package counsel-projectile
-  :ensure t
   :config (counsel-projectile-mode 1))
 
 ;; Show matching parens
@@ -109,7 +101,6 @@
 
 ;; completion
 (use-package company
-  :ensure t
   :config
   (company-mode 1)
   (general-define-key
@@ -121,41 +112,35 @@
 
 ;; surround
 (use-package evil-surround
-  :ensure t
   :config
   (global-evil-surround-mode 1))
 
 ;; line numbering
 (use-package nlinum-relative
-  :ensure t
   :config
   (nlinum-relative-setup-evil)
   :hook (prog-mode . nlinum-relative-mode))
 
 ;; highlighting TODO items in comments
 (use-package hl-todo
-  :ensure t
   :config
   (hl-todo-mode 1))
 
 ;; Magit
 (use-package magit
-  :ensure t
   :config
   (general-define-key "C-x g" 'magit-status))
 
-(use-package evil-magit :ensure t)
+(use-package evil-magit)
 
 ;; browse at remote
 (use-package browse-at-remote
-  :ensure t
   :config
   (general-define-key "C-c r" 'browse-at-remote)
   :pin melpa-stable)
 
 ;; neotree
 (use-package neotree
-  :ensure t
   :pin melpa-stable)
 
 ;; org-mode
@@ -186,7 +171,6 @@
 
 ;; Haskell
 (use-package intero
-  :ensure t
   :config
   (intero-global-mode 1)
   (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
@@ -204,7 +188,6 @@
 
 ;; Scala
 (use-package ensime
-  :ensure t
   :pin melpa-stable
   :custom
   (ensime-startup-notification 'nil))
@@ -226,17 +209,14 @@
   (revert-buffer :ignore-auto :noconfirm))
 
 ;; logview
-(use-package logview
-  :ensure t)
+(use-package logview)
 
 ;; deft
 (use-package deft
-  :init (setq deft-extension "org")
-  :ensure t)
+  :init (setq deft-extension "org"))
 
 ;; pinentry
 (use-package pinentry
-  :ensure t
   :config
   (pinentry-start))
 
@@ -258,12 +238,10 @@
 
 ;; plantuml
 (use-package plantuml-mode
-  :ensure t
   :config
   (setq org-plantuml-jar-path (expand-file-name "~/.local/libexec/plantuml.jar")))
 
-(use-package flycheck-plantuml
-  :ensure t)
+(use-package flycheck-plantuml)
 
 ;; custom file
 (setq custom-file "~/.emacs-custom.el")
