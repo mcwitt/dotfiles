@@ -111,9 +111,7 @@
   :hook (after-init . global-company-mode))
 
 ;; surround
-(use-package evil-surround
-  :config
-  (global-evil-surround-mode 1))
+(use-package evil-surround :config (global-evil-surround-mode 1))
 
 ;; line numbering
 (use-package nlinum-relative
@@ -122,9 +120,7 @@
   :hook (prog-mode . nlinum-relative-mode))
 
 ;; highlighting TODO items in comments
-(use-package hl-todo
-  :config
-  (hl-todo-mode 1))
+(use-package hl-todo :config (hl-todo-mode 1))
 
 ;; Magit
 (use-package magit
@@ -140,8 +136,7 @@
   :pin melpa-stable)
 
 ;; neotree
-(use-package neotree
-  :pin melpa-stable)
+(use-package neotree :pin melpa-stable)
 
 ;; org-mode
 (setq org-startup-indented t)
@@ -212,13 +207,10 @@
 (use-package logview)
 
 ;; deft
-(use-package deft
-  :init (setq deft-extension "org"))
+(use-package deft :init (setq deft-extension "org"))
 
 ;; pinentry
-(use-package pinentry
-  :config
-  (pinentry-start))
+(use-package pinentry :config (pinentry-start))
 
 ;; SQL
 (defun mcw:sql-connect ()
