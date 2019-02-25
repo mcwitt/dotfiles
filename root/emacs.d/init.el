@@ -25,13 +25,20 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(use-package general)
+
 ;; Vim mode
 (use-package evil
   :init
   (setq evil-want-C-u-scroll t)
   (setq evil-want-abbrev-expand-on-insert-exit nil)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (general-define-key
+   :states '(normal insert)
+   :keymaps 'comint-mode-map
+   "C-j" 'comint-next-input
+   "C-k" 'comint-previous-input))
 
 (use-package evil-escape
   :init
@@ -41,9 +48,6 @@
 
 (use-package zenburn-theme)
 (load-theme 'zenburn t)
-
-;; Custom keybinding
-(use-package general)
 
 (use-package ivy
   :config
