@@ -209,6 +209,10 @@
   (shell-command-to-string (format "scalafmt %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
+;; json
+(use-package json-mode)
+(add-hook 'json-mode-hook 'flycheck-mode)
+
 ;; logview
 (use-package logview)
 
