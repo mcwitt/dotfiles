@@ -99,6 +99,8 @@
 (use-package counsel-projectile
   :config (counsel-projectile-mode 1))
 
+(use-package ripgrep)
+
 ;; Show matching parens
 (setq show-paren-delay 0)
 (show-paren-mode 1)
