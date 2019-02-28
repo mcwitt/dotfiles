@@ -226,7 +226,7 @@
 (defun mcw:sql-connect ()
   (interactive)
   (if (not (boundp 'sql-connections)) (mcw:load-sql-connections) nil)
-  (sql-connect))
+  (call-interactively 'sql-connect))
 
 (defun mcw:load-sql-connections ()
   (interactive)
