@@ -160,8 +160,10 @@
  "C-c c" 'org-capture)
 
 (with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map "j" 'evil-next-line)
-  (define-key org-agenda-mode-map "k" 'evil-previous-line))
+  (general-define-key
+   :keymaps 'org-agenda-mode-map
+   "j" 'evil-next-line
+   "k" 'evil-previous-line))
 
 ;; org-babel
 (with-eval-after-load 'org
@@ -217,7 +219,11 @@
 (use-package logview)
 
 ;; deft
-(use-package deft :init (setq deft-extension "org"))
+(use-package deft
+  :init
+  (setq deft-extension "org")
+  :config
+  (general-define-key "C-c d" 'deft))
 
 ;; pinentry
 (use-package pinentry :config (pinentry-start))
