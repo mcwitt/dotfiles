@@ -166,11 +166,15 @@
    "k" 'evil-previous-line))
 
 ;; org-babel
+(use-package ob-ipython)
 (with-eval-after-load 'org
+  (setq org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
-     (plantuml . t))))
+     (ipython . t)
+     (plantuml . t)
+     (R . t))))
 
 ;; Haskell
 (use-package intero
