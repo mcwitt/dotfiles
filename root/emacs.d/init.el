@@ -165,6 +165,13 @@
    "j" 'evil-next-line
    "k" 'evil-previous-line))
 
+(setq mcw:sync-gtd-command (concat "cd ~/.gtd\n"
+				   "git-sync"))
+
+(defun mcw:sync-gtd ()
+  (interactive)
+  (shell-command-to-string (format "bash -c %s" (shell-quote-argument mcw:sync-gtd-command))))
+
 ;; org-babel
 (use-package ob-ipython)
 (with-eval-after-load 'org
