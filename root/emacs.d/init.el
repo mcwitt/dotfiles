@@ -138,7 +138,7 @@
 ;; browse at remote
 (use-package browse-at-remote
   :config
-  (general-define-key "C-c r" 'browse-at-remote)
+  (general-define-key "C-c b" 'browse-at-remote)
   :pin melpa-stable)
 
 ;; neotree
