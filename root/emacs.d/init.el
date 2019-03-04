@@ -183,6 +183,9 @@
      (plantuml . t)
      (R . t))))
 
+;; Markdown
+(use-package markdown-mode)
+
 ;; Haskell
 (use-package intero
   :config
