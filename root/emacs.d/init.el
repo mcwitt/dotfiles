@@ -238,6 +238,9 @@
 (use-package json-mode)
 (add-hook 'json-mode-hook 'flycheck-mode)
 
+;; yaml
+(use-package yaml-mode)
+
 ;; logview
 (use-package logview)
 
