@@ -177,6 +177,7 @@
 
 ;; org-babel
 (use-package ob-ipython)
+(use-package ob-restclient)
 (with-eval-after-load 'org
   (setq org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages
@@ -184,7 +185,8 @@
    '((emacs-lisp . t)
      (ipython . t)
      (plantuml . t)
-     (R . t))))
+     (R . t)
+     (restclient . t))))
 
 ;; Markdown
 (use-package markdown-mode
@@ -269,6 +271,10 @@
 (add-hook 'sql-interactive-mode-hook
 	  (lambda ()
 	    (toggle-truncate-lines t)))
+
+;; restclient
+(use-package restclient)
+(use-package company-restclient)
 
 ;; plantuml
 (use-package plantuml-mode
