@@ -156,6 +156,7 @@
 	 (file "~/.gtd/gtd.org")
 	 "* TODO %? :Inbox:\n%U\n")))
 
+(add-hook 'org-mode-hook 'turn-on-flyspell)
 (add-hook 'org-capture-mode-hook 'org-align-all-tags)
 
 (general-define-key
