@@ -284,5 +284,12 @@
 
 (use-package flycheck-plantuml)
 
+;; S3
+(use-package s3ed
+  :config
+  (general-define-key
+   "C-c r f" 's3ed-find-file
+   "C-c r s" 's3ed-save-file))
+
 ;; custom file
 (setq custom-file "~/.emacs-custom.el")
