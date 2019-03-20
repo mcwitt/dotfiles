@@ -119,6 +119,14 @@
    "jk" 'company-complete)
   :hook (after-init . global-company-mode))
 
+;; smartparens
+(use-package smartparens
+  :config
+  (use-package smartparens-config))
+
+(use-package evil-smartparens
+  :hook (smartparens-enabled . evil-smartparens-mode))
+
 ;; surround
 (use-package evil-surround :config (global-evil-surround-mode 1))
 
