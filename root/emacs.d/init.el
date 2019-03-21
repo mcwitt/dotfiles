@@ -120,9 +120,7 @@
   :hook (after-init . global-company-mode))
 
 ;; smartparens
-(use-package smartparens
-  :config
-  (use-package smartparens-config))
+(use-package smartparens)
 
 (use-package evil-smartparens
   :hook (smartparens-enabled . evil-smartparens-mode))
