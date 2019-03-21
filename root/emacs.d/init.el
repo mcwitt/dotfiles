@@ -193,7 +193,8 @@
      (ipython . t)
      (plantuml . t)
      (R . t)
-     (restclient . t))))
+     (restclient . t)
+     (scala . t))))
 
 ;; Markdown
 (use-package markdown-mode
