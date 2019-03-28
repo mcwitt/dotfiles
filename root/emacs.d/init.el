@@ -170,6 +170,7 @@
  "C-c c" 'org-capture)
 
 (with-eval-after-load 'org-agenda
+  (setq org-stuck-projects '("+LEVEL=1/-DONE" ("TODO" "NEXT" "NEXTACTION") nil ""))
   (general-define-key
    :keymaps 'org-agenda-mode-map
    "j" 'evil-next-line
