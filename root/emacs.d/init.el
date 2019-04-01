@@ -84,9 +84,6 @@
   :config
   (which-key-mode 1))
 
-;; term settings
-(general-define-key "C-c t" 'term)
-
 ;; Projectile
 (use-package projectile
   :init
