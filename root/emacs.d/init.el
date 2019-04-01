@@ -176,9 +176,12 @@
 (setq mcw:sync-gtd-command (concat "cd ~/.gtd\n"
 				   "git-sync"))
 
-(defun mcw:sync-gtd ()
+(defun mcw:save-and-sync-gtd ()
   (interactive)
+  (org-save-all-org-buffers)
   (shell-command-to-string (format "bash -c %s" (shell-quote-argument mcw:sync-gtd-command))))
+
+(general-define-key "C-c t s" 'mcw:save-and-sync-gtd)
 
 ;; org-babel
 (use-package ob-ipython)
