@@ -173,13 +173,21 @@
    "j" 'evil-next-line
    "k" 'evil-previous-line))
 
-(setq mcw:sync-gtd-command (concat "cd ~/.gtd\n"
-				   "git-sync"))
+(defun mcw:run-with-output-on-nonzero-exit (program &rest args)
+  "Run PROGRAM with ARGS and switch to buffer containing output if exit code is nonzero"
+  (with-temp-buffer
+    (if (not (eq (apply 'call-process program nil (current-buffer) nil args) 0))
+	(let ((tempbuf (current-buffer)))
+	  (with-current-buffer (get-buffer-create program)
+	    (insert-buffer-substring tempbuf))
+	  (switch-to-buffer-other-window program))
+      nil)))
 
 (defun mcw:save-and-sync-gtd ()
   (interactive)
   (org-save-all-org-buffers)
-  (shell-command-to-string (format "bash -c %s" (shell-quote-argument mcw:sync-gtd-command))))
+  (let ((default-directory "~/.gtd/"))
+    (mcw:run-with-output-on-nonzero-exit "git-sync")))
 
 (general-define-key "C-c t s" 'mcw:save-and-sync-gtd)
 
