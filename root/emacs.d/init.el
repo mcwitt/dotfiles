@@ -152,11 +152,13 @@
 
 ;; org-mode
 (setq org-startup-indented t)
-(setq org-agenda-files '("~/.gtd/gtd.org"))
+(setq mcw:org-gtd-directory (file-name-as-directory "~/.gtd/"))
+(setq mcw:org-gtd-agenda-file (concat mcw:org-gtd-directory "gtd.org"))
+(setq org-agenda-files (list mcw:org-gtd-agenda-file))
 
 (setq org-capture-templates
       '(("t" "Todo" entry
-	 (file "~/.gtd/gtd.org")
+	 (file mcw:org-gtd-agenda-file)
 	 "* TODO %? :Inbox:\n%U\n")))
 
 (add-hook 'org-mode-hook 'turn-on-flyspell)
@@ -186,7 +188,7 @@
 (defun mcw:save-and-sync-gtd ()
   (interactive)
   (org-save-all-org-buffers)
-  (let ((default-directory "~/.gtd/"))
+  (let ((default-directory mcw:org-gtd-directory))
     (mcw:run-with-output-on-nonzero-exit "git-sync")))
 
 (general-define-key "C-c t s" 'mcw:save-and-sync-gtd)
