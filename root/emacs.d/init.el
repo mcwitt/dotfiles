@@ -161,6 +161,12 @@
 	 (file mcw:org-gtd-agenda-file)
 	 "* TODO %? :Inbox:\n%U\n")))
 
+(setq org-agenda-custom-commands
+      '(("n" "Agenda and all TODOs"
+	 ((agenda "")
+	  (tags "Inbox")
+	  (alltodo "")))))
+
 (add-hook 'org-mode-hook 'turn-on-flyspell)
 (add-hook 'org-capture-mode-hook 'org-align-all-tags)
 
