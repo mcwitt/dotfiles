@@ -11,8 +11,8 @@
 ;; Package configs
 (require 'package)
 (setq package-enable-at-startup nil)
-(setq package-archives '(("org"   . "http://orgmode.org/elpa/")
-                         ("gnu"   . "http://elpa.gnu.org/packages/")
+(setq package-archives '(("org" . "http://orgmode.org/elpa/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")
                          ("melpa-stable" . "https://stable.melpa.org/packages/")))
 (package-initialize)
@@ -25,6 +25,7 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Helper for keybindings
 (use-package general)
 
 ;; Vim mode
@@ -46,8 +47,15 @@
   :config
   (evil-escape-mode 1))
 
+;; Themes
 (use-package zenburn-theme)
-(load-theme 'zenburn t)
+(use-package leuven-theme
+  :custom
+  (leuven-scale-outline-headlines nil "")
+  (leuven-scale-org-agenda-structure nil ""))
+
+(load-theme 'leuven t)
+
 
 (use-package ivy
   :config
