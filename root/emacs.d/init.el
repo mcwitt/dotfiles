@@ -263,7 +263,12 @@
   (revert-buffer :ignore-auto :noconfirm))
 
 ;; json
-(use-package json-mode)
+(use-package json-mode
+  :config
+  (general-define-key
+   :keymaps 'json-mode-map
+   "C-c C-f" 'json-pretty-print-buffer))
+
 (add-hook 'json-mode-hook 'flycheck-mode)
 
 ;; yaml
