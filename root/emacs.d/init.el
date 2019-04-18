@@ -262,6 +262,19 @@
   (shell-command-to-string (format "scalafmt %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
+;; Python
+(use-package anaconda-mode
+  :hook ((python-mode . anaconda-mode)
+	 (python-mode . anaconda-eldoc-mode)))
+
+(use-package company-anaconda
+  :config
+  (eval-after-load "company"
+    '(add-to-list 'company-backends 'company-anaconda)))
+
+(use-package pyenv-mode
+  :hook python-mode)
+
 ;; json
 (use-package json-mode
   :config
