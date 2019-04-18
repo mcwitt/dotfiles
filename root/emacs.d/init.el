@@ -238,6 +238,8 @@
   (shell-command-to-string (format "brittany --write-mode inplace %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
+(setq haskell-process-type 'stack-ghci)
+
 ;; Scala
 (use-package ensime
   :pin melpa-stable
