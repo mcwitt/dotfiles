@@ -249,6 +249,7 @@
 (with-eval-after-load 'scala-mode
   (general-define-key
    :keymaps 'scala-mode-map
+   "C-c C-e" 'ensime
    "C-c C-f" 'mcw:scala-mode-format-buffer-with-scalafmt))
 
 (with-eval-after-load 'ensime-mode
