@@ -243,8 +243,8 @@
 ;; Scala
 (use-package ensime
   :pin melpa-stable
-  :custom
-  (ensime-startup-notification 'nil))
+  :hook (scala-mode . smartparens-mode)
+  :custom (ensime-startup-notification 'nil))
 
 (with-eval-after-load 'scala-mode
   (general-define-key
