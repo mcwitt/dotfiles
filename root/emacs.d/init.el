@@ -187,6 +187,9 @@
   (setq org-stuck-projects '("+LEVEL=1/-DONE" ("TODO" "NEXT" "NEXTACTION") nil ""))
   (general-define-key
    :keymaps 'org-agenda-mode-map
+   ;; minimal set of evil movements in org-agenda
+   "C-w h" 'evil-window-left
+   "C-w l" 'evil-window-right
    "j" 'evil-next-line
    "k" 'evil-previous-line))
 
