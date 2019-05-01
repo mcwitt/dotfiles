@@ -17,3 +17,12 @@ alias rm='rm -i'
 alias vim=nvim
 
 if [ -f ~/.local/zshrc ]; then source ~/.local/zshrc; fi
+
+function pyenv_prompt {
+    REPLY=${PYENV_ROOT+($(pyenv version-name)) }
+}
+
+function prompt_pyenv {
+    grml_theme_add_token pyenv -f pyenv_prompt '%F{magenta}' '%f'
+    zstyle ':prompt:grml:left:setup' items rc pyenv change-root user at host path vcs percent
+}
