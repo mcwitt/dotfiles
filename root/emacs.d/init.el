@@ -173,6 +173,7 @@
       '(("n" "Agenda and all TODOs"
 	 ((agenda "")
 	  (tags "Inbox")
+	  (tags "Reading")
 	  (alltodo "")))))
 
 (add-hook 'org-mode-hook 'turn-on-flyspell)
