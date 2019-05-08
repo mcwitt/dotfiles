@@ -202,15 +202,12 @@
 (general-define-key "C-c t s" 'mcw:save-and-sync-gtd)
 
 ;; org-babel
-(use-package ob-ipython)
-(use-package ob-restclient)
 (with-eval-after-load 'org
   (setq org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
      (haskell . t)
-     (ipython . t)
      (plantuml . t)
      (R . t)
      (restclient . t)
@@ -294,6 +291,9 @@
 
 ;; logview
 (use-package logview)
+
+;; rest client
+(use-package ob-restclient)
 
 ;; deft
 (use-package deft
