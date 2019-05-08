@@ -208,6 +208,7 @@
    'org-babel-load-languages
    '((emacs-lisp . t)
      (haskell . t)
+     (jupyter . t)
      (plantuml . t)
      (R . t)
      (restclient . t)
@@ -263,6 +264,9 @@
   (save-buffer)
   (shell-command-to-string (format "scalafmt %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
+
+;; Jupyter
+(use-package jupyter)
 
 ;; Python
 (use-package anaconda-mode
