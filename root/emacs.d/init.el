@@ -201,11 +201,10 @@
 
 (general-define-key "C-c t s" 'mcw:save-and-sync-gtd)
 
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
-
 ;; org-babel
 (with-eval-after-load 'org
   (setq org-confirm-babel-evaluate nil)
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
