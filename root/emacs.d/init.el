@@ -201,6 +201,21 @@
 
 (general-define-key "C-c t s" 'mcw:save-and-sync-gtd)
 
+(setq org-format-latex-options
+      '(:foreground
+	default
+	:background
+	default
+	:scale
+	1.5
+	:html-foreground
+	"Black"
+	:html-background
+	"Transparent"
+	:html-scale 1.0
+	:matchers
+	("begin" "$1" "$" "$$" "\\(" "\\[")))
+
 ;; org-babel
 (with-eval-after-load 'org
   (setq org-confirm-babel-evaluate nil)
