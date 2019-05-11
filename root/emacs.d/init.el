@@ -215,6 +215,13 @@
      (restclient . t)
      (scala . t))))
 
+;; LaTeX
+(use-package tex
+  :ensure auctex)
+
+(use-package cdlatex
+  :hook (org-mode . turn-on-org-cdlatex))
+
 ;; Markdown
 (use-package markdown-mode
   :ensure t
