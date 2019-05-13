@@ -210,7 +210,6 @@
    '((emacs-lisp . t)
      (haskell . t)
      (jupyter . t)
-     (plantuml . t)
      (R . t)
      (restclient . t)
      (scala . t))))
