@@ -155,7 +155,18 @@
   (general-define-key "C-c b" 'browse-at-remote))
 
 ;; neotree
-(use-package neotree)
+(use-package neotree
+  :config
+  (general-define-key
+   :keymaps 'neotree-mode-map
+   :states 'normal
+   "TAB" 'neotree-enter
+   "SPC" 'neotree-quick-look
+   "q" 'neotree-hide
+   "RET" 'neotree-enter
+   "g" 'neotree-refresh
+   "A" 'neotree-stretch-toggle
+   "H" 'neotree-hidden-file-toggle))
 
 ;; org-mode
 (setq org-startup-indented t)
