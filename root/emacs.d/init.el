@@ -152,11 +152,10 @@
 ;; browse at remote
 (use-package browse-at-remote
   :config
-  (general-define-key "C-c b" 'browse-at-remote)
-  :pin melpa-stable)
+  (general-define-key "C-c b" 'browse-at-remote))
 
 ;; neotree
-(use-package neotree :pin melpa-stable)
+(use-package neotree)
 
 ;; org-mode
 (setq org-startup-indented t)
@@ -251,7 +250,6 @@
 
 ;; Scala
 (use-package ensime
-  :pin melpa-stable
   :hook (scala-mode . smartparens-mode)
   :custom (ensime-startup-notification 'nil))
 
