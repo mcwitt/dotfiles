@@ -187,10 +187,12 @@
   (general-define-key
    :keymaps 'org-agenda-mode-map
    ;; minimal set of evil movements in org-agenda
-   "C-w h" 'evil-window-left
-   "C-w l" 'evil-window-right
    "j" 'evil-next-line
-   "k" 'evil-previous-line))
+   "k" 'evil-previous-line
+   "C-u" 'evil-scroll-page-up
+   "C-d" 'evil-scroll-page-down
+   "C-w h" 'evil-window-left
+   "C-w l" 'evil-window-right))
 
 (defun mcw:save-and-sync-gtd ()
   (interactive)
