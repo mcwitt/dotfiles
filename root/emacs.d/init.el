@@ -170,7 +170,7 @@
 
 ;; org-mode
 (setq org-startup-indented t)
-(setq mcw:org-gtd-directory (file-name-as-directory "~/.gtd/"))
+(setq mcw:org-gtd-directory (file-name-as-directory "~/org/gtd/"))
 (setq mcw:org-gtd-agenda-file (concat mcw:org-gtd-directory "gtd.org"))
 (setq org-agenda-files (list mcw:org-gtd-agenda-file))
 
