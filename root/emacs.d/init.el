@@ -224,7 +224,8 @@
      (jupyter . t)
      (R . t)
      (restclient . t)
-     (scala . t))))
+     (scala . t)
+     (shell . t))))
 
 ;; LaTeX
 (use-package tex
