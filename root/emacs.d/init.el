@@ -74,11 +74,13 @@
   (general-define-key
    "C-s" 'swiper
    "M-x" 'counsel-M-x
+   "C-x l" 'counsel-locate
    "C-x C-f" 'counsel-find-file
    "C-x C-r" 'counsel-recentf
    "C-c g" 'counsel-git
    "C-c j" 'counsel-git-grep
-   "C-x l" 'counsel-locate))
+   "C-c t" 'counsel-load-theme
+   ))
 
 (use-package counsel-tramp
   :config
@@ -205,13 +207,13 @@
    "C-w h" 'evil-window-left
    "C-w l" 'evil-window-right))
 
-(defun mcw:save-and-sync-gtd ()
+(defun mcw:save-and-sync-org ()
   (interactive)
   (org-save-all-org-buffers)
   (let ((default-directory mcw:org-gtd-directory))
     (shell-command "git-sync")))
 
-(general-define-key "C-c t s" 'mcw:save-and-sync-gtd)
+(general-define-key "C-c o s" 'mcw:save-and-sync-org)
 
 ;; org-babel
 (with-eval-after-load 'org
