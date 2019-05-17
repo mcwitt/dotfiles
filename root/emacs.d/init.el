@@ -238,7 +238,6 @@
 
 ;; Markdown
 (use-package markdown-mode
-  :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
@@ -273,17 +272,17 @@
   (general-define-key
    :keymaps 'scala-mode-map
    "C-c C-e" 'ensime
-   "C-c C-f" 'mcw:scala-mode-format-buffer-with-scalafmt))
+   "C-c C-f" 'mcw:scala-mode-format-buffer-with-sbt-scalafmt))
 
 (with-eval-after-load 'ensime-mode
   (general-define-key
    :keymaps 'ensime-mode-map
    "C-c C-v g" 'ensime-edit-definition-of-thing-at-point))
 
-(defun mcw:scala-mode-format-buffer-with-scalafmt ()
+(defun mcw:scala-mode-format-buffer-with-sbt-scalafmt ()
   (interactive)
   (save-buffer)
-  (shell-command-to-string (format "scalafmt %s" buffer-file-name))
+  (ensime-sbt-run-command-in-project "scalafmtOnly" t)
   (revert-buffer :ignore-auto :noconfirm))
 
 ;; Jupyter
