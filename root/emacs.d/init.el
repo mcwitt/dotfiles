@@ -301,6 +301,12 @@
 (use-package pyenv-mode
   :hook python-mode)
 
+(use-package blacken
+  :config
+  (general-define-key
+   :keymaps 'python-mode-map
+   "C-c C-f" 'blacken-buffer))
+
 ;; json
 (use-package json-mode
   :config
