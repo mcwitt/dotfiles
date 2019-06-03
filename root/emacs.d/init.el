@@ -236,6 +236,10 @@
 (use-package cdlatex
   :hook (org-mode . turn-on-org-cdlatex))
 
+(with-eval-after-load 'ox-latex
+  (setq org-latex-listings 'minted)
+  (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
+
 ;; Markdown
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
