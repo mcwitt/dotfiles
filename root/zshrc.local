@@ -2,6 +2,8 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 KEYTIMEOUT=10
 
+set HIST_IGNORE_SPACE
+
 source-script() {
     source ~/.local/share/$1/$1.zsh
 }
