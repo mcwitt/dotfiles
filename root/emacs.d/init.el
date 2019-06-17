@@ -8,6 +8,8 @@
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 80))
 
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+
 ;; Package configs
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -141,8 +143,12 @@
   (nlinum-relative-setup-evil)
   :hook (prog-mode . nlinum-relative-mode))
 
+;; Fira Code ligatures
+(require 'fira-code-mode)
+
 ;; highlighting TODO items in comments
-(use-package hl-todo :config (hl-todo-mode 1))
+(use-package hl-todo
+  :config (hl-todo-mode 1))
 
 ;; Magit
 (use-package magit
@@ -253,6 +259,8 @@
 
 ;; Haskell
 (use-package intero
+  :hook
+  (haskell-mode . fira-code-mode)
   :config
   (intero-global-mode 1)
   (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
@@ -272,7 +280,9 @@
 
 ;; Scala
 (use-package ensime
-  :hook (scala-mode . smartparens-mode)
+  :hook
+  (scala-mode . smartparens-mode)
+  (scala-mode . fira-code-mode)
   :custom (ensime-startup-notification 'nil))
 
 (with-eval-after-load 'scala-mode
