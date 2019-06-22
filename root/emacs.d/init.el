@@ -306,7 +306,13 @@
   (revert-buffer :ignore-auto :noconfirm))
 
 ;; Jupyter
-(use-package jupyter)
+(use-package jupyter
+  :config
+  (general-define-key
+   :states '(normal insert)
+   :keymaps 'jupyter-repl-mode-map
+   "C-j" 'jupyter-repl-history-next-matching
+   "C-k" 'jupyter-repl-history-previous-matching))
 
 ;; Python
 (use-package anaconda-mode
