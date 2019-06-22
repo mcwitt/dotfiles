@@ -28,7 +28,10 @@
 (setq use-package-always-ensure t)
 
 ;; Helper for keybindings
-(use-package general)
+(use-package general
+  :config
+  (general-define-key
+   "C-c i" 'imenu))
 
 ;; Vim mode
 (use-package evil
