@@ -37,16 +37,16 @@
 
 ;; Vim mode
 (use-package evil
+  :general
+  (:states '(normal insert)
+   :keymaps 'comint-mode-map
+   "C-j" 'comint-next-input
+   "C-k" 'comint-previous-input)
   :init
   (setq evil-want-C-u-scroll t)
   (setq evil-want-abbrev-expand-on-insert-exit nil)
   :config
-  (evil-mode 1)
-  (general-define-key
-   :states '(normal insert)
-   :keymaps 'comint-mode-map
-   "C-j" 'comint-next-input
-   "C-k" 'comint-previous-input))
+  (evil-mode 1))
 
 (use-package evil-escape
   :init
@@ -384,10 +384,8 @@
 
 ;; S3
 (use-package s3ed
-  :config
-  (general-define-key
-   "C-c r f" 's3ed-find-file
-   "C-c r s" 's3ed-save-file))
+  :bind (("C-c r f" . s3ed-find-file)
+	 ("C-c r s" . s3ed-save-file)))
 
 ;; custom file
 (setq custom-file "~/.emacs-custom.el")
