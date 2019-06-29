@@ -10,9 +10,6 @@
 
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
-;; Bindings for built-in commands
-(global-set-key (kbd "C-c i") 'imenu)
-
 ;; Package configs
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -29,6 +26,9 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+(use-package imenu
+  :bind ("C-c i" . imenu))
 
 ;; Helper for keybindings
 (use-package general)
