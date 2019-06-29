@@ -305,17 +305,17 @@
   :init (setq markdown-command "pandoc"))
 
 ;; Haskell
-(use-package intero
-  :bind (:map haskell-mode-map ("C-c C-f" . 'mcw:haskell-mode-format-buffer-with-brittany))
+(use-package haskell-mode
   :hook (haskell-mode . fira-code-mode)
-  :init
-  (setq haskell-process-type 'stack-ghci)
-  :config
-  (intero-global-mode 1)
-  (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
+  :bind (:map haskell-mode-map ("C-c C-f" . 'mcw:haskell-mode-format-buffer-with-brittany))
+  :init (setq haskell-process-type 'stack-ghci))
 
-(use-package lsp-haskell
-  :hook (haskell-mode . lsp))
+(use-package intero
+  :config
+  (flycheck-add-next-checker 'intero '(warning . haskell-hlint))
+  (intero-global-mode 1))
+
+(use-package lsp-haskell)
 
 (defun mcw:haskell-mode-format-buffer-with-brittany ()
   (interactive)
