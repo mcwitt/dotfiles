@@ -260,6 +260,9 @@
 
 (global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
 
+(use-package flycheck
+  :config (global-flycheck-mode))
+
 ;; Language Server Protocol support
 (use-package lsp-mode
   :commands lsp)
