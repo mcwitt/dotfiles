@@ -107,7 +107,7 @@
   :init
   (setq projectile-require-project-root nil)
   (setq projectile-completion-system 'ivy)
-  (require 'subr-x)  ;; address bug similar to https://github.com/alphapapa/org-protocol-capture-html/issues/7
+  (require 'subr-x)  ;; work around bug similar to https://github.com/alphapapa/org-protocol-capture-html/issues/7
   :config
   (projectile-mode 1))
 
@@ -260,6 +260,22 @@
 
 (global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
 
+;; Language Server Protocol support
+(use-package lsp-mode
+  :commands lsp)
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
+(use-package company-lsp
+  :commands company-lsp)
+
+(use-package helm-lsp
+  :commands helm-lsp-workspace-symbol)
+
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list)
+
 ;; LaTeX
 (use-package tex
   :ensure auctex)
@@ -293,6 +309,9 @@
   :config
   (intero-global-mode 1)
   (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
+
+(use-package lsp-haskell
+  :hook (haskell-mode . lsp))
 
 (defun mcw:haskell-mode-format-buffer-with-brittany ()
   (interactive)
