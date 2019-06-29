@@ -165,19 +165,50 @@
   :config
   (general-define-key "C-c b" 'browse-at-remote))
 
-;; neotree
-(use-package neotree
+;; treemacs
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
   :config
-  (general-define-key
-   :keymaps 'neotree-mode-map
-   :states 'normal
-   "TAB" 'neotree-enter
-   "SPC" 'neotree-quick-look
-   "q" 'neotree-hide
-   "RET" 'neotree-enter
-   "g" 'neotree-refresh
-   "A" 'neotree-stretch-toggle
-   "H" 'neotree-hidden-file-toggle))
+  (progn
+    ;; (treemacs-resize-icons 44)
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode t)
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null (executable-find "python3"))))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple))))
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
+
+(use-package treemacs-evil
+  :after treemacs evil
+  :ensure t)
+
+(use-package treemacs-projectile
+  :after treemacs projectile
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :after treemacs dired
+  :ensure t
+  :config (treemacs-icons-dired-mode))
+
+(use-package treemacs-magit
+  :after treemacs magit
+  :ensure t)
 
 ;; org-mode
 (setq org-startup-indented t)
