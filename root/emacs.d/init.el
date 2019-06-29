@@ -266,7 +266,6 @@
 ;; Language Server Protocol support
 (use-package lsp-mode
   :commands lsp
-  :hook (scala-mode . lsp)
   :config (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui
