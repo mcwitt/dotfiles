@@ -12,8 +12,6 @@
 
 ;; Bindings for built-in commands
 (global-set-key (kbd "C-c i") 'imenu)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
 
 ;; Package configs
 (require 'package)
@@ -198,49 +196,23 @@
   :after treemacs magit)
 
 ;; org-mode
-(setq org-startup-indented t)
 (setq mcw:org-gtd-directory (file-name-as-directory "~/org/gtd/"))
 (setq mcw:org-gtd-agenda-file (concat mcw:org-gtd-directory "gtd.org"))
-(setq org-agenda-files (list mcw:org-gtd-agenda-file))
 
-(setq org-capture-templates
-      '(("t" "Todo" entry
-	 (file mcw:org-gtd-agenda-file)
-	 "* TODO %? :Inbox:\n%U\n")))
-
-(setq org-agenda-custom-commands
-      '(("n" "Agenda and all TODOs"
-	 ((agenda "")
-	  (tags "Inbox")
-	  (tags "Reading")
-	  (alltodo "")))))
-
-(add-hook 'org-mode-hook 'turn-on-flyspell)
-(add-hook 'org-capture-mode-hook 'org-align-all-tags)
-
-(with-eval-after-load 'org-agenda
+(use-package org
+  :bind (("C-c a" . org-agenda)
+	 ("C-c c" . org-capture))
+  :hook ((org-mode . turn-on-flyspell)
+	 (org-capture . org-align-all-tags))
+  :init
+  (setq org-startup-indented t)
+  (setq org-capture-templates
+	'(("t" "Todo" entry
+	   (file mcw:org-gtd-agenda-file)
+	   "* TODO %? :Inbox:\n%U\n")))
   (setq org-stuck-projects '("+LEVEL=1/-DONE" ("TODO" "NEXT" "NEXTACTION") nil ""))
-  (general-define-key
-   :keymaps 'org-agenda-mode-map
-   ;; minimal set of evil movements in org-agenda
-   "j" 'evil-next-line
-   "k" 'evil-previous-line
-   "C-u" 'evil-scroll-page-up
-   "C-d" 'evil-scroll-page-down
-   "C-w h" 'evil-window-left
-   "C-w l" 'evil-window-right))
-
-(defun mcw:save-and-sync-org ()
-  (interactive)
-  (org-save-all-org-buffers)
-  (let ((default-directory mcw:org-gtd-directory))
-    (shell-command "git-sync")))
-
-(global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
-
-;; org-babel
-(with-eval-after-load 'org
   (setq org-confirm-babel-evaluate nil)
+  :config
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -251,6 +223,34 @@
      (restclient . t)
      (scala . t)
      (shell . t))))
+
+(use-package org-agenda
+  :ensure nil
+  :bind
+  (:map org-agenda-mode-map
+	;; minimal set of evil movements in org-agenda
+	("j" . evil-next-line)
+	("k" . evil-previous-line)
+	("C-u" . evil-scroll-page-up)
+	("C-d" . evil-scroll-page-down)
+	("C-w h" . evil-window-left)
+	("C-w l" . evil-window-right))
+  :init
+  (setq org-agenda-files (list mcw:org-gtd-agenda-file))
+  (setq org-agenda-custom-commands
+	'(("n" "Agenda and all TODOs"
+	   ((agenda "")
+	    (tags "Inbox")
+	    (tags "Reading")
+	    (alltodo ""))))))
+
+(defun mcw:save-and-sync-org ()
+  (interactive)
+  (org-save-all-org-buffers)
+  (let ((default-directory mcw:org-gtd-directory))
+    (shell-command "git-sync")))
+
+(global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
 
 ;; LaTeX
 (use-package tex
