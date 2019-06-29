@@ -324,7 +324,6 @@
   (revert-buffer :ignore-auto :noconfirm))
 
 ;; Scala
-
 (use-package scala-mode
   :after smartparens
   :hook ((scala-mode . smartparens-mode)
@@ -358,7 +357,6 @@
 
 ;; Jupyter (REPL, org-babel integration)
 (use-package jupyter
-  :bind
   :general
   (:keymaps 'jupyter-repl-mode-map
    :states '(normal insert)
