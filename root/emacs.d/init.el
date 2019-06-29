@@ -265,7 +265,9 @@
 
 ;; Language Server Protocol support
 (use-package lsp-mode
-  :commands lsp)
+  :commands lsp
+  :hook (scala-mode . lsp)
+  :config (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
@@ -323,6 +325,16 @@
   (revert-buffer :ignore-auto :noconfirm))
 
 ;; Scala
+(use-package sbt-mode
+  :commands sbt-start sbt-command
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map))
+
 (use-package ensime
   :bind (:map scala-mode-map
 	 ("C-c C-e" . ensime)
