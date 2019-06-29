@@ -1,3 +1,6 @@
+;; Path to additional elisp files
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+
 ;; Minimal UI
 (scroll-bar-mode -1)
 (tool-bar-mode   -1)
@@ -8,7 +11,8 @@
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 80))
 
-(add-to-list 'load-path "~/.emacs.d/elisp/")
+;; Show matching parens
+(show-paren-mode 1)
 
 ;; Package configs
 (require 'package)
@@ -33,7 +37,7 @@
 ;; Helper for keybindings
 (use-package general)
 
-;; Vim mode
+;; Vim emulation
 (use-package evil
   :general
   (:states '(normal insert)
@@ -46,20 +50,23 @@
   :config
   (evil-mode 1))
 
+;; Bind key combination to ESC
 (use-package evil-escape
   :init
   (setq-default evil-escape-key-sequence "fd")
   :config
   (evil-escape-mode 1))
 
-;; Themes
-(use-package zenburn-theme)
+;; Light theme (default)
 (use-package leuven-theme
   :custom
   (leuven-scale-outline-headlines nil "")
-  (leuven-scale-org-agenda-structure nil ""))
+  (leuven-scale-org-agenda-structure nil "")
+  :config
+  (load-theme 'leuven t))
 
-(load-theme 'leuven t)
+;; Dark theme
+(use-package zenburn-theme)
 
 (use-package ivy
   :bind (("C-x b" . ivy-switch-buffer)
@@ -81,10 +88,12 @@
 	 ("C-c j" . counsel-git-grep)
 	 ("C-c t" . counsel-load-theme)))
 
+;; Integration with tramp-mode (remote file editing)
 (use-package counsel-tramp
+  :after tramp
   :bind ("C-c f" . counsel-tramp))
 
-;; Which Key
+;; Display key binding hints in minibuffer
 (use-package which-key
   :init
   (setq which-key-separator " ")
@@ -92,7 +101,7 @@
   :config
   (which-key-mode 1))
 
-;; Projectile
+;; Project tools
 (use-package projectile
   :bind-keymap ("C-c p" . projectile-command-map)
   :init
@@ -103,15 +112,13 @@
   (projectile-mode 1))
 
 (use-package counsel-projectile
+  :after projectile
   :config (counsel-projectile-mode 1))
 
+;; Find files with content matching regex
 (use-package ripgrep)
 
-;; Show matching parens
-(setq show-paren-delay 0)
-(show-paren-mode 1)
-
-;; completion
+;; Completion
 (use-package company
   :bind
   (:map company-active-map
@@ -122,19 +129,20 @@
   :config
   (company-mode 1))
 
-;; smartparens
+;; Deal with parens in pairs
 (use-package smartparens)
 
 (use-package evil-smartparens
+  :after smartparens
   :hook (smartparens-enabled . evil-smartparens-mode))
 
-;; surround
-(use-package evil-surround :config (global-evil-surround-mode 1))
+;; Surround text objects with parens, brackets, quotes, etc.
+(use-package evil-surround
+  :config (global-evil-surround-mode 1))
 
-;; line numbering
+;; Relative line numbering
 (use-package nlinum-relative
-  :config
-  (nlinum-relative-setup-evil)
+  :config (nlinum-relative-setup-evil)
   :hook (prog-mode . nlinum-relative-mode))
 
 ;; Fira Code ligatures
@@ -142,14 +150,14 @@
 
 ;; highlighting TODO items in comments
 (use-package hl-todo
-  :config (hl-todo-mode 1))
+  :config (global-hl-todo-mode 1))
 
-;; Magit
+;; Tools for working with git
 (use-package magit
-  :config
   :bind ("C-x g" . magit-status))
 
-(use-package evil-magit)
+(use-package evil-magit
+  :after magit)
 
 ;; browse at remote
 (use-package browse-at-remote
@@ -195,7 +203,7 @@
 (use-package treemacs-magit
   :after treemacs magit)
 
-;; org-mode
+;; Org (environment for outlining, todos, literate programming)
 (setq mcw:org-gtd-directory (file-name-as-directory "~/org/gtd/"))
 (setq mcw:org-gtd-agenda-file (concat mcw:org-gtd-directory "gtd.org"))
 
@@ -256,6 +264,7 @@
 (use-package tex
   :ensure auctex)
 
+;; Minor mode for editing LaTeX inside of org documents
 (use-package cdlatex
   :hook (org-mode . turn-on-org-cdlatex))
 
@@ -264,6 +273,7 @@
   (setq org-latex-to-pdf-process '("latexmk -f -pdf %f"))
   (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
 
+;; For exporting org documents as Beamer presentations
 (require 'ox-beamer)
 
 ;; Markdown
@@ -307,7 +317,7 @@
   (ensime-sbt-run-command-in-project "scalafmtOnly" t)
   (revert-buffer :ignore-auto :noconfirm))
 
-;; Jupyter
+;; Jupyter (REPL, org-babel integration)
 (use-package jupyter
   :bind
   :general
@@ -322,7 +332,7 @@
 	 (python-mode . anaconda-eldoc-mode)))
 
 (use-package company-anaconda
-  :after company
+  :after company anaconda-mode
   :config (add-to-list 'company-backends 'company-anaconda))
 
 (use-package pyenv-mode
@@ -339,13 +349,19 @@
 ;; yaml
 (use-package yaml-mode)
 
-;; logview
+;; Major mode for viewing log files
 (use-package logview)
 
-;; rest client
-(use-package ob-restclient)
+;; Send HTTP requests
+(use-package restclient)
 
-;; deft
+(use-package company-restclient
+  :after restclient)
+
+(use-package ob-restclient
+  :after org-babel restclient)
+
+;; Note-taking
 (use-package deft
   :bind ("C-c d" . deft)
   :init
@@ -370,10 +386,6 @@
 (add-hook 'sql-interactive-mode-hook
 	  (lambda ()
 	    (toggle-truncate-lines t)))
-
-;; restclient
-(use-package restclient)
-(use-package company-restclient)
 
 ;; plantuml
 (use-package plantuml-mode
