@@ -324,6 +324,13 @@
   (revert-buffer :ignore-auto :noconfirm))
 
 ;; Scala
+
+(use-package scala-mode
+  :after smartparens
+  :hook ((scala-mode . smartparens-mode)
+	 (scala-mode . fira-code-mode))
+  :mode "\\.s\\(cala\\|bt\\)$")
+
 (use-package sbt-mode
   :commands sbt-start sbt-command
   :config
@@ -340,8 +347,6 @@
 	 ("C-c C-f" . mcw:scala-mode-format-buffer-with-sbt-scalafmt)
 	 :map ensime-mode-map
 	 ("C-c C-v g" . ensime-edit-definition-of-thing-at-point))
-  :hook ((scala-mode . smartparens-mode)
-	 (scala-mode . fira-code-mode))
   :custom (ensime-startup-notification 'nil))
 
 (defun mcw:scala-mode-format-buffer-with-sbt-scalafmt ()
