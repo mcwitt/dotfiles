@@ -342,6 +342,7 @@
    minibuffer-local-completion-map))
 
 (use-package ensime
+  :defer
   :bind (:map scala-mode-map
 	 ("C-c C-e" . ensime)
 	 ("C-c C-f" . mcw:scala-mode-format-buffer-with-sbt-scalafmt)
