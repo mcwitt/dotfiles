@@ -10,6 +10,11 @@
 
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
+;; Bindings for built-in commands
+(global-set-key (kbd "C-c i") 'imenu)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
 ;; Package configs
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -28,10 +33,7 @@
 (setq use-package-always-ensure t)
 
 ;; Helper for keybindings
-(use-package general
-  :config
-  (general-define-key
-   "C-c i" 'imenu))
+(use-package general)
 
 ;; Vim mode
 (use-package evil
@@ -61,35 +63,28 @@
 
 (load-theme 'leuven t)
 
-
 (use-package ivy
+  :bind (("C-x b" . ivy-switch-buffer)
+	 ("C-c C-r" . ivy-resume)
+	 (:map ivy-minibuffer-map
+	       (("C-j" . ivy-next-line)
+		("C-k" . ivy-previous-line)
+		("C-h" . ivy-backward-kill-word))))
   :config
-  (ivy-mode 1)
-  (general-define-key
-   "C-x b" 'ivy-switch-buffer
-   "C-c C-r" 'ivy-resume)
-  (general-define-key
-   :keymaps 'ivy-minibuffer-map
-   "C-j" 'ivy-next-line
-   "C-k" 'ivy-previous-line
-   "C-h" 'ivy-backward-kill-word))
+  (ivy-mode 1))
 
 (use-package counsel
-  :config
-  (general-define-key
-   "C-s" 'swiper
-   "M-x" 'counsel-M-x
-   "C-x l" 'counsel-locate
-   "C-x C-f" 'counsel-find-file
-   "C-x C-r" 'counsel-recentf
-   "C-c g" 'counsel-git
-   "C-c j" 'counsel-git-grep
-   "C-c t" 'counsel-load-theme
-   ))
+  :bind (("C-s" . swiper)
+	 ("M-x" . counsel-M-x)
+	 ("C-x l" . counsel-locate)
+	 ("C-x C-f" . counsel-find-file)
+	 ("C-x C-r" . counsel-recentf)
+	 ("C-c g" . counsel-git)
+	 ("C-c j" . counsel-git-grep)
+	 ("C-c t" . counsel-load-theme)))
 
 (use-package counsel-tramp
-  :config
-  (general-define-key "C-c f" 'counsel-tramp))
+  :bind ("C-c f" . counsel-tramp))
 
 ;; Which Key
 (use-package which-key
@@ -101,15 +96,13 @@
 
 ;; Projectile
 (use-package projectile
+  :bind-keymap ("C-c p" . projectile-command-map)
   :init
   (setq projectile-require-project-root nil)
   (setq projectile-completion-system 'ivy)
   (require 'subr-x)  ;; address bug similar to https://github.com/alphapapa/org-protocol-capture-html/issues/7
   :config
-  (projectile-mode 1)
-  (general-define-key
-   :keymaps 'projectile-mode-map
-   "C-c p" 'projectile-command-map))
+  (projectile-mode 1))
 
 (use-package counsel-projectile
   :config (counsel-projectile-mode 1))
@@ -122,14 +115,14 @@
 
 ;; completion
 (use-package company
+  :bind
+  (:map company-active-map
+	("C-j" . company-select-next)
+	("C-k" . company-select-previous)
+	("jk" . company-complete))
+  :hook (after-init . global-company-mode)
   :config
-  (company-mode 1)
-  (general-define-key
-   :keymaps 'company-active-map
-   "C-j" 'company-select-next
-   "C-k" 'company-select-previous
-   "jk" 'company-complete)
-  :hook (after-init . global-company-mode))
+  (company-mode 1))
 
 ;; smartparens
 (use-package smartparens)
@@ -156,14 +149,13 @@
 ;; Magit
 (use-package magit
   :config
-  (general-define-key "C-x g" 'magit-status))
+  :bind ("C-x g" . magit-status))
 
 (use-package evil-magit)
 
 ;; browse at remote
 (use-package browse-at-remote
-  :config
-  (general-define-key "C-c b" 'browse-at-remote))
+  :bind ("C-c b" . browse-at-remote))
 
 ;; treemacs
 (use-package treemacs
@@ -226,10 +218,6 @@
 (add-hook 'org-mode-hook 'turn-on-flyspell)
 (add-hook 'org-capture-mode-hook 'org-align-all-tags)
 
-(general-define-key
- "C-c a" 'org-agenda
- "C-c c" 'org-capture)
-
 (with-eval-after-load 'org-agenda
   (setq org-stuck-projects '("+LEVEL=1/-DONE" ("TODO" "NEXT" "NEXTACTION") nil ""))
   (general-define-key
@@ -248,7 +236,7 @@
   (let ((default-directory mcw:org-gtd-directory))
     (shell-command "git-sync")))
 
-(general-define-key "C-c o s" 'mcw:save-and-sync-org)
+(global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
 
 ;; org-babel
 (with-eval-after-load 'org
@@ -288,16 +276,13 @@
 
 ;; Haskell
 (use-package intero
-  :hook
-  (haskell-mode . fira-code-mode)
+  :bind (:map haskell-mode-map ("C-c C-f" . 'mcw:haskell-mode-format-buffer-with-brittany))
+  :hook (haskell-mode . fira-code-mode)
+  :init
+  (setq haskell-process-type 'stack-ghci)
   :config
   (intero-global-mode 1)
   (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
-
-(with-eval-after-load 'haskell-mode
-  (general-define-key
-   :keymaps 'haskell-mode-map
-   "C-c C-f" 'mcw:haskell-mode-format-buffer-with-brittany))
 
 (defun mcw:haskell-mode-format-buffer-with-brittany ()
   (interactive)
@@ -305,25 +290,16 @@
   (shell-command-to-string (format "brittany --write-mode inplace %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
-(setq haskell-process-type 'stack-ghci)
-
 ;; Scala
 (use-package ensime
-  :hook
-  (scala-mode . smartparens-mode)
-  (scala-mode . fira-code-mode)
+  :bind (:map scala-mode-map
+	 ("C-c C-e" . ensime)
+	 ("C-c C-f" . mcw:scala-mode-format-buffer-with-sbt-scalafmt)
+	 :map ensime-mode-map
+	 ("C-c C-v g" . ensime-edit-definition-of-thing-at-point))
+  :hook ((scala-mode . smartparens-mode)
+	 (scala-mode . fira-code-mode))
   :custom (ensime-startup-notification 'nil))
-
-(with-eval-after-load 'scala-mode
-  (general-define-key
-   :keymaps 'scala-mode-map
-   "C-c C-e" 'ensime
-   "C-c C-f" 'mcw:scala-mode-format-buffer-with-sbt-scalafmt))
-
-(with-eval-after-load 'ensime-mode
-  (general-define-key
-   :keymaps 'ensime-mode-map
-   "C-c C-v g" 'ensime-edit-definition-of-thing-at-point))
 
 (defun mcw:scala-mode-format-buffer-with-sbt-scalafmt ()
   (interactive)
@@ -333,10 +309,10 @@
 
 ;; Jupyter
 (use-package jupyter
-  :config
-  (general-define-key
+  :bind
+  :general
+  (:keymaps 'jupyter-repl-mode-map
    :states '(normal insert)
-   :keymaps 'jupyter-repl-mode-map
    "C-j" 'jupyter-repl-history-next-matching
    "C-k" 'jupyter-repl-history-previous-matching))
 
@@ -346,27 +322,19 @@
 	 (python-mode . anaconda-eldoc-mode)))
 
 (use-package company-anaconda
-  :config
-  (eval-after-load "company"
-    '(add-to-list 'company-backends 'company-anaconda)))
+  :after company
+  :config (add-to-list 'company-backends 'company-anaconda))
 
 (use-package pyenv-mode
   :hook python-mode)
 
 (use-package blacken
-  :config
-  (general-define-key
-   :keymaps 'python-mode-map
-   "C-c C-f" 'blacken-buffer))
+  :bind (:map python-mode-map ("C-c C-f" . blacken-buffer)))
 
 ;; json
 (use-package json-mode
-  :config
-  (general-define-key
-   :keymaps 'json-mode-map
-   "C-c C-f" 'json-pretty-print-buffer))
-
-(add-hook 'json-mode-hook 'flycheck-mode)
+  :hook (json-mode . flycheck-mode)
+  :bind (:map json-mode-map ("C-c C-f" . json-pretty-print-buffer)))
 
 ;; yaml
 (use-package yaml-mode)
@@ -379,13 +347,13 @@
 
 ;; deft
 (use-package deft
+  :bind ("C-c d" . deft)
   :init
-  (setq deft-extension "org")
-  :config
-  (general-define-key "C-c d" 'deft))
+  (setq deft-extension "org"))
 
 ;; pinentry
-(use-package pinentry :config (pinentry-start))
+(use-package pinentry
+  :config (pinentry-start))
 
 ;; SQL
 (defun mcw:sql-connect ()
@@ -397,7 +365,7 @@
   (interactive)
   (require 'sql-connections "~/.sql-connections.el.gpg"))
 
-(general-define-key "C-c s" 'mcw:sql-connect)
+(global-set-key (kbd "C-c s") 'mcw:sql-connect)
 
 (add-hook 'sql-interactive-mode-hook
 	  (lambda ()
