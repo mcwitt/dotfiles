@@ -254,7 +254,8 @@
 	   ((agenda "")
 	    (tags "Inbox")
 	    (tags "Reading")
-	    (alltodo ""))))))
+	    (alltodo "")))))
+  (setq org-enforce-todo-dependencies t))
 
 (defun mcw:save-and-sync-org ()
   (interactive)
