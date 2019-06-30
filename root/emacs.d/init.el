@@ -221,7 +221,7 @@
   (setq org-stuck-projects
 	'("+LEVEL=1/-DONE"              ;; Used to identify a project
 	  ("TODO" "NEXT" "NEXTACTION")  ;; If subtree contains any of these states, project is not stuck
-	  ("Inbox" "Reading")           ;; Never consider projects with any of these tags stuck
+	  ("Inbox" "Reading" "Someday") ;; Do not consider projects with any of these tags stuck
 	  ""))
   (setq org-confirm-babel-evaluate nil)
   :config
