@@ -218,7 +218,11 @@
 	'(("t" "Todo" entry
 	   (file mcw:org-gtd-agenda-file)
 	   "* TODO %? :Inbox:\n%U\n")))
-  (setq org-stuck-projects '("+LEVEL=1/-DONE" ("TODO" "NEXT" "NEXTACTION") nil ""))
+  (setq org-stuck-projects
+	'("+LEVEL=1/-DONE"              ;; Used to identify a project
+	  ("TODO" "NEXT" "NEXTACTION")  ;; If subtree contains any of these states, project is not stuck
+	  ("Inbox" "Reading")           ;; Never consider projects with any of these tags stuck
+	  ""))
   (setq org-confirm-babel-evaluate nil)
   :config
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
