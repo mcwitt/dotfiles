@@ -89,7 +89,6 @@
 	 ("C-x l" . counsel-locate)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x C-r" . counsel-recentf)
-	 ("C-c g" . counsel-git)
 	 ("C-c j" . counsel-git-grep)
 	 ("C-c t" . counsel-load-theme)))
 
@@ -451,6 +450,10 @@
 (use-package s3ed
   :bind (("C-c r f" . s3ed-find-file)
 	 ("C-c r s" . s3ed-save-file)))
+
+;; Gist export
+(use-package gist
+  :bind ("C-c g" . gist-region-or-buffer-private))
 
 ;;; custom file
 (setq custom-file "~/.emacs-custom.el")
