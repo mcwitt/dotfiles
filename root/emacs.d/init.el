@@ -231,6 +231,9 @@
   (setq org-confirm-babel-evaluate nil)
   :config
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
+  (require 'ox-md)     ;; enable Markdown export
+  (require 'ox-beamer) ;; enable Beamer presentation export
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((emacs-lisp . t)
@@ -261,6 +264,9 @@
 	    (tags "Reading")
 	    (alltodo "")))))
   (setq org-enforce-todo-dependencies t))
+
+;; enable Github-flavored Markdown export
+(use-package ox-gfm)
 
 (defun mcw:save-and-sync-org ()
   (interactive)
@@ -303,9 +309,6 @@
   (setq org-latex-listings 'minted)
   (setq org-latex-to-pdf-process '("latexmk -f -pdf %f"))
   (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
-
-;;; For exporting org documents as Beamer presentations
-(require 'ox-beamer)
 
 ;;; Markdown
 (use-package markdown-mode
