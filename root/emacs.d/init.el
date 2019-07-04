@@ -437,7 +437,7 @@
   )
 
 (use-package sql-indent
-  :hook sql-mode)
+  :hook (sql-mode . sqlind-minor-mode))
 
 ;;; plantuml
 (use-package plantuml-mode
