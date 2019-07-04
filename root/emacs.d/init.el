@@ -1,10 +1,11 @@
 ;;; package -- Summary
 ;;; Commentary:
 ;;; Code:
-;; Path to additional elisp files
+
+;;; Path to additional elisp files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
-;; Minimal UI
+;;; Minimal UI
 (scroll-bar-mode -1)
 (tool-bar-mode   -1)
 (tooltip-mode    -1)
@@ -14,10 +15,10 @@
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 80))
 
-;; Show matching parens
+;;; Show matching parens
 (show-paren-mode 1)
 
-;; Package configs
+;;; Package configs
 (require 'package)
 (setq package-enable-at-startup nil)
 (setq package-archives '(("org" . "http://orgmode.org/elpa/")
@@ -26,7 +27,7 @@
                          ("melpa-stable" . "https://stable.melpa.org/packages/")))
 (package-initialize)
 
-;; Bootstrap `use-package`
+;;; Bootstrap `use-package`
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -37,10 +38,10 @@
 (use-package imenu
   :bind ("C-c i" . imenu))
 
-;; Helper for keybindings
+;;; Helper for keybindings
 (use-package general)
 
-;; Vim emulation
+;;; Vim emulation
 (use-package evil
   :general
   (:states '(normal insert)
@@ -53,14 +54,14 @@
   :config
   (evil-mode 1))
 
-;; Bind key combination to ESC
+;;; Bind key combination to ESC
 (use-package evil-escape
   :init
   (setq-default evil-escape-key-sequence "fd")
   :config
   (evil-escape-mode 1))
 
-;; Light theme (default)
+;;; Light theme (default)
 (use-package leuven-theme
   :custom
   (leuven-scale-outline-headlines nil "")
@@ -68,7 +69,7 @@
   :config
   (load-theme 'leuven t))
 
-;; Dark theme
+;;; Dark theme
 (use-package zenburn-theme)
 
 (use-package ivy
@@ -81,6 +82,7 @@
   :config
   (ivy-mode 1))
 
+;;; Counsel
 (use-package counsel
   :bind (("C-s" . swiper)
 	 ("M-x" . counsel-M-x)
@@ -91,12 +93,12 @@
 	 ("C-c j" . counsel-git-grep)
 	 ("C-c t" . counsel-load-theme)))
 
-;; Integration with tramp-mode (remote file editing)
+;;; Integration with tramp-mode (remote file editing)
 (use-package counsel-tramp
   :after tramp
   :bind ("C-c f" . counsel-tramp))
 
-;; Display key binding hints in minibuffer
+;;; Display key binding hints in minibuffer
 (use-package which-key
   :init
   (setq which-key-separator " ")
@@ -104,7 +106,7 @@
   :config
   (which-key-mode 1))
 
-;; Project tools
+;;; Project tools
 (use-package projectile
   :bind-keymap ("C-c p" . projectile-command-map)
   :init
@@ -118,10 +120,10 @@
   :after projectile
   :config (counsel-projectile-mode 1))
 
-;; Find files with content matching regex
+;;; Find files with content matching regex
 (use-package ripgrep)
 
-;; Completion
+;;; Completion
 (use-package company
   :bind
   (:map company-active-map
@@ -132,41 +134,41 @@
   :config
   (company-mode 1))
 
-;; Deal with parens in pairs
+;;; Deal with parens in pairs
 (use-package smartparens)
 
 (use-package evil-smartparens
   :after smartparens
   :hook (smartparens-enabled . evil-smartparens-mode))
 
-;; Surround text objects with parens, brackets, quotes, etc.
+;;; Surround text objects with parens, brackets, quotes, etc.
 (use-package evil-surround
   :config (global-evil-surround-mode 1))
 
-;; Relative line numbering
+;;; Relative line numbering
 (use-package nlinum-relative
   :config (nlinum-relative-setup-evil)
   :hook (prog-mode . nlinum-relative-mode))
 
-;; Fira Code ligatures
+;;; Fira Code ligatures
 (require 'fira-code-mode)
 
-;; highlighting TODO items in comments
+;;; highlighting TODO items in comments
 (use-package hl-todo
   :config (global-hl-todo-mode 1))
 
-;; Tools for working with git
+;;; Tools for working with git
 (use-package magit
   :bind ("C-x g" . magit-status))
 
 (use-package evil-magit
   :after magit)
 
-;; browse at remote
+;;; Browse/edit remote files via ssh and ftp
 (use-package browse-at-remote
   :bind ("C-c b" . browse-at-remote))
 
-;; treemacs
+;;; Tree view
 (use-package treemacs
   :defer t
   :init
@@ -206,7 +208,7 @@
 (use-package treemacs-magit
   :after treemacs magit)
 
-;; Org (environment for outlining, todos, literate programming)
+;;; Org (environment for outlining, todos, literate programming)
 (setq mcw:org-gtd-directory (file-name-as-directory "~/org/gtd/"))
 (setq mcw:org-gtd-agenda-file (concat mcw:org-gtd-directory "gtd.org"))
 
@@ -268,10 +270,11 @@
 
 (global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
 
+;;; Syntax checking
 (use-package flycheck
   :config (global-flycheck-mode))
 
-;; Language Server Protocol support
+;;; Language Server Protocol support
 (use-package lsp-mode
   :commands lsp
   :config (setq lsp-prefer-flymake nil))
@@ -288,11 +291,11 @@
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
 
-;; LaTeX
+;;; LaTeX
 (use-package tex
   :ensure auctex)
 
-;; Minor mode for editing LaTeX inside of org documents
+;;; Minor mode for editing LaTeX inside of org documents
 (use-package cdlatex
   :hook (org-mode . turn-on-org-cdlatex))
 
@@ -301,10 +304,10 @@
   (setq org-latex-to-pdf-process '("latexmk -f -pdf %f"))
   (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
 
-;; For exporting org documents as Beamer presentations
+;;; For exporting org documents as Beamer presentations
 (require 'ox-beamer)
 
-;; Markdown
+;;; Markdown
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
@@ -312,7 +315,7 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
-;; Haskell
+;;; Haskell
 (use-package haskell-mode
   :hook (haskell-mode . fira-code-mode)
   :bind (:map haskell-mode-map ("C-c C-f" . 'mcw:haskell-mode-format-buffer-with-brittany))
@@ -331,7 +334,7 @@
   (shell-command-to-string (format "brittany --write-mode inplace %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
-;; Scala
+;;; Scala
 (use-package scala-mode
   :after smartparens
   :hook ((scala-mode . smartparens-mode)
@@ -363,7 +366,7 @@
   (ensime-sbt-run-command-in-project "scalafmtOnly" t)
   (revert-buffer :ignore-auto :noconfirm))
 
-;; Jupyter (REPL, org-babel integration)
+;;; Jupyter (REPL, org-babel integration)
 (use-package jupyter
   :general
   (:keymaps 'jupyter-repl-mode-map
@@ -371,7 +374,7 @@
    "C-j" 'jupyter-repl-history-next-matching
    "C-k" 'jupyter-repl-history-previous-matching))
 
-;; Python
+;;; Python
 (use-package anaconda-mode
   :hook ((python-mode . anaconda-mode)
 	 (python-mode . anaconda-eldoc-mode)))
@@ -386,18 +389,18 @@
 (use-package blacken
   :bind (:map python-mode-map ("C-c C-f" . blacken-buffer)))
 
-;; json
+;;; json
 (use-package json-mode
   :hook (json-mode . flycheck-mode)
   :bind (:map json-mode-map ("C-c C-f" . json-pretty-print-buffer)))
 
-;; yaml
+;;; yaml
 (use-package yaml-mode)
 
-;; Major mode for viewing log files
+;;; Major mode for viewing log files
 (use-package logview)
 
-;; Send HTTP requests
+;;; Send HTTP requests
 (use-package restclient)
 
 (use-package company-restclient
@@ -406,17 +409,17 @@
 (use-package ob-restclient
   :after org-babel restclient)
 
-;; Note-taking
+;;; Note-taking
 (use-package deft
   :bind ("C-c d" . deft)
   :init
   (setq deft-extension "org"))
 
-;; pinentry
+;;; pinentry
 (use-package pinentry
   :config (pinentry-start))
 
-;; SQL
+;;; SQL
 (use-package sql
   :hook (sql-interactive-mode . (lambda () (toggle-truncate-lines t)))
   :bind ("C-c s" . mcw:sql-connect)
@@ -434,19 +437,19 @@
 (use-package sql-indent
   :hook sql-mode)
 
-;; plantuml
+;;; plantuml
 (use-package plantuml-mode
   :config
   (setq org-plantuml-jar-path (expand-file-name "~/.local/libexec/plantuml.jar")))
 
 (use-package flycheck-plantuml)
 
-;; S3
+;;; S3
 (use-package s3ed
   :bind (("C-c r f" . s3ed-find-file)
 	 ("C-c r s" . s3ed-save-file)))
 
-;; custom file
+;;; custom file
 (setq custom-file "~/.emacs-custom.el")
 
 (provide 'init)
