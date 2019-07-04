@@ -1,3 +1,6 @@
+;;; package -- Summary
+;;; Commentary:
+;;; Code:
 ;; Path to additional elisp files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
@@ -445,3 +448,6 @@
 
 ;; custom file
 (setq custom-file "~/.emacs-custom.el")
+
+(provide 'init)
+;;; init.el ends here
