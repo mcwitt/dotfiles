@@ -414,20 +414,22 @@
   :config (pinentry-start))
 
 ;; SQL
-(defun mcw:sql-connect ()
-  (interactive)
-  (if (not (boundp 'sql-connections)) (mcw:load-sql-connections) nil)
-  (call-interactively 'sql-connect))
+(use-package sql
+  :hook (sql-interactive-mode . (lambda () (toggle-truncate-lines t)))
+  :bind ("C-c s" . mcw:sql-connect)
+  :commands sql-connect
+  :init
+  (defun mcw:sql-connect ()
+    (interactive)
+    (if (not (boundp 'sql-connections)) (mcw:load-sql-connections) nil)
+    (call-interactively 'sql-connect))
+  (defun mcw:load-sql-connections ()
+    (interactive)
+    (require 'sql-connections "~/.sql-connections.el.gpg"))
+  )
 
-(defun mcw:load-sql-connections ()
-  (interactive)
-  (require 'sql-connections "~/.sql-connections.el.gpg"))
-
-(global-set-key (kbd "C-c s") 'mcw:sql-connect)
-
-(add-hook 'sql-interactive-mode-hook
-	  (lambda ()
-	    (toggle-truncate-lines t)))
+(use-package sql-indent
+  :hook sql-mode)
 
 ;; plantuml
 (use-package plantuml-mode
