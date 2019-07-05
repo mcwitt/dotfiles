@@ -238,6 +238,7 @@
    '((emacs-lisp . t)
      (haskell . t)
      (jupyter . t)
+     (maxima . t)
      (R . t)
      (restclient . t)
      (scala . t)
@@ -451,9 +452,18 @@
   :bind (("C-c r f" . s3ed-find-file)
 	 ("C-c r s" . s3ed-save-file)))
 
-;; Gist export
+;;; Gist export
 (use-package gist
   :bind ("C-c g" . gist-region-or-buffer-private))
+
+;;; Maxima (computer algebra system)
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/maxima/")
+(autoload 'maxima-mode "maxima" "Maxima mode" t)
+(autoload 'imaxima "imaxima" "Frontend for maxima with Image support" t)
+(autoload 'maxima "maxima" "Maxima interaction" t)
+(autoload 'imath-mode "imath" "Imath mode for math formula input" t)
+(setq imaxima-use-maxima-mode-flag t)
+(add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
 
 ;;; custom file
 (setq custom-file "~/.emacs-custom.el")
