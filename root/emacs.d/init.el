@@ -89,7 +89,6 @@
 	 ("C-x l" . counsel-locate)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x C-r" . counsel-recentf)
-	 ("C-c j" . counsel-git-grep)
 	 ("C-c t" . counsel-load-theme)))
 
 ;;; Integration with tramp-mode (remote file editing)
@@ -371,6 +370,7 @@
 
 ;;; Jupyter (REPL, org-babel integration)
 (use-package jupyter
+  :bind ("C-c j" . jupyter-run-repl)
   :general
   (:keymaps 'jupyter-repl-mode-map
    :states '(normal insert)
