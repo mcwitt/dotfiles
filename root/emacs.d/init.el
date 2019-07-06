@@ -320,7 +320,9 @@
 ;;; Haskell
 (use-package haskell-mode
   :hook (haskell-mode . fira-code-mode)
-  :bind (:map haskell-mode-map ("C-c C-f" . 'mcw:haskell-mode-format-buffer-with-brittany))
+  :bind (:map haskell-mode-map
+	 ("C-c C-h" . 'haskell-hoogle)
+         ("C-c C-f" . 'mcw:haskell-mode-format-buffer-with-brittany))
   :init (setq haskell-process-type 'stack-ghci))
 
 (use-package intero
