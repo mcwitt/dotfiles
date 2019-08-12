@@ -5,6 +5,9 @@
 ;;; Path to additional elisp files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
+;;; Relocate custom file
+(setq custom-file "~/.emacs-custom.el")
+
 ;;; Minimal UI
 (scroll-bar-mode -1)
 (tool-bar-mode   -1)
@@ -468,9 +471,6 @@
 (autoload 'imath-mode "imath" "Imath mode for math formula input" t)
 (setq imaxima-use-maxima-mode-flag t)
 (add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
-
-;;; custom file
-(setq custom-file "~/.emacs-custom.el")
 
 (provide 'init)
 ;;; init.el ends here
