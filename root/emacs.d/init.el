@@ -83,7 +83,10 @@
 	 (:map ivy-minibuffer-map
 	       (("C-j" . ivy-next-line)
 		("C-k" . ivy-previous-line)
-		("C-h" . ivy-backward-kill-word))))
+		("C-h" . ivy-backward-kill-word)))
+         (:map ivy-switch-buffer-map
+               (("C-j" . ivy-next-line)
+                ("C-k" . ivy-previous-line))))
   :config
   (ivy-mode 1))
 
