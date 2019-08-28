@@ -220,7 +220,8 @@
 
 (use-package org
   :bind (("C-c a" . org-agenda)
-	 ("C-c c" . org-capture))
+	 ("C-c c" . org-capture)
+         ("C-c l" . org-store-link))
   :hook ((org-mode . turn-on-flyspell)
 	 (org-capture . org-align-all-tags))
   :init
