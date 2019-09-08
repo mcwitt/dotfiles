@@ -23,22 +23,22 @@
 ;;; Show matching parens
 (show-paren-mode 1)
 
-;;; Package configs
-(require 'package)
-(setq package-enable-at-startup nil)
-(setq package-archives '(("org" . "http://orgmode.org/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")
-                         ("melpa-stable" . "https://stable.melpa.org/packages/")))
-(package-initialize)
+;; Initialize `straight` package manager
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
-;;; Bootstrap `use-package`
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
 
 (use-package imenu
   :bind ("C-c i" . imenu))
@@ -253,7 +253,7 @@
      (shell . t))))
 
 (use-package org-agenda
-  :ensure nil
+  :straight nil
   :bind
   (:map org-agenda-mode-map
 	;; minimal set of evil movements in org-agenda
@@ -307,7 +307,8 @@
 
 ;;; LaTeX
 (use-package tex
-  :ensure auctex)
+  :ensure auctex
+  :straight nil)
 
 ;;; Minor mode for editing LaTeX inside of org documents
 (use-package cdlatex
@@ -366,6 +367,10 @@
 
 (use-package ensime
   :defer
+  :straight (ensime :type git
+                    :host github
+                    :repo "ensime/ensime-emacs"
+                    :branch "2.0")
   :bind (:map scala-mode-map
 	 ("C-c C-e" . ensime)
 	 ("C-c C-f" . mcw:scala-mode-format-buffer-with-sbt-scalafmt)
