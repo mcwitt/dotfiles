@@ -168,7 +168,7 @@
   :bind ("C-x g" . magit-status))
 
 (use-package evil-magit
-  :after magit)
+  :after (evil magit))
 
 ;;; Browse/edit remote files via ssh and ftp
 (use-package browse-at-remote
