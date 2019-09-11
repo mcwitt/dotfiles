@@ -218,7 +218,7 @@
 (setq mcw:org-gtd-directory (file-name-as-directory "~/org/gtd/"))
 (setq mcw:org-gtd-agenda-file (concat mcw:org-gtd-directory "gtd.org"))
 
-(use-package org
+(use-package org-plus-contrib
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
          ("C-c l" . org-store-link))
