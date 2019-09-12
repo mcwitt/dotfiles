@@ -70,12 +70,12 @@
 (use-package leuven-theme
   :custom
   (leuven-scale-outline-headlines nil "")
-  (leuven-scale-org-agenda-structure nil "")
-  :config
-  (load-theme 'leuven t))
+  (leuven-scale-org-agenda-structure nil ""))
 
 ;;; Dark theme
-(use-package zenburn-theme)
+(use-package zenburn-theme
+  :config
+  (load-theme 'zenburn t))
 
 (use-package ivy
   :bind (("C-x b" . ivy-switch-buffer)
@@ -366,7 +366,6 @@
    minibuffer-local-completion-map))
 
 (use-package ensime
-  :defer
   :straight (ensime :type git
                     :host github
                     :repo "ensime/ensime-emacs"
