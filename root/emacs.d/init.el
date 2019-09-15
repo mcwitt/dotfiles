@@ -280,6 +280,7 @@
 (use-package org-drill)
 
 (defun mcw:save-and-sync-org ()
+  "Save all org buffers and sync gtd repo."
   (interactive)
   (org-save-all-org-buffers)
   (let ((default-directory mcw:org-gtd-directory))
