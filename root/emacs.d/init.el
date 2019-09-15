@@ -10,9 +10,9 @@
 
 ;;; Minimal UI
 (scroll-bar-mode -1)
-(tool-bar-mode   -1)
-(tooltip-mode    -1)
-(menu-bar-mode   -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(menu-bar-mode -1)
 
 (add-to-list 'default-frame-alist '(font . "FiraCode"))
 (add-to-list 'default-frame-alist '(height . 60))
@@ -275,6 +275,9 @@
 
 ;; enable Github-flavored Markdown export
 (use-package ox-gfm)
+
+;; spaced repetition flash cards
+(use-package org-drill)
 
 (defun mcw:save-and-sync-org ()
   (interactive)
