@@ -23,6 +23,16 @@
 ;;; Show matching parens
 (show-paren-mode 1)
 
+(defun increment-number-at-point ()
+  "Increment integer at the cursor position."
+  (interactive)
+  (skip-chars-backward "0-9")
+  (or (looking-at "[0-9]+")
+      (error "No number at point"))
+  (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+
+(global-set-key (kbd "C-c +") 'increment-number-at-point)
+
 ;; Initialize `straight` package manager
 (defvar bootstrap-version)
 (let ((bootstrap-file
