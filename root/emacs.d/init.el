@@ -375,11 +375,11 @@
                     :repo "ensime/ensime-emacs"
                     :branch "2.0")
   :bind (:map scala-mode-map
-	 ("C-c C-e" . ensime)
 	 ("C-c C-f" . mcw:scala-mode-format-buffer-with-sbt-scalafmt)
 	 :map ensime-mode-map
 	 ("C-c C-v g" . ensime-edit-definition-of-thing-at-point))
-  :custom (ensime-startup-notification 'nil))
+  :custom (ensime-startup-notification 'nil)
+  :init (define-key ensime-mode-map (kbd "C-c C-e") 'ensime))
 
 (defun mcw:scala-mode-format-buffer-with-sbt-scalafmt ()
   (interactive)
