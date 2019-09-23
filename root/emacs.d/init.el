@@ -224,81 +224,6 @@
 (use-package treemacs-magit
   :after treemacs magit)
 
-;;; Org (environment for outlining, todos, literate programming)
-(setq mcw:org-gtd-directory (file-name-as-directory "~/org/gtd/"))
-(setq mcw:org-gtd-agenda-file (concat mcw:org-gtd-directory "gtd.org"))
-
-(use-package org
-  :straight org-plus-contrib
-  :bind (("C-c a" . org-agenda)
-	 ("C-c c" . org-capture)
-         ("C-c l" . org-store-link))
-  :hook ((org-mode . turn-on-flyspell)
-	 (org-capture . org-align-all-tags))
-  :init
-  (setq org-startup-indented t)
-  (setq org-capture-templates
-	'(("t" "Todo" entry
-	   (file mcw:org-gtd-agenda-file)
-	   "* TODO %? :Inbox:\n%U\n")))
-  (setq org-stuck-projects
-	'("+LEVEL=1/-DONE"              ;; Used to identify a project
-	  ("TODO" "NEXT" "NEXTACTION")  ;; If subtree contains any of these states, project is not stuck
-	  ("Inbox" "Reading" "Someday") ;; Do not consider projects with any of these tags stuck
-	  ""))
-  (setq org-confirm-babel-evaluate nil)
-  :config
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
-  (require 'ox-md)     ;; enable Markdown export
-  (require 'ox-beamer) ;; enable Beamer presentation export
-
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (haskell . t)
-     (jupyter . t)
-     (maxima . t)
-     (R . t)
-     (restclient . t)
-     (scala . t)
-     (shell . t))))
-
-(use-package org-agenda
-  :straight nil
-  :bind
-  (:map org-agenda-mode-map
-	;; minimal set of evil movements in org-agenda
-	("j" . evil-next-line)
-	("k" . evil-previous-line)
-	("C-u" . evil-scroll-page-up)
-	("C-d" . evil-scroll-page-down)
-	("C-w h" . evil-window-left)
-	("C-w l" . evil-window-right))
-  :init
-  (setq org-agenda-files (list mcw:org-gtd-agenda-file))
-  (setq org-agenda-custom-commands
-	'(("n" "Agenda and all TODOs"
-	   ((agenda "")
-	    (tags "Inbox")
-	    (tags "Reading")
-	    (alltodo "")))))
-  (setq org-enforce-todo-dependencies t))
-
-;; enable Github-flavored Markdown export
-(use-package ox-gfm)
-
-;; spaced repetition flash cards
-(use-package org-drill)
-
-(defun mcw:save-and-sync-org ()
-  "Save all org buffers and sync gtd repo."
-  (interactive)
-  (org-save-all-org-buffers)
-  (let ((default-directory mcw:org-gtd-directory))
-    (shell-command "git-sync")))
-
-(global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
-
 ;;; Syntax checking
 (use-package flycheck
   :config (global-flycheck-mode))
@@ -494,6 +419,81 @@
 (autoload 'imath-mode "imath" "Imath mode for math formula input" t)
 (setq imaxima-use-maxima-mode-flag t)
 (add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
+
+;;; Org (environment for outlining, todos, literate programming)
+(setq mcw:org-gtd-directory (file-name-as-directory "~/org/gtd/"))
+(setq mcw:org-gtd-agenda-file (concat mcw:org-gtd-directory "gtd.org"))
+
+(use-package org
+  :straight org-plus-contrib
+  :bind (("C-c a" . org-agenda)
+	 ("C-c c" . org-capture)
+         ("C-c l" . org-store-link))
+  :hook ((org-mode . turn-on-flyspell)
+	 (org-capture . org-align-all-tags))
+  :init
+  (setq org-startup-indented t)
+  (setq org-capture-templates
+	'(("t" "Todo" entry
+	   (file mcw:org-gtd-agenda-file)
+	   "* TODO %? :Inbox:\n%U\n")))
+  (setq org-stuck-projects
+	'("+LEVEL=1/-DONE"              ;; Used to identify a project
+	  ("TODO" "NEXT" "NEXTACTION")  ;; If subtree contains any of these states, project is not stuck
+	  ("Inbox" "Reading" "Someday") ;; Do not consider projects with any of these tags stuck
+	  ""))
+  (setq org-confirm-babel-evaluate nil)
+  :config
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
+  (require 'ox-md)     ;; enable Markdown export
+  (require 'ox-beamer) ;; enable Beamer presentation export
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (haskell . t)
+     (jupyter . t)
+     (maxima . t)
+     (R . t)
+     (restclient . t)
+     (scala . t)
+     (shell . t))))
+
+(use-package org-agenda
+  :straight nil
+  :bind
+  (:map org-agenda-mode-map
+	;; minimal set of evil movements in org-agenda
+	("j" . evil-next-line)
+	("k" . evil-previous-line)
+	("C-u" . evil-scroll-page-up)
+	("C-d" . evil-scroll-page-down)
+	("C-w h" . evil-window-left)
+	("C-w l" . evil-window-right))
+  :init
+  (setq org-agenda-files (list mcw:org-gtd-agenda-file))
+  (setq org-agenda-custom-commands
+	'(("n" "Agenda and all TODOs"
+	   ((agenda "")
+	    (tags "Inbox")
+	    (tags "Reading")
+	    (alltodo "")))))
+  (setq org-enforce-todo-dependencies t))
+
+;; enable Github-flavored Markdown export
+(use-package ox-gfm)
+
+;; spaced repetition flash cards
+(use-package org-drill)
+
+(defun mcw:save-and-sync-org ()
+  "Save all org buffers and sync gtd repo."
+  (interactive)
+  (org-save-all-org-buffers)
+  (let ((default-directory mcw:org-gtd-directory))
+    (shell-command "git-sync")))
+
+(global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
 
 (provide 'init)
 ;;; init.el ends here
