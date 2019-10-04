@@ -50,6 +50,8 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
+(straight-use-package 'org-plus-contrib)
+
 (use-package imenu
   :bind ("C-c i" . imenu))
 
