@@ -487,7 +487,8 @@
 (use-package ox-gfm)
 
 ;; spaced repetition flash cards
-(use-package org-drill)
+;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
+;; (use-package org-drill)
 
 (defun mcw:save-and-sync-org ()
   "Save all org buffers and sync gtd repo."
