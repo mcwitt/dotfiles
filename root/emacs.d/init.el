@@ -486,6 +486,15 @@
 ;; enable Github-flavored Markdown export
 (use-package ox-gfm)
 
+;; fast viewing and searching for PDF files
+(use-package pdf-tools
+  :init
+  (pdf-tools-install))
+
+;; tools for notes and annotations linked to PDFs
+;; (use-package interleave)
+(use-package org-noter)
+
 ;; spaced repetition flash cards
 ;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
 ;; (use-package org-drill)
