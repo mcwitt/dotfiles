@@ -50,6 +50,7 @@
 (straight-use-package 'use-package)
 (setq straight-use-package-by-default t)
 
+;; prevent other packages from loading older version of org bundled with emacs
 (straight-use-package 'org-plus-contrib)
 
 (use-package imenu
