@@ -279,9 +279,9 @@
   :init (setq haskell-process-type 'stack-ghci))
 
 (use-package intero
+  :hook haskell-mode
   :config
-  (flycheck-add-next-checker 'intero '(warning . haskell-hlint))
-  (intero-global-mode 1))
+  (flycheck-add-next-checker 'intero '(warning . haskell-hlint)))
 
 (use-package lsp-haskell)
 
