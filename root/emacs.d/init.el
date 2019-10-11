@@ -313,6 +313,7 @@
                     :host github
                     :repo "ensime/ensime-emacs"
                     :branch "2.0")
+  :hook scala-mode
   :bind (:map scala-mode-map
 	 ("C-c C-e" . ensime)
 	 ("C-c C-f" . mcw:scala-mode-format-buffer-with-sbt-scalafmt)
