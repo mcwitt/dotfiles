@@ -479,7 +479,7 @@
   (setq org-agenda-custom-commands
 	'(("n" "Agenda and all TODOs"
 	   ((agenda "")
-	    (tags "Inbox")
+	    (tags-todo "Inbox")
 	    (tags "Reading")
 	    (alltodo "")))))
   (setq org-enforce-todo-dependencies t))
