@@ -415,6 +415,12 @@
 (use-package gist
   :bind ("C-c g" . gist-region-or-buffer-private))
 
+;;; Snippet tool
+(use-package yasnippet
+  :init (yas-global-mode 1))
+
+(use-package yasnippet-snippets)
+
 ;;; Maxima (computer algebra system)
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/maxima/")
 (autoload 'maxima-mode "maxima" "Maxima mode" t)
