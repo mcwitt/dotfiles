@@ -515,5 +515,8 @@
 
 (global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
 
+;; Nix
+(use-package nix-mode)
+
 (provide 'init)
 ;;; init.el ends here
