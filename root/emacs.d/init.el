@@ -79,12 +79,6 @@
   :config
   (evil-escape-mode 1))
 
-;;; Light theme (default)
-(use-package leuven-theme
-  :custom
-  (leuven-scale-outline-headlines nil "")
-  (leuven-scale-org-agenda-structure nil ""))
-
 ;;; Dark theme
 (use-package zenburn-theme
   :config
