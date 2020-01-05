@@ -247,6 +247,8 @@
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
 
+(straight-use-package 'auctex)
+
 ;;; Minor mode for editing LaTeX inside of org documents
 (use-package cdlatex
   :hook (org-mode . turn-on-org-cdlatex))
