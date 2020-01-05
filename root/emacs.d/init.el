@@ -420,8 +420,9 @@
 (add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
 
 ;;; Org (environment for outlining, todos, literate programming)
-(setq mcw:org-gtd-directory (file-name-as-directory "~/org/gtd/"))
-(setq mcw:org-gtd-agenda-file (concat mcw:org-gtd-directory "gtd.org"))
+(setq mcw:org-notes-directory (file-name-as-directory "~/git/org-notes/"))
+(setq mcw:org-notes-gtd-file (concat mcw:org-notes-directory "gtd.org"))
+(setq mcw:org-notes-journal-file (concat mcw:org-notes-directory "journal.org"))
 
 (use-package org
   :straight org-plus-contrib
@@ -434,8 +435,11 @@
   (setq org-startup-indented t)
   (setq org-capture-templates
 	'(("t" "Todo" entry
-	   (file mcw:org-gtd-agenda-file)
-	   "* TODO %? :Inbox:\n%U\n")))
+	   (file mcw:org-notes-gtd-file)
+	   "* TODO %? :Inbox:\n%U\n")
+          ("j" "Journal" entry
+           (file+datetree mcw:org-notes-journal-file)
+           "* %?\nEntered on %U\n  %i\n  %a")))
   (setq org-stuck-projects
 	'("+LEVEL=1/-DONE"              ;; Used to identify a project
 	  ("TODO" "NEXT" "NEXTACTION")  ;; If subtree contains any of these states, project is not stuck
@@ -470,7 +474,7 @@
 	("C-w h" . evil-window-left)
 	("C-w l" . evil-window-right))
   :init
-  (setq org-agenda-files (list mcw:org-gtd-agenda-file))
+  (setq org-agenda-files (list mcw:org-notes-gtd-file mcw:org-notes-journal-file))
   (setq org-agenda-custom-commands
 	'(("n" "Agenda and all TODOs"
 	   ((agenda "")
@@ -495,14 +499,14 @@
 ;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
 ;; (use-package org-drill)
 
-(defun mcw:save-and-sync-org ()
+(defun mcw:save-and-sync-org-notes ()
   "Save all org buffers and sync gtd repo."
   (interactive)
   (org-save-all-org-buffers)
-  (let ((default-directory mcw:org-gtd-directory))
+  (let ((default-directory mcw:org-notes-directory))
     (shell-command "git-sync")))
 
-(global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org)
+(global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org-notes)
 
 ;; Nix
 (use-package nix-mode)
