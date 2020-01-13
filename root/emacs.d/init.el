@@ -479,7 +479,7 @@
 	'(("n" "Agenda and all TODOs"
 	   ((agenda "")
 	    (tags-todo "Inbox")
-	    (tags "Reading")
+	    (tags "Reading" ((org-agenda-sorting-strategy '(timestamp-down))))
 	    (alltodo "")))))
   (setq org-enforce-todo-dependencies t))
 
