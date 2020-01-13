@@ -147,6 +147,11 @@
   :config
   (company-mode 1))
 
+;;; direnv integration
+;; (updates environment based on local .envrc)
+(use-package direnv
+  :config (direnv-mode))
+
 ;;; Deal with parens in pairs
 (use-package smartparens)
 
