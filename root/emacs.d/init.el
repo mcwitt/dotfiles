@@ -277,7 +277,7 @@
 (defun mcw:haskell-mode-format-buffer-with-brittany ()
   (interactive)
   (save-buffer)
-  (shell-command-to-string (format "brittany --write-mode inplace %s" buffer-file-name))
+  (shell-command (format "stack exec brittany -- --write-mode inplace %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
 ;;; Scala
