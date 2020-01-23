@@ -35,8 +35,9 @@
 (defun fira-code-mode--enable ()
   "Enable Fira Code ligatures in current buffer."
   (setq-local fira-code-mode--old-prettify-alist prettify-symbols-alist)
-  (setq-local prettify-symbols-alist (append (fira-code-mode--make-alist fira-code-mode--ligatures) fira-code-mode--old-prettify-alist))
-  (prettify-symbols-mode t))
+  (when (display-graphic-p)
+    (setq-local prettify-symbols-alist (append (fira-code-mode--make-alist fira-code-mode--ligatures) fira-code-mode--old-prettify-alist))
+    (prettify-symbols-mode t)))
 
 (defun fira-code-mode--disable ()
   "Disable Fira Code ligatures in current buffer."
