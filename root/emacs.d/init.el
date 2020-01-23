@@ -18,6 +18,8 @@
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 80))
 
+(setq split-height-threshold 100)
+
 (setq-default indent-tabs-mode nil)
 
 ;;; Show matching parens
