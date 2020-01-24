@@ -454,6 +454,7 @@
 	  ("TODO" "NEXT" "NEXTACTION")  ;; If subtree contains any of these states, project is not stuck
 	  ("Inbox" "Reading" "Someday") ;; Do not consider projects with any of these tags stuck
 	  ""))
+  (setq org-tags-sort-function #'string<)
   (setq org-confirm-babel-evaluate nil)
   :config
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
