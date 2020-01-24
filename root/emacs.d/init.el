@@ -442,6 +442,10 @@
 	 (org-capture . org-align-all-tags))
   :init
   (setq org-startup-indented t)
+  (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "|" "DONE")))
+  (setq org-tag-persistent-alist
+        '((:startgroup) ("@home" . ?h) ("@work" . ?w)
+          (:startgroup) ("PROJECT" . ?P) ("INBOX" . ?I) ("MAYBE" . ?M)))
   (setq org-capture-templates
 	'(("t" "Todo" entry
 	   (file mcw:org-notes-gtd-file)
@@ -450,7 +454,7 @@
            (file+datetree mcw:org-notes-journal-file)
            "* %?\nEntered on %U\n  %i\n  %a")))
   (setq org-stuck-projects
-	'("LEVEL=1+PROJECT-MAYBE-INBOX-TODO=DONE"
+	'("LEVEL=1+PROJECT-INBOX-TODO=DONE"
           ("NEXT")
           nil
 	  ""))
@@ -487,8 +491,8 @@
   (setq org-agenda-files (list mcw:org-notes-gtd-file mcw:org-notes-journal-file))
   (setq org-agenda-custom-commands
         '(("i" "Inbox" tags "INBOX")
-          ("p" "Projects" tags "LEVEL=1+PROJECT-MAYBE")
-          ("n" "Next tasks"  tags-todo "PROJECT+TODO=\"NEXT\"-MAYBE")))
+          ("p" "Projects" tags "LEVEL=1+PROJECT")
+          ("n" "Next tasks"  tags-todo "PROJECT+TODO=\"NEXT\"")))
   (setq org-enforce-todo-dependencies t))
 
 ;; enable Github-flavored Markdown export
