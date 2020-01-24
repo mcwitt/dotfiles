@@ -450,9 +450,9 @@
            (file+datetree mcw:org-notes-journal-file)
            "* %?\nEntered on %U\n  %i\n  %a")))
   (setq org-stuck-projects
-	'("+LEVEL=1/-DONE"              ;; Used to identify a project
-	  ("TODO" "NEXT" "NEXTACTION")  ;; If subtree contains any of these states, project is not stuck
-	  ("Inbox" "Reading" "Someday") ;; Do not consider projects with any of these tags stuck
+	'("LEVEL=1+PROJECT-MAYBE-INBOX-TODO=DONE"
+          ("NEXT")
+          nil
 	  ""))
   (setq org-tags-sort-function #'string<)
   (setq org-confirm-babel-evaluate nil)
@@ -486,11 +486,9 @@
   :init
   (setq org-agenda-files (list mcw:org-notes-gtd-file mcw:org-notes-journal-file))
   (setq org-agenda-custom-commands
-	'(("n" "Agenda and all TODOs"
-	   ((agenda "")
-	    (tags-todo "Inbox")
-	    (tags "Reading" ((org-agenda-sorting-strategy '(timestamp-down))))
-	    (alltodo "")))))
+        '(("i" "Inbox" tags "INBOX")
+          ("p" "Projects" tags "LEVEL=1+PROJECT-MAYBE")
+          ("n" "Next tasks"  tags-todo "PROJECT+TODO=\"NEXT\"-MAYBE")))
   (setq org-enforce-todo-dependencies t))
 
 ;; enable Github-flavored Markdown export
