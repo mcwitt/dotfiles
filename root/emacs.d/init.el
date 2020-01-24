@@ -445,7 +445,7 @@
   (setq org-capture-templates
 	'(("t" "Todo" entry
 	   (file mcw:org-notes-gtd-file)
-	   "* TODO %? :Inbox:\n%U\n")
+	   "* TODO %? :INBOX:\n%U\n")
           ("j" "Journal" entry
            (file+datetree mcw:org-notes-journal-file)
            "* %?\nEntered on %U\n  %i\n  %a")))
