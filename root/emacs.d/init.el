@@ -425,7 +425,7 @@
 (add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
 
 ;;; Org (environment for outlining, todos, literate programming)
-(setq mcw:org-notes-directory (file-name-as-directory "~/git/org-notes/"))
+(setq mcw:org-notes-directory (file-name-as-directory "~/src/org-notes/"))
 (setq mcw:org-notes-gtd-file (concat mcw:org-notes-directory "gtd.org"))
 (setq mcw:org-notes-journal-file (concat mcw:org-notes-directory "journal.org"))
 
