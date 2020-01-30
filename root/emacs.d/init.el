@@ -415,7 +415,7 @@
 
 ;;; Snippet tool
 (use-package yasnippet
-  :init (yas-global-mode 1))
+  :config (yas-global-mode 1))
 
 (use-package yasnippet-snippets)
 
@@ -500,8 +500,7 @@
 
 ;; fast viewing and searching for PDF files
 (use-package pdf-tools
-  :init
-  (pdf-tools-install))
+  :config (pdf-tools-install))
 
 ;; tools for notes and annotations linked to PDFs
 ;; (use-package interleave)
