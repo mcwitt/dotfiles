@@ -35,6 +35,8 @@
 
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 
+(package-initialize)
+
 (eval-when-compile
   (require 'use-package))
 
