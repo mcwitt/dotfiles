@@ -35,25 +35,8 @@
 
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 
-;; Initialize `straight` package manager
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 5))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
-
-(straight-use-package 'use-package)
-(setq straight-use-package-by-default t)
-
-;; prevent other packages from loading older version of org bundled with emacs
-(straight-use-package 'org-plus-contrib)
+(eval-when-compile
+  (require 'use-package))
 
 (use-package imenu
   :bind ("C-c i" . imenu))
@@ -249,8 +232,6 @@
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
 
-(straight-use-package 'auctex)
-
 ;;; Minor mode for editing LaTeX inside of org documents
 (use-package cdlatex
   :hook (org-mode . turn-on-org-cdlatex))
@@ -287,42 +268,6 @@
   (interactive)
   (save-buffer)
   (shell-command (format "stack exec brittany -- --write-mode inplace %s" buffer-file-name))
-  (revert-buffer :ignore-auto :noconfirm))
-
-;;; Scala
-(use-package scala-mode
-  :after smartparens
-  :hook ((scala-mode . smartparens-mode)
-	 (scala-mode . fira-code-mode))
-  :mode "\\.s\\(cala\\|bt\\)$")
-
-(use-package sbt-mode
-  :commands sbt-start sbt-command
-  :config
-  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
-  ;; allows using SPACE when in the minibuffer
-  (substitute-key-definition
-   'minibuffer-complete-word
-   'self-insert-command
-   minibuffer-local-completion-map))
-
-(use-package ensime
-  :straight (ensime :type git
-                    :host github
-                    :repo "ensime/ensime-emacs"
-                    :branch "2.0")
-  :hook scala-mode
-  :bind (:map scala-mode-map
-	 ("C-c C-e" . ensime)
-	 ("C-c C-f" . mcw:scala-mode-format-buffer-with-sbt-scalafmt)
-	 :map ensime-mode-map
-	 ("C-c C-v g" . ensime-edit-definition-of-thing-at-point))
-  :custom (ensime-startup-notification 'nil))
-
-(defun mcw:scala-mode-format-buffer-with-sbt-scalafmt ()
-  (interactive)
-  (save-buffer)
-  (ensime-sbt-run-command-in-project "scalafmtOnly" t)
   (revert-buffer :ignore-auto :noconfirm))
 
 ;;; Jupyter (REPL, org-babel integration)
@@ -379,36 +324,6 @@
 (use-package pinentry
   :config (pinentry-start))
 
-;;; SQL
-(use-package sql
-  :hook (sql-interactive-mode . (lambda () (toggle-truncate-lines t)))
-  :bind ("C-c s" . mcw:sql-connect)
-  :commands sql-connect
-  :init
-  (defun mcw:sql-connect ()
-    (interactive)
-    (if (not (boundp 'sql-connections)) (mcw:load-sql-connections) nil)
-    (call-interactively 'sql-connect))
-  (defun mcw:load-sql-connections ()
-    (interactive)
-    (require 'sql-connections "~/.sql-connections.el.gpg"))
-  )
-
-(use-package sql-indent
-  :hook (sql-mode . sqlind-minor-mode))
-
-;;; plantuml
-(use-package plantuml-mode
-  :config
-  (setq org-plantuml-jar-path (expand-file-name "~/.local/libexec/plantuml.jar")))
-
-(use-package flycheck-plantuml)
-
-;;; S3
-(use-package s3ed
-  :bind (("C-c r f" . s3ed-find-file)
-	 ("C-c r s" . s3ed-save-file)))
-
 ;;; Gist export
 (use-package gist
   :bind ("C-c g" . gist-region-or-buffer-private))
@@ -419,22 +334,12 @@
 
 (use-package yasnippet-snippets)
 
-;;; Maxima (computer algebra system)
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/maxima/")
-(autoload 'maxima-mode "maxima" "Maxima mode" t)
-(autoload 'imaxima "imaxima" "Frontend for maxima with Image support" t)
-(autoload 'maxima "maxima" "Maxima interaction" t)
-(autoload 'imath-mode "imath" "Imath mode for math formula input" t)
-(setq imaxima-use-maxima-mode-flag t)
-(add-to-list 'auto-mode-alist '("\\.ma[cx]" . maxima-mode))
-
 ;;; Org (environment for outlining, todos, literate programming)
 (setq mcw:org-notes-directory (file-name-as-directory "~/src/org-notes/"))
 (setq mcw:org-notes-gtd-file (concat mcw:org-notes-directory "gtd.org"))
 (setq mcw:org-notes-journal-file (concat mcw:org-notes-directory "journal.org"))
 
 (use-package org
-  :straight org-plus-contrib
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
          ("C-c l" . org-store-link))
@@ -470,14 +375,11 @@
    '((emacs-lisp . t)
      (haskell . t)
      (jupyter . t)
-     (maxima . t)
      (R . t)
      (restclient . t)
-     (scala . t)
      (shell . t))))
 
 (use-package org-agenda
-  :straight nil
   :bind
   (:map org-agenda-mode-map
 	;; minimal set of evil movements in org-agenda
