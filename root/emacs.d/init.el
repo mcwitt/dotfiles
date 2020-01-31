@@ -243,8 +243,8 @@
 (use-package company-lsp
   :commands company-lsp)
 
-(use-package helm-lsp
-  :commands helm-lsp-workspace-symbol)
+(use-package lsp-ivy
+  :commands (lsp-ivy-workspace-symbol lsp-ivy-global-workspace-symbol))
 
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
