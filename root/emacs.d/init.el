@@ -431,7 +431,15 @@
 (global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org-notes)
 
 ;; Nix
-(use-package nix-mode)
+(use-package nix-mode
+  :bind (:map nix-mode-map ("C-c C-f" . mcw:nix-mode-format-buffer-with-nixfmt)))
+
+(defun mcw:nix-mode-format-buffer-with-nixfmt ()
+  (interactive)
+  (save-buffer)
+  (shell-command (format "nixfmt %s" buffer-file-name))
+  (revert-buffer :ignore-auto :noconfirm))
+
 
 (provide 'init)
 ;;; init.el ends here
