@@ -35,6 +35,12 @@
 
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 
+(require 'package)
+
+;; Make impure packages archives unavailable
+(setq package-archives nil)
+
+(setq package-enable-at-startup nil)
 (package-initialize)
 
 (eval-when-compile
