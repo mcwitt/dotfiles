@@ -118,6 +118,7 @@
   :init
   (setq projectile-require-project-root nil)
   (setq projectile-completion-system 'ivy)
+  (setq projectile-project-search-path '("~/src/"))
   (require 'subr-x)  ;; work around bug similar to https://github.com/alphapapa/org-protocol-capture-html/issues/7
   :config
   (projectile-mode 1))
