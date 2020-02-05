@@ -356,7 +356,7 @@
 	 (org-capture . org-align-all-tags))
   :init
   (setq org-startup-indented t)
-  (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "|" "DONE")))
+  (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
   (setq org-tag-persistent-alist
         '((:startgroup) ("@home" . ?h) ("@work" . ?w)
           (:startgroup) ("PROJECT" . ?P) ("INBOX" . ?I) ("MAYBE" . ?M)))
