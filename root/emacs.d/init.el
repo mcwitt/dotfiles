@@ -411,6 +411,8 @@
 
 ;; fast viewing and searching for PDF files
 (use-package pdf-tools
+  :init (setq pdf-view-use-scaling t)
+  :hook (pdf-view-mode . (lambda () (linum-mode -1)))
   :config (pdf-tools-install))
 
 ;; tools for notes and annotations linked to PDFs
