@@ -419,7 +419,8 @@
 
 ;; tools for notes and annotations linked to PDFs
 ;; (use-package interleave)
-(use-package org-noter)
+(use-package org-noter
+  :init (setq org-noter-notes-search-path '("~/src/org-notes/notes/")))
 
 ;; spaced repetition flash cards
 ;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
