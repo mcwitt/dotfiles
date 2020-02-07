@@ -6,7 +6,7 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
 ;;; Relocate custom file
-(setq custom-file "~/.emacs-custom.el")
+(setq custom-file "~/.emacs.d/emacs-custom.el")
 
 ;;; Minimal UI
 (scroll-bar-mode -1)
