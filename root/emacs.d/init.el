@@ -3,10 +3,10 @@
 ;;; Code:
 
 ;;; Path to additional elisp files
-(add-to-list 'load-path "~/.emacs.d/elisp/")
+(add-to-list 'load-path "~/.config/emacs/elisp/")
 
 ;;; Relocate custom file
-(setq custom-file "~/.emacs-custom.el")
+(setq custom-file "~/.config/emacs/custom.el")
 
 ;;; Minimal UI
 (scroll-bar-mode -1)
