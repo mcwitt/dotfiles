@@ -451,5 +451,31 @@
               ("C-c C-'" . proof-goto-point) ; useful for Kinesis keyboard
               ))
 
+;; ERC (IRC client)
+(use-package erc
+  :bind ("C-c e" . #'mcw:erc-freenode)
+  :init
+  (setq erc-prompt-for-password nil) ; get login from ~/.authinfo.gpg
+  (setq erc-autojoin-channels-alist
+        '(("#emacs"
+           "#haskell"
+           "#nixos"
+           "#org-mode"
+           "#python"
+           "freenode.net")))
+  (setq erc-autojoin-timing 'ident)
+  :config
+  (erc-autojoin-mode))
+
+(use-package erc-hl-nicks
+  :after erc)
+
+(use-package erc-image
+  :after erc)
+
+(defun mcw:erc-freenode ()
+  (interactive)
+  (erc :server "irc.freenode.net" :port 6667 :nick "mcwitt"))
+
 (provide 'init)
 ;;; init.el ends here
