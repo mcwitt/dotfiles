@@ -445,6 +445,11 @@
   (shell-command (format "nixfmt %s" buffer-file-name))
   (revert-buffer :ignore-auto :noconfirm))
 
+;; Proof General
+(use-package proof-general
+  :bind (:map proof-mode-map
+              ("C-c C-'" . proof-goto-point) ; useful for Kinesis keyboard
+              ))
 
 (provide 'init)
 ;;; init.el ends here
