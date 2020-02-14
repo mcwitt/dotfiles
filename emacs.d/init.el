@@ -323,15 +323,6 @@
 (use-package ob-restclient
   :after org-babel restclient)
 
-;;; Note-taking
-(use-package deft
-  :bind ("C-c d" . deft)
-  :init
-  (setq deft-extension "org")
-  (setq deft-directory
-        (concat mcw:org-notes-directory
-                (file-name-as-directory "deft"))))
-
 ;;; pinentry
 (use-package pinentry
   :config (pinentry-start))
@@ -411,6 +402,16 @@
 
 ;; enable Github-flavored Markdown export
 (use-package ox-gfm)
+
+;;; Note-taking
+(use-package deft
+  :after org
+  :bind ("C-c d" . deft)
+  :init
+  (setq deft-extension "org")
+  (setq deft-directory
+        (concat mcw:org-notes-directory
+                (file-name-as-directory "deft"))))
 
 ;; fast viewing and searching for PDF files
 (use-package pdf-tools
