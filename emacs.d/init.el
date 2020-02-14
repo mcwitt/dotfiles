@@ -339,8 +339,14 @@
 
 ;;; Org (environment for outlining, todos, literate programming)
 (setq mcw:org-notes-directory (file-name-as-directory "~/src/org-notes/"))
-(setq mcw:org-notes-gtd-file (concat mcw:org-notes-directory "gtd.org"))
-(setq mcw:org-notes-journal-file (concat mcw:org-notes-directory "journal.org"))
+(setq mcw:org-notes-inbox-file
+      (concat mcw:org-notes-directory "inbox.org")
+      mcw:org-notes-gtd-file
+      (concat mcw:org-notes-directory "gtd.org")
+      mcw:org-notes-someday-file
+      (concat mcw:org-notes-directory "someday.org")
+      mcw:org-notes-journal-file
+      (concat mcw:org-notes-directory "journal.org"))
 
 (use-package org
   :bind (("C-c a" . org-agenda)
@@ -351,18 +357,16 @@
   :init
   (setq org-startup-indented t)
   (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
-  (setq org-tag-persistent-alist
-        '((:startgroup) ("@home" . ?h) ("@work" . ?w)
-          (:startgroup) ("PROJECT" . ?P) ("INBOX" . ?I) ("MAYBE" . ?M)))
+  (setq org-tag-persistent-alist '(("PROJECT" . ?P) (:startgroup) ("@home" . ?h) ("@work" . ?w)))
   (setq org-capture-templates
 	'(("t" "Todo" entry
-	   (file mcw:org-notes-gtd-file)
-	   "* TODO %? :INBOX:\n%U\n")
+	   (file mcw:org-notes-inbox-file)
+	   "* TODO %?\n%U\n")
           ("j" "Journal" entry
            (file+datetree mcw:org-notes-journal-file)
            "* %?\nEntered on %U\n  %i\n  %a")))
   (setq org-stuck-projects
-	'("LEVEL=1+PROJECT-INBOX-TODO=DONE"
+	'("LEVEL=2+PROJECT-TODO=DONE"
           ("NEXT")
           nil
 	  ""))
@@ -393,11 +397,16 @@
 	("C-w h" . evil-window-left)
 	("C-w l" . evil-window-right))
   :init
-  (setq org-agenda-files (list mcw:org-notes-gtd-file mcw:org-notes-journal-file))
+  (setq org-agenda-files
+        (list mcw:org-notes-inbox-file
+              mcw:org-notes-gtd-file
+              mcw:org-notes-journal-file))
   (setq org-agenda-custom-commands
-        '(("i" "Inbox" tags "INBOX")
-          ("p" "Projects" tags "LEVEL=1+PROJECT")
-          ("n" "Next tasks"  tags-todo "PROJECT+TODO=\"NEXT\"")))
+        '(("i" "Inbox" alltodo "" ((org-agenda-files `(,mcw:org-notes-inbox-file))))
+          ("p" "Projects" tags "LEVEL=2+PROJECT")
+          ("n" "Next tasks"  tags-todo "TODO=\"NEXT\"")))
+  (setq org-refile-targets '((mcw:org-notes-gtd-file . (:level . 2))
+                             (mcw:org-notes-someday-file . (:level . 1))))
   (setq org-enforce-todo-dependencies t))
 
 ;; enable Github-flavored Markdown export
