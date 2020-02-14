@@ -327,7 +327,10 @@
 (use-package deft
   :bind ("C-c d" . deft)
   :init
-  (setq deft-extension "org"))
+  (setq deft-extension "org")
+  (setq deft-directory
+        (concat mcw:org-notes-directory
+                (file-name-as-directory "deft"))))
 
 ;;; pinentry
 (use-package pinentry
@@ -420,7 +423,10 @@
 ;; tools for notes and annotations linked to PDFs
 ;; (use-package interleave)
 (use-package org-noter
-  :init (setq org-noter-notes-search-path '("~/src/org-notes/notes/")))
+  :init
+  (setq org-noter-notes-search-path
+        `(,(concat mcw:org-notes-directory
+                   (file-name-as-directory "annotations")))))
 
 ;; spaced repetition flash cards
 ;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
