@@ -222,6 +222,7 @@
 
 ;;; Syntax checking
 (use-package flycheck
+  :init (setq ispell-program-name "aspell")
   :config (global-flycheck-mode))
 
 ;;; Language Server Protocol support
