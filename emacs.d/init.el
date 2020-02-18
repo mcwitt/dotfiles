@@ -353,6 +353,7 @@
 	 ("C-c c" . org-capture)
          ("C-c l" . org-store-link))
   :hook ((org-mode . turn-on-flyspell)
+         (org-mode . mcw:sync-org-notes)
 	 (org-capture . org-align-all-tags))
   :init
   (setq org-startup-indented t)
@@ -442,12 +443,16 @@
 ;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
 ;; (use-package org-drill)
 
+(defun mcw:sync-org-notes ()
+  "Sync org notes repo with upstream."
+  (let ((default-directory mcw:org-notes-directory))
+    (shell-command "git-sync")))
+
 (defun mcw:save-and-sync-org-notes ()
   "Save all org buffers and sync gtd repo."
   (interactive)
   (org-save-all-org-buffers)
-  (let ((default-directory mcw:org-notes-directory))
-    (shell-command "git-sync")))
+  (mcw:sync-org-notes))
 
 (global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org-notes)
 
