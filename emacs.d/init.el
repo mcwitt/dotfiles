@@ -472,6 +472,7 @@
   :bind ("C-c e" . #'mcw:erc-freenode)
   :init
   (setq erc-prompt-for-password nil) ; get login from ~/.authinfo.gpg
+  (setq erc-hide-list '("JOIN" "PART" "QUIT"))
   (setq erc-autojoin-channels-alist
         '(("#emacs"
            "#haskell"
@@ -481,7 +482,9 @@
            "freenode.net")))
   (setq erc-autojoin-timing 'ident)
   :config
-  (erc-autojoin-mode))
+  (add-to-list 'erc-modules 'notifications)
+  (add-to-list 'erc-modules 'spelling)
+  (erc-update-modules))
 
 (use-package erc-hl-nicks
   :after erc)
