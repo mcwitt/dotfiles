@@ -347,7 +347,9 @@
       mcw:org-notes-someday-file
       (concat mcw:org-notes-directory "someday.org")
       mcw:org-notes-journal-file
-      (concat mcw:org-notes-directory "journal.org"))
+      (concat mcw:org-notes-directory "journal.org")
+      mcw:org-notes-notes-directory
+      (concat mcw:org-notes-directory (file-name-as-directory "notes")))
 
 (use-package org
   :bind (("C-c a" . org-agenda)
@@ -420,9 +422,7 @@
   :bind ("C-c d" . deft)
   :init
   (setq deft-extension "org")
-  (setq deft-directory
-        (concat mcw:org-notes-directory
-                (file-name-as-directory "deft"))))
+  (setq deft-directory mcw:org-notes-notes-directory))
 
 ;; fast viewing and searching for PDF files
 (use-package pdf-tools
@@ -436,9 +436,7 @@
 ;; (use-package interleave)
 (use-package org-noter
   :init
-  (setq org-noter-notes-search-path
-        `(,(concat mcw:org-notes-directory
-                   (file-name-as-directory "annotations")))))
+  (setq org-noter-notes-search-path mcw:org-notes-notes-directory))
 
 ;; spaced repetition flash cards
 ;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
