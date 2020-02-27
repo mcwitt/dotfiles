@@ -354,7 +354,13 @@
 (use-package org
   :bind (("C-c a" . org-agenda)
 	 ("C-c c" . org-capture)
-         ("C-c l" . org-store-link))
+         ("C-c l" . org-store-link)
+         :map org-mode-map
+         ("C-c C-c" .
+          (lambda ()
+            (interactive)
+            (org-ctrl-c-ctrl-c)
+            (org-display-inline-images))))
   :hook ((org-mode . turn-on-flyspell)
          (org-mode . mcw:sync-org-notes)
 	 (org-capture . org-align-all-tags))
