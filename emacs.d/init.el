@@ -383,7 +383,8 @@
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((emacs-lisp . t)
+   '((dot . t)
+     (emacs-lisp . t)
      (haskell . t)
      (jupyter . t)
      (R . t)
