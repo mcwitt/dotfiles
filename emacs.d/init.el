@@ -443,7 +443,7 @@
 ;; (use-package interleave)
 (use-package org-noter
   :init
-  (setq org-noter-notes-search-path mcw:org-notes-notes-directory))
+  (setq org-noter-notes-search-path (list mcw:org-notes-notes-directory)))
 
 ;; spaced repetition flash cards
 ;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
