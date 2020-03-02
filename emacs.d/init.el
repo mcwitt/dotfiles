@@ -262,9 +262,7 @@
 ;;; Haskell
 (use-package haskell-mode
   :hook (haskell-mode . fira-code-mode)
-  :bind (:map haskell-mode-map
-	 ("C-c C-h" . 'haskell-hoogle)
-         ("C-c C-f" . 'mcw:haskell-mode-format-buffer-with-brittany))
+  :bind (:map haskell-mode-map ("C-c C-h" . 'haskell-hoogle))
   :init (setq haskell-process-type 'stack-ghci))
 
 (use-package intero
@@ -273,12 +271,6 @@
   (intero-global-mode 1))
 
 (use-package lsp-haskell)
-
-(defun mcw:haskell-mode-format-buffer-with-brittany ()
-  (interactive)
-  (save-buffer)
-  (shell-command (format "stack exec brittany -- --write-mode inplace %s" buffer-file-name))
-  (revert-buffer :ignore-auto :noconfirm))
 
 ;;; Jupyter (REPL, org-babel integration)
 (use-package jupyter
@@ -301,13 +293,9 @@
 (use-package pyenv-mode
   :hook python-mode)
 
-(use-package blacken
-  :bind (:map python-mode-map ("C-c C-f" . blacken-buffer)))
-
 ;;; json
 (use-package json-mode
-  :hook (json-mode . flycheck-mode)
-  :bind (:map json-mode-map ("C-c C-f" . json-pretty-print-buffer)))
+  :hook (json-mode . flycheck-mode))
 
 ;;; yaml
 (use-package yaml-mode)
@@ -464,14 +452,7 @@
 (global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org-notes)
 
 ;; Nix
-(use-package nix-mode
-  :bind (:map nix-mode-map ("C-c C-f" . mcw:nix-mode-format-buffer-with-nixfmt)))
-
-(defun mcw:nix-mode-format-buffer-with-nixfmt ()
-  (interactive)
-  (save-buffer)
-  (shell-command (format "nixfmt %s" buffer-file-name))
-  (revert-buffer :ignore-auto :noconfirm))
+(use-package nix-mode)
 
 ;; Proof General
 (use-package proof-general
@@ -507,6 +488,9 @@
 (defun mcw:erc-freenode ()
   (interactive)
   (erc :server "irc.freenode.net" :port 6667 :nick "mcwitt"))
+
+(use-package format-all
+  :bind ("C-c r" . format-all-buffer))
 
 (provide 'init)
 ;;; init.el ends here
