@@ -490,7 +490,7 @@
   (erc :server "irc.freenode.net" :port 6667 :nick "mcwitt"))
 
 (use-package format-all
-  :bind ("C-c r" . format-all-buffer))
+  :bind ("C-c C-f" . format-all-buffer))
 
 (provide 'init)
 ;;; init.el ends here
