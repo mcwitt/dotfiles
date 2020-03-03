@@ -56,9 +56,9 @@
 (use-package evil
   :general
   (:states '(normal insert)
-   :keymaps 'comint-mode-map
-   "C-j" 'comint-next-input
-   "C-k" 'comint-previous-input)
+           :keymaps 'comint-mode-map
+           "C-j" 'comint-next-input
+           "C-k" 'comint-previous-input)
   :init
   (setq evil-want-C-u-scroll t)
   (setq evil-want-abbrev-expand-on-insert-exit nil)
@@ -277,9 +277,9 @@
   :bind ("C-c j" . jupyter-run-repl)
   :general
   (:keymaps 'jupyter-repl-mode-map
-   :states '(normal insert)
-   "C-j" 'jupyter-repl-history-next-matching
-   "C-k" 'jupyter-repl-history-previous-matching))
+            :states '(normal insert)
+            "C-j" 'jupyter-repl-history-next-matching
+            "C-k" 'jupyter-repl-history-previous-matching))
 
 ;;; Python
 (use-package anaconda-mode
