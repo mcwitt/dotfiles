@@ -405,7 +405,7 @@
           ("p" "Projects" tags "LEVEL=2+PROJECT")
           ("n" "Next tasks"  tags-todo "TODO=\"NEXT\"")))
   (setq org-refile-targets '((mcw:org-notes-gtd-file . (:maxlevel . 2))
-                             (mcw:org-notes-someday-file . (:level . 1))))
+                             (mcw:org-notes-someday-file . (:maxlevel . 2))))
   (setq org-enforce-todo-dependencies t))
 
 ;; enable Github-flavored Markdown export
