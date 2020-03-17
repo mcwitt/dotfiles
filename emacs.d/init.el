@@ -261,16 +261,13 @@
 
 ;;; Haskell
 (use-package haskell-mode
-  :hook (haskell-mode . fira-code-mode)
+  :hook ((haskell-mode . fira-code-mode)
+         (haskell-mode . interactive-haskell-mode))
   :bind (:map haskell-mode-map ("C-c C-h" . 'haskell-hoogle))
   :init (setq haskell-process-type 'stack-ghci))
 
-(use-package intero
-  :config
-  (flycheck-add-next-checker 'intero '(warning . haskell-hlint))
-  (intero-global-mode 1))
-
-(use-package lsp-haskell)
+(use-package lsp-haskell
+  :hook (haskell-mode . lsp))
 
 ;;; Jupyter (REPL, org-babel integration)
 (use-package jupyter
