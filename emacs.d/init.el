@@ -228,7 +228,9 @@
 ;;; Language Server Protocol support
 (use-package lsp-mode
   :commands lsp
-  :config (setq lsp-prefer-flymake nil))
+  :config
+  (setq gc-cons-threshold 100000000)
+  (setq lsp-prefer-flymake nil))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
