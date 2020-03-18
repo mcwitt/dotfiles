@@ -79,25 +79,25 @@
 
 (use-package ivy
   :bind (("C-x b" . ivy-switch-buffer)
-	 ("C-c C-r" . ivy-resume)
-	 (:map ivy-minibuffer-map
-	       (("C-j" . ivy-next-line)
-		("C-k" . ivy-previous-line)
-		("C-h" . ivy-backward-kill-word)))
+         ("C-c C-r" . ivy-resume)
+         (:map ivy-minibuffer-map
+               ("C-j" . ivy-next-line)
+               ("C-k" . ivy-previous-line)
+               ("C-h" . ivy-backward-kill-word))
          (:map ivy-switch-buffer-map
-               (("C-j" . ivy-next-line)
-                ("C-k" . ivy-previous-line))))
+               ("C-j" . ivy-next-line)
+               ("C-k" . ivy-previous-line)))
   :config
   (ivy-mode 1))
 
 ;;; Counsel
 (use-package counsel
   :bind (("C-s" . swiper)
-	 ("M-x" . counsel-M-x)
-	 ("C-x l" . counsel-locate)
-	 ("C-x C-f" . counsel-find-file)
-	 ("C-x C-r" . counsel-recentf)
-	 ("C-c t" . counsel-load-theme)))
+         ("M-x" . counsel-M-x)
+         ("C-x l" . counsel-locate)
+         ("C-x C-f" . counsel-find-file)
+         ("C-x C-r" . counsel-recentf)
+         ("C-c t" . counsel-load-theme)))
 
 ;;; Integration with tramp-mode (remote file editing)
 (use-package counsel-tramp
@@ -134,9 +134,9 @@
 (use-package company
   :bind
   (:map company-active-map
-	("C-j" . company-select-next)
-	("C-k" . company-select-previous)
-	("jk" . company-complete))
+        ("C-j" . company-select-next)
+        ("C-k" . company-select-previous)
+        ("jk" . company-complete))
   :hook (after-init . global-company-mode)
   :config
   (company-mode 1))
@@ -198,14 +198,13 @@
        (treemacs-git-mode 'deferred))
       (`(t . _)
        (treemacs-git-mode 'simple))))
-  :bind
-  (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
+  :bind (:map global-map
+              ("M-0"       . treemacs-select-window)
+              ("C-x t 1"   . treemacs-delete-other-windows)
+              ("C-x t t"   . treemacs)
+              ("C-x t B"   . treemacs-bookmark)
+              ("C-x t C-t" . treemacs-find-file)
+              ("C-x t M-t" . treemacs-find-tag)))
 
 (use-package treemacs-evil
   :after treemacs evil)
@@ -283,7 +282,7 @@
 ;;; Python
 (use-package anaconda-mode
   :hook ((python-mode . anaconda-mode)
-	 (python-mode . anaconda-eldoc-mode)))
+         (python-mode . anaconda-eldoc-mode)))
 
 (use-package company-anaconda
   :after company anaconda-mode
@@ -340,33 +339,33 @@
 
 (use-package org
   :bind (("C-c a" . org-agenda)
-	 ("C-c c" . org-capture)
+         ("C-c c" . org-capture)
          ("C-c l" . org-store-link)
-         :map org-mode-map
-         ("C-c C-c" .
-          (lambda ()
-            (interactive)
-            (org-ctrl-c-ctrl-c)
-            (org-display-inline-images))))
+         (:map org-mode-map
+               ("C-c C-c" .
+                (lambda ()
+                  (interactive)
+                  (org-ctrl-c-ctrl-c)
+                  (org-display-inline-images)))))
   :hook ((org-mode . turn-on-flyspell)
          (org-mode . mcw:sync-org-notes)
-	 (org-capture . org-align-all-tags))
+         (org-capture . org-align-all-tags))
   :init
   (setq org-startup-indented t)
   (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
   (setq org-tag-persistent-alist '(("PROJECT" . ?P) (:startgroup) ("@home" . ?h) ("@work" . ?w)))
   (setq org-capture-templates
-	'(("t" "Todo" entry
-	   (file mcw:org-notes-inbox-file)
-	   "* TODO %?\n%U\n")
+        '(("t" "Todo" entry
+           (file mcw:org-notes-inbox-file)
+           "* TODO %?\n%U\n")
           ("j" "Journal" entry
            (file+datetree mcw:org-notes-journal-file)
            "* %?\nEntered on %U\n  %i\n  %a")))
   (setq org-stuck-projects
-	'("LEVEL=2+PROJECT-TODO=DONE"
+        '("LEVEL=2+PROJECT-TODO=DONE"
           ("NEXT")
           nil
-	  ""))
+          ""))
   (setq org-tags-sort-function #'string<)
   (setq org-confirm-babel-evaluate nil)
   :config
@@ -385,15 +384,14 @@
      (shell . t))))
 
 (use-package org-agenda
-  :bind
-  (:map org-agenda-mode-map
-	;; minimal set of evil movements in org-agenda
-	("j" . evil-next-line)
-	("k" . evil-previous-line)
-	("C-u" . evil-scroll-page-up)
-	("C-d" . evil-scroll-page-down)
-	("C-w h" . evil-window-left)
-	("C-w l" . evil-window-right))
+  :bind (:map org-agenda-mode-map
+              ;; minimal set of evil movements in org-agenda
+              ("j" . evil-next-line)
+              ("k" . evil-previous-line)
+              ("C-u" . evil-scroll-page-up)
+              ("C-d" . evil-scroll-page-down)
+              ("C-w h" . evil-window-left)
+              ("C-w l" . evil-window-right))
   :init
   (setq org-agenda-files
         (list mcw:org-notes-inbox-file
