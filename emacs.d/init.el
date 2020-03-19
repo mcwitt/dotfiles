@@ -222,11 +222,12 @@
 ;;; Syntax checking
 (use-package flycheck
   :init (setq ispell-program-name "aspell")
-  :config (global-flycheck-mode))
+  :config (global-flycheck-mode t))
 
 ;;; Language Server Protocol support
 (use-package lsp-mode
   :commands lsp
+  :hook (haskell-mode . lsp)
   :config
   (setq gc-cons-threshold 100000000)
   (setq lsp-prefer-flymake nil))
@@ -268,7 +269,12 @@
   :init (setq haskell-process-type 'stack-ghci))
 
 (use-package lsp-haskell
-  :hook (haskell-mode . lsp))
+  :config
+  (setq lsp-haskell-process-path-hie "ghcide")
+  (setq lsp-haskell-process-args-hie '())
+  ;; Comment/uncomment this line to see interactions between lsp client/server.
+  ;;(setq lsp-log-io t)
+  )
 
 ;;; Jupyter (REPL, org-babel integration)
 (use-package jupyter
