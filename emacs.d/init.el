@@ -266,12 +266,18 @@
   :hook ((haskell-mode . fira-code-mode)
          (haskell-mode . interactive-haskell-mode))
   :bind (:map haskell-mode-map ("C-c C-h" . 'haskell-hoogle))
-  :init (setq haskell-process-type 'stack-ghci))
+  :init
+  (setq haskell-process-type 'stack-ghci)
+  (setq haskell-interactive-popup-errors nil))
 
 (use-package lsp-haskell
   :config
   (setq lsp-haskell-process-path-hie "ghcide")
   (setq lsp-haskell-process-args-hie '())
+
+  ;; HACK: won't always want hlint chained after lsp, but ok for now
+  (flycheck-add-next-checker 'lsp '(warning . haskell-hlint))
+
   ;; Comment/uncomment this line to see interactions between lsp client/server.
   ;;(setq lsp-log-io t)
   )
