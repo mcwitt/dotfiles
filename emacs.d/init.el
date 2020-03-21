@@ -507,5 +507,8 @@
 (use-package format-all
   :bind ("C-c C-f" . format-all-buffer))
 
+(use-package esup
+  :commands (esup))
+
 (provide 'init)
 ;;; init.el ends here
