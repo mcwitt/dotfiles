@@ -72,10 +72,16 @@
   :config
   (evil-escape-mode 1))
 
-;;; Dark theme
-(use-package zenburn-theme
+;;; Themes
+(use-package doom-themes
   :config
-  (load-theme 'zenburn t))
+  (doom-themes-visual-bell-config)
+  (doom-themes-treemacs-config)
+  (setq doom-themes-treemacs-theme "doom-colors")
+  (doom-themes-org-config))
+
+(use-package zenburn-theme
+  :config (load-theme 'zenburn t))
 
 (use-package ivy
   :bind (("C-x b" . ivy-switch-buffer)
