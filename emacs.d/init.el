@@ -83,6 +83,8 @@
 (use-package zenburn-theme
   :config (load-theme 'zenburn t))
 
+(use-package all-the-icons)
+
 (use-package ivy
   :bind (("C-x b" . ivy-switch-buffer)
          ("C-c C-r" . ivy-resume)
