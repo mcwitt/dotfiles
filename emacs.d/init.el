@@ -512,5 +512,7 @@
 (use-package esup
   :commands (esup))
 
+(use-package ess)
+
 (provide 'init)
 ;;; init.el ends here
