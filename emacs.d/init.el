@@ -352,6 +352,8 @@
       (concat mcw:org-notes-directory "gtd.org")
       mcw:org-notes-someday-file
       (concat mcw:org-notes-directory "someday.org")
+      mcw:org-notes-bookmarks-file
+      (concat mcw:org-notes-directory "bookmarks.org")
       mcw:org-notes-journal-file
       (concat mcw:org-notes-directory "journal.org")
       mcw:org-notes-notes-directory
@@ -378,6 +380,9 @@
         '(("t" "Todo" entry
            (file mcw:org-notes-inbox-file)
            "* TODO %?\n%U\n")
+          ("b" "Bookmark" entry
+           (file+headline mcw:org-notes-bookmarks-file "Bookmarks")
+           "* [[%^{url}][%?]]\n%U\n")
           ("j" "Journal" entry
            (file+datetree mcw:org-notes-journal-file)
            "* %?\nEntered on %U\n  %i\n  %a")))
@@ -422,7 +427,8 @@
           ("p" "Projects" tags "LEVEL=2+PROJECT")
           ("n" "Next tasks"  tags-todo "TODO=\"NEXT\"")))
   (setq org-refile-targets '((mcw:org-notes-gtd-file . (:maxlevel . 2))
-                             (mcw:org-notes-someday-file . (:maxlevel . 2))))
+                             (mcw:org-notes-someday-file . (:maxlevel . 2))
+                             (mcw:org-notes-bookmarks-file . (:maxlevel . 1))))
   (setq org-enforce-todo-dependencies t))
 
 ;; enable Github-flavored Markdown export
