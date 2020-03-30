@@ -474,6 +474,13 @@
 
 (global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org-notes)
 
+(global-set-key (kbd "C-c o b")
+                (lambda ()
+                  (interactive)
+                  (select-window
+                   (display-buffer-in-side-window
+                    (find-file-noselect mcw:org-notes-bookmarks-file) nil))))
+
 ;; Nix
 (use-package nix-mode)
 
