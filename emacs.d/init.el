@@ -404,6 +404,7 @@
      (emacs-lisp . t)
      (haskell . t)
      (jupyter . t)
+     (latex . t)
      (R . t)
      (restclient . t)
      (shell . t))))
