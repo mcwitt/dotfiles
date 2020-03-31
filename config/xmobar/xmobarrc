@@ -57,7 +57,7 @@ Config {
                              , "--low"      , "darkgreen"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
-                             , "--ppad"     , "2"
+                             , "--ppad"     , "3"
                              ] 10
 
         -- cpu core temperature monitor
