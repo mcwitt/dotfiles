@@ -394,6 +394,7 @@
   (setq org-tags-sort-function #'string<)
   (setq org-confirm-babel-evaluate nil)
   :config
+  (add-to-list 'org-modules 'org-habit)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
   (require 'ox-md)     ;; enable Markdown export
   (require 'ox-beamer) ;; enable Beamer presentation export
