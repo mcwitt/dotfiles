@@ -258,7 +258,7 @@
 
 (with-eval-after-load 'ox-latex
   (setq org-latex-listings 'minted)
-  (setq org-latex-to-pdf-process '("latexmk -f -pdf %f"))
+  (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
   (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
 
 ;;; Markdown
