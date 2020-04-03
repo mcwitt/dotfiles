@@ -261,6 +261,9 @@
   (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
   (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
 
+(with-eval-after-load 'tex
+  (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools")))
+
 ;;; Markdown
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
