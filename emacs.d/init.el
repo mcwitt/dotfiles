@@ -451,6 +451,9 @@
 (use-package pdf-tools
   :init (setq pdf-view-use-scaling t)
   :hook (pdf-view-mode . (lambda () (linum-mode -1)))
+  :bind (:map pdf-view-mode-map
+              ("j" . pdf-view-next-line-or-next-page)
+              ("k" . pdf-view-previous-line-or-previous-page))
   :config
   (pdf-tools-install)
   (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs)))
