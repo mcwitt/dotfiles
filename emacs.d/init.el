@@ -463,6 +463,7 @@
 ;; tools for notes and annotations linked to PDFs
 ;; (use-package interleave)
 (use-package org-noter
+  :after pdf-tools
   :bind (:map pdf-view-mode-map ("C-c C-n" . org-noter))
   :init
   (setq mcw:library-notes-directory "~/src/library/notes/")
