@@ -236,6 +236,7 @@
 (use-package lsp-mode
   :commands lsp
   :hook (haskell-mode . lsp)
+  :init (setq lsp-keymap-prefix "C-c l")
   :config
   (setq gc-cons-threshold 100000000)
   (setq lsp-prefer-flymake nil))
@@ -365,7 +366,7 @@
 (use-package org
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
-         ("C-c l" . org-store-link)
+         ("C-c o l" . org-store-link)
          (:map org-mode-map
                ("C-c C-c" .
                 (lambda ()
