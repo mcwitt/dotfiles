@@ -449,14 +449,16 @@
 
 ;; fast viewing and searching for PDF files
 (use-package pdf-tools
-  :init (setq pdf-view-use-scaling t)
+  :mode  ("\\.pdf\\'" . pdf-view-mode)
   :hook (pdf-view-mode . (lambda () (linum-mode -1)))
   :bind (:map pdf-view-mode-map
               ("j" . pdf-view-next-line-or-next-page)
               ("k" . pdf-view-previous-line-or-previous-page))
   :config
   (pdf-tools-install)
-  (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs)))
+  (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
+  (setq pdf-view-use-scaling t)
+  (setq-default pdf-view-display-size 'fit-page))
 
 ;; tools for notes and annotations linked to PDFs
 ;; (use-package interleave)
