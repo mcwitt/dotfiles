@@ -465,7 +465,10 @@
 (use-package org-noter
   :bind (:map pdf-view-mode-map ("C-c C-n" . org-noter))
   :init
-  (setq org-noter-notes-search-path (list mcw:org-notes-notes-directory)))
+  (setq mcw:library-notes-directory "~/src/library/notes/")
+  :config
+  (add-to-list 'org-noter-notes-search-path mcw:org-notes-notes-directory)
+  (add-to-list 'org-noter-notes-search-path mcw:library-notes-directory))
 
 ;; spaced repetition flash cards
 ;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
