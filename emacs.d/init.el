@@ -253,6 +253,10 @@
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
 
+;;; TeX
+(use-package tex
+  :config (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools")))
+
 ;;; Minor mode for editing LaTeX inside of org documents
 (use-package cdlatex
   :hook (org-mode . turn-on-org-cdlatex))
@@ -261,9 +265,6 @@
   (setq org-latex-listings 'minted)
   (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
   (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
-
-(with-eval-after-load 'tex
-  (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools")))
 
 ;;; Markdown
 (use-package markdown-mode
