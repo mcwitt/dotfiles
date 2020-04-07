@@ -396,6 +396,8 @@
   (setq org-tags-sort-function #'string<)
   (setq org-confirm-babel-evaluate nil)
   :config
+  (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
+  (add-to-list 'org-file-apps '(t . "xdg-open %s")) ;; use xdg-open as default (replaces mailcap)
   (add-to-list 'org-modules 'org-habit)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
   (require 'ox-md)     ;; enable Markdown export
@@ -455,7 +457,6 @@
               ("k" . pdf-view-previous-line-or-previous-page))
   :config
   (pdf-tools-install)
-  (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
   (setq pdf-view-use-scaling t)
   (setq-default pdf-view-display-size 'fit-page))
 
