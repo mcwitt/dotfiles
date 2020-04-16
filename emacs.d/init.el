@@ -32,6 +32,12 @@
 ;; Prompt for y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+;; Create backup files in system temp directory
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
 ;;; Show matching parens
 (show-paren-mode 1)
 
