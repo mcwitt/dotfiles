@@ -530,6 +530,7 @@
   :after erc)
 
 (defun mcw:erc-freenode ()
+  "Connect to freenode with ERC."
   (interactive)
   (erc :server "irc.freenode.net" :port 6667 :nick "mcwitt"))
 
