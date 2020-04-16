@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+(setq user-full-name "Matthew Wittmann"
+      user-mail-address "mcwitt@gmail.com")
+
 ;;; Path to additional elisp files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
