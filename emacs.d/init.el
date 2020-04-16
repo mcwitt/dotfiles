@@ -400,8 +400,7 @@
                   (org-ctrl-c-ctrl-c)
                   (org-display-inline-images)))))
   :hook ((org-mode . turn-on-flyspell)
-         (org-mode . mcw:sync-org-notes)
-         (org-capture . org-align-all-tags))
+         (org-mode . mcw:sync-org-notes))
   :init
   (setq org-startup-indented t)
   (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
