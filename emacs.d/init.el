@@ -500,10 +500,6 @@
   (add-to-list 'org-noter-notes-search-path mcw:org-notes-notes-directory)
   (add-to-list 'org-noter-notes-search-path mcw:library-notes-directory))
 
-;; spaced repetition flash cards
-;; TODO disabled until "Lisp nesting exceeds ‘max-lisp-eval-depth" error solved
-;; (use-package org-drill)
-
 (defun mcw:sync-org-notes ()
   "Sync org notes repo with upstream."
   (let ((default-directory mcw:org-notes-directory))
