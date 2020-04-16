@@ -374,12 +374,15 @@
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
          ("C-c o l" . org-store-link)
+         ("C-c o s" . mcw:save-and-sync-org-notes)
+         ("C-c o b" . mcw:display-bookmarks-in-side-window)
          (:map org-mode-map
                ("C-c C-c" .
                 (lambda ()
                   (interactive)
                   (org-ctrl-c-ctrl-c)
                   (org-display-inline-images)))))
+  :commands mcw:save-and-sync-org-notes
   :hook ((org-mode . turn-on-flyspell)
          (org-mode . mcw:sync-org-notes))
   :init
@@ -397,6 +400,18 @@
     (concat mcw:org-notes-directory "journal.org"))
   (defvar mcw:org-notes-notes-directory
     (concat mcw:org-notes-directory (file-name-as-directory "notes")))
+
+  (defun mcw:sync-org-notes ()
+    "Sync org notes repo with upstream."
+    (let ((default-directory mcw:org-notes-directory))
+      (shell-command "git-sync")))
+
+  (defun mcw:display-bookmarks-in-side-window ()
+    "Display org-notes bookmarks file in a side window."
+    (interactive)
+    (select-window
+     (display-buffer-in-side-window
+      (find-file-noselect mcw:org-notes-bookmarks-file) nil)))
 
   (setq org-startup-indented t)
   (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
@@ -418,6 +433,7 @@
           ""))
   (setq org-tags-sort-function #'string<)
   (setq org-confirm-babel-evaluate nil)
+
   :config
   (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
   (add-to-list 'org-file-apps-gnu '(t . "xdg-open %s")) ;; use xdg-open as default (replaces mailcap)
@@ -441,7 +457,13 @@
   (with-eval-after-load 'ox-latex
     (setq org-latex-listings 'minted)
     (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
-    (add-to-list 'org-latex-packages-alist '("newfloat" "minted"))))
+    (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
+
+  (defun mcw:save-and-sync-org-notes ()
+    "Save all org buffers and sync gtd repo."
+    (interactive)
+    (org-save-all-org-buffers)
+    (mcw:sync-org-notes)))
 
 (use-package org-agenda
   :bind (:map org-agenda-mode-map
@@ -500,26 +522,6 @@
   (add-to-list 'org-noter-notes-search-path mcw:org-notes-notes-directory)
   (add-to-list 'org-noter-notes-search-path mcw:library-notes-directory))
 
-(defun mcw:sync-org-notes ()
-  "Sync org notes repo with upstream."
-  (let ((default-directory mcw:org-notes-directory))
-    (shell-command "git-sync")))
-
-(defun mcw:save-and-sync-org-notes ()
-  "Save all org buffers and sync gtd repo."
-  (interactive)
-  (org-save-all-org-buffers)
-  (mcw:sync-org-notes))
-
-(global-set-key (kbd "C-c o s") 'mcw:save-and-sync-org-notes)
-
-(global-set-key (kbd "C-c o b")
-                (lambda ()
-                  (interactive)
-                  (select-window
-                   (display-buffer-in-side-window
-                    (find-file-noselect mcw:org-notes-bookmarks-file) nil))))
-
 ;; Nix
 (use-package nix-mode)
 
@@ -531,7 +533,8 @@
 
 ;; ERC (IRC client)
 (use-package erc
-  :bind ("C-c e" . #'mcw:erc-freenode)
+  :bind ("C-c e" . mcw:erc-freenode)
+  :commands mcw:erc-freenode
   :init
   (setq erc-prompt-for-password nil) ; get login from ~/.authinfo.gpg
   (setq erc-hide-list '("JOIN" "PART" "QUIT"))
@@ -543,21 +546,22 @@
            "#python"
            "freenode.net")))
   (setq erc-autojoin-timing 'ident)
+
   :config
   (add-to-list 'erc-modules 'notifications)
   (add-to-list 'erc-modules 'spelling)
-  (erc-update-modules))
+  (erc-update-modules)
+
+  (defun mcw:erc-freenode ()
+    "Connect to freenode with ERC."
+    (interactive)
+    (erc :server "irc.freenode.net" :port 6667 :nick "mcwitt")))
 
 (use-package erc-hl-nicks
   :after erc)
 
 (use-package erc-image
   :after erc)
-
-(defun mcw:erc-freenode ()
-  "Connect to freenode with ERC."
-  (interactive)
-  (erc :server "irc.freenode.net" :port 6667 :nick "mcwitt"))
 
 (use-package format-all
   :bind ("C-c C-f" . format-all-buffer))
