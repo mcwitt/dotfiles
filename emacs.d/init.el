@@ -289,11 +289,6 @@
 (use-package cdlatex
   :hook (org-mode . turn-on-org-cdlatex))
 
-(with-eval-after-load 'ox-latex
-  (setq org-latex-listings 'minted)
-  (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
-  (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
-
 ;; Markdown
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
@@ -375,20 +370,6 @@
 (use-package yasnippet-snippets)
 
 ;; Org (environment for outlining, todos, literate programming)
-(setq mcw:org-notes-directory (file-name-as-directory "~/src/org-notes/"))
-(setq mcw:org-notes-inbox-file
-      (concat mcw:org-notes-directory "inbox.org")
-      mcw:org-notes-gtd-file
-      (concat mcw:org-notes-directory "gtd.org")
-      mcw:org-notes-someday-file
-      (concat mcw:org-notes-directory "someday.org")
-      mcw:org-notes-bookmarks-file
-      (concat mcw:org-notes-directory "bookmarks.org")
-      mcw:org-notes-journal-file
-      (concat mcw:org-notes-directory "journal.org")
-      mcw:org-notes-notes-directory
-      (concat mcw:org-notes-directory (file-name-as-directory "notes")))
-
 (use-package org
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
@@ -402,6 +383,19 @@
   :hook ((org-mode . turn-on-flyspell)
          (org-mode . mcw:sync-org-notes))
   :init
+  (setq mcw:org-notes-directory (file-name-as-directory "~/src/org-notes/"))
+  (setq mcw:org-notes-inbox-file
+        (concat mcw:org-notes-directory "inbox.org")
+        mcw:org-notes-gtd-file
+        (concat mcw:org-notes-directory "gtd.org")
+        mcw:org-notes-someday-file
+        (concat mcw:org-notes-directory "someday.org")
+        mcw:org-notes-bookmarks-file
+        (concat mcw:org-notes-directory "bookmarks.org")
+        mcw:org-notes-journal-file
+        (concat mcw:org-notes-directory "journal.org")
+        mcw:org-notes-notes-directory
+        (concat mcw:org-notes-directory (file-name-as-directory "notes")))
   (setq org-startup-indented t)
   (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
   (setq org-tag-persistent-alist '(("PROJECT" . ?P) (:startgroup) ("@home" . ?h) ("@work" . ?w)))
@@ -427,8 +421,6 @@
   (add-to-list 'org-file-apps-gnu '(t . "xdg-open %s")) ;; use xdg-open as default (replaces mailcap)
   (add-to-list 'org-modules 'org-habit)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
-  (require 'ox-md)     ;; enable Markdown export
-  (require 'ox-beamer) ;; enable Beamer presentation export
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -439,7 +431,15 @@
      (latex . t)
      (R . t)
      (restclient . t)
-     (shell . t))))
+     (shell . t)))
+
+  ;; Export settings
+  (require 'ox-md)     ;; enable Markdown export
+  (require 'ox-beamer) ;; enable Beamer presentation export
+  (with-eval-after-load 'ox-latex
+    (setq org-latex-listings 'minted)
+    (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
+    (add-to-list 'org-latex-packages-alist '("newfloat" "minted"))))
 
 (use-package org-agenda
   :bind (:map org-agenda-mode-map
