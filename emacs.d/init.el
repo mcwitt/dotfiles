@@ -383,19 +383,21 @@
   :hook ((org-mode . turn-on-flyspell)
          (org-mode . mcw:sync-org-notes))
   :init
-  (setq mcw:org-notes-directory (file-name-as-directory "~/src/org-notes/"))
-  (setq mcw:org-notes-inbox-file
-        (concat mcw:org-notes-directory "inbox.org")
-        mcw:org-notes-gtd-file
-        (concat mcw:org-notes-directory "gtd.org")
-        mcw:org-notes-someday-file
-        (concat mcw:org-notes-directory "someday.org")
-        mcw:org-notes-bookmarks-file
-        (concat mcw:org-notes-directory "bookmarks.org")
-        mcw:org-notes-journal-file
-        (concat mcw:org-notes-directory "journal.org")
-        mcw:org-notes-notes-directory
-        (concat mcw:org-notes-directory (file-name-as-directory "notes")))
+  (defvar mcw:org-notes-directory
+    (file-name-as-directory "~/src/org-notes/"))
+  (defvar mcw:org-notes-inbox-file
+    (concat mcw:org-notes-directory "inbox.org"))
+  (defvar mcw:org-notes-gtd-file
+    (concat mcw:org-notes-directory "gtd.org"))
+  (defvar mcw:org-notes-someday-file
+    (concat mcw:org-notes-directory "someday.org"))
+  (defvar mcw:org-notes-bookmarks-file
+    (concat mcw:org-notes-directory "bookmarks.org"))
+  (defvar mcw:org-notes-journal-file
+    (concat mcw:org-notes-directory "journal.org"))
+  (defvar mcw:org-notes-notes-directory
+    (concat mcw:org-notes-directory (file-name-as-directory "notes")))
+
   (setq org-startup-indented t)
   (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
   (setq org-tag-persistent-alist '(("PROJECT" . ?P) (:startgroup) ("@home" . ?h) ("@work" . ?w)))
@@ -493,7 +495,7 @@
   :after pdf-tools
   :bind (:map pdf-view-mode-map ("C-c C-n" . org-noter))
   :init
-  (setq mcw:library-notes-directory "~/src/library/notes/")
+  (defvar mcw:library-notes-directory "~/src/library/notes/")
   :config
   (add-to-list 'org-noter-notes-search-path mcw:org-notes-notes-directory)
   (add-to-list 'org-noter-notes-search-path mcw:library-notes-directory))
