@@ -1,36 +1,19 @@
-;;; package -- Summary
+;;; package -- Matt's Emacs configuration
 ;;; Commentary:
 ;;; Code:
+
+;;; User info
 
 (setq user-full-name "Matthew Wittmann"
       user-mail-address "mcwitt@gmail.com")
 
-;;; Path to additional elisp files
+;;; File paths
+
+;; Path to additional elisp files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
-;;; Relocate custom file
+;; Relocate custom file
 (setq custom-file "~/.emacs.d/emacs-custom.el")
-
-;;; Minimal UI
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-(menu-bar-mode -1)
-
-(add-to-list 'default-frame-alist
-             `(font . ,(if (string-equal system-type "darwin")
-                           "Fira Code-13"
-                         "FiraCode")))
-
-(add-to-list 'default-frame-alist '(height . 60))
-(add-to-list 'default-frame-alist '(width . 80))
-
-(setq split-height-threshold 100)
-
-(setq-default indent-tabs-mode nil)
-
-;; Prompt for y/n instead of yes/no
-(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Create backup files in system temp directory
 (setq backup-directory-alist
@@ -38,8 +21,31 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
-;;; Show matching parens
-(show-paren-mode 1)
+;;; UI
+
+;; Minimal UI
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+(menu-bar-mode -1)
+
+;; Default font
+(add-to-list 'default-frame-alist
+             `(font . ,(if (string-equal system-type "darwin")
+                           "Fira Code-13"
+                         "FiraCode")))
+
+(add-to-list 'default-frame-alist '(height . 60))
+(add-to-list 'default-frame-alist '(width . 80))
+(setq split-height-threshold 100)
+
+;; Prompt for y/n instead of yes/no
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;;; Editing
+
+(setq-default indent-tabs-mode nil) ; Don't use tabs
+(show-paren-mode 1)                 ; Show matching parens
 
 (defun increment-number-at-point ()
   "Increment integer at the cursor position."
@@ -51,9 +57,11 @@
 
 (global-set-key (kbd "C-c +") 'increment-number-at-point)
 
+;;; Package settings
+
 (require 'package)
 
-;; Make impure packages archives unavailable
+;; Make impure packages archives unavailable (packages are managed by Nix)
 (setq package-archives nil)
 
 (setq package-enable-at-startup nil)
@@ -62,13 +70,17 @@
 (eval-when-compile
   (require 'use-package))
 
+;;; Packages
+
+;; Try to utilize use-package wherever possible
+
 (use-package imenu
   :bind ("C-c i" . imenu))
 
-;;; Helper for keybindings
+;; Helper for keybindings
 (use-package general)
 
-;;; Vim emulation
+;; Vim emulation
 (use-package evil
   :general
   (:states '(normal insert)
@@ -81,14 +93,14 @@
   :config
   (evil-mode 1))
 
-;;; Bind key combination to ESC
+;; Bind key combination to ESC
 (use-package evil-escape
   :init
   (setq-default evil-escape-key-sequence "fd")
   :config
   (evil-escape-mode 1))
 
-;;; Themes
+;; Themes
 (use-package doom-themes
   :config
   (doom-themes-visual-bell-config)
@@ -114,7 +126,7 @@
   :config
   (ivy-mode 1))
 
-;;; Counsel
+;; Counsel
 (use-package counsel
   :bind (("C-s" . swiper)
          ("M-x" . counsel-M-x)
@@ -123,12 +135,12 @@
          ("C-x C-r" . counsel-recentf)
          ("C-c t" . counsel-load-theme)))
 
-;;; Integration with tramp-mode (remote file editing)
+;; Integration with tramp-mode (remote file editing)
 (use-package counsel-tramp
   :after tramp
   :bind ("C-c f" . counsel-tramp))
 
-;;; Display key binding hints in minibuffer
+;; Display key binding hints in minibuffer
 (use-package which-key
   :init
   (setq which-key-separator " ")
@@ -136,7 +148,7 @@
   :config
   (which-key-mode 1))
 
-;;; Project tools
+;; Project tools
 (use-package projectile
   :bind-keymap ("C-c p" . projectile-command-map)
   :init
@@ -151,10 +163,10 @@
   :after projectile
   :config (counsel-projectile-mode 1))
 
-;;; Find files with content matching regex
+;; Find files with content matching regex
 (use-package ripgrep)
 
-;;; Completion
+;; Completion
 (use-package company
   :bind
   (:map company-active-map
@@ -165,46 +177,46 @@
   :config
   (company-mode 1))
 
-;;; direnv integration
+;; direnv integration
 ;; (updates environment based on local .envrc)
 (use-package direnv
   :config (direnv-mode))
 
-;;; Deal with parens in pairs
+;; Deal with parens in pairs
 (use-package smartparens)
 
 (use-package evil-smartparens
   :after smartparens
   :hook (smartparens-enabled . evil-smartparens-mode))
 
-;;; Surround text objects with parens, brackets, quotes, etc.
+;; Surround text objects with parens, brackets, quotes, etc.
 (use-package evil-surround
   :config (global-evil-surround-mode 1))
 
-;;; Relative line numbering
+;; Relative line numbering
 (use-package nlinum-relative
   :config (nlinum-relative-setup-evil)
   :hook (prog-mode . nlinum-relative-mode))
 
-;;; Fira Code ligatures
+;; Fira Code ligatures
 (require 'fira-code-mode)
 
-;;; highlighting TODO items in comments
+;; highlighting TODO items in comments
 (use-package hl-todo
   :config (global-hl-todo-mode 1))
 
-;;; Tools for working with git
+;; Tools for working with git
 (use-package magit
   :bind ("C-x g" . magit-status))
 
 (use-package evil-magit
   :after (evil magit))
 
-;;; Browse/edit remote files via ssh and ftp
+;; Browse/edit remote files via ssh and ftp
 (use-package browse-at-remote
   :bind ("C-c b" . browse-at-remote))
 
-;;; Tree view
+;; Tree view
 (use-package treemacs
   :init
   (with-eval-after-load 'winum
@@ -242,12 +254,12 @@
 (use-package treemacs-magit
   :after treemacs magit)
 
-;;; Syntax checking
+;; Syntax checking
 (use-package flycheck
   :init (setq ispell-program-name "aspell")
   :config (global-flycheck-mode t))
 
-;;; Language Server Protocol support
+;; Language Server Protocol support
 (use-package lsp-mode
   :commands lsp
   :hook (haskell-mode . lsp)
@@ -268,11 +280,11 @@
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list)
 
-;;; TeX
+;; TeX
 (use-package tex
   :config (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools")))
 
-;;; Minor mode for editing LaTeX inside of org documents
+;; Minor mode for editing LaTeX inside of org documents
 (use-package cdlatex
   :hook (org-mode . turn-on-org-cdlatex))
 
@@ -281,7 +293,7 @@
   (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
   (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
 
-;;; Markdown
+;; Markdown
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
@@ -289,7 +301,7 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
-;;; Haskell
+;; Haskell
 (use-package haskell-mode
   :hook ((haskell-mode . fira-code-mode)
          (haskell-mode . interactive-haskell-mode))
@@ -308,7 +320,7 @@
   ;;(setq lsp-log-io t)
   )
 
-;;; Jupyter (REPL, org-babel integration)
+;; Jupyter (REPL, org-babel integration)
 (use-package jupyter
   :bind ("C-c j" . jupyter-run-repl)
   :general
@@ -317,7 +329,7 @@
             "C-j" 'jupyter-repl-history-next-matching
             "C-k" 'jupyter-repl-history-previous-matching))
 
-;;; Python
+;; Python
 (use-package anaconda-mode
   :hook ((python-mode . anaconda-mode)
          (python-mode . anaconda-eldoc-mode)))
@@ -329,17 +341,17 @@
 (use-package pyenv-mode
   :hook python-mode)
 
-;;; json
+;; json
 (use-package json-mode
   :hook (json-mode . flycheck-mode))
 
-;;; yaml
+;; yaml
 (use-package yaml-mode)
 
-;;; Major mode for viewing log files
+;; Major mode for viewing log files
 (use-package logview)
 
-;;; Send HTTP requests
+;; Send HTTP requests
 (use-package restclient)
 
 (use-package company-restclient
@@ -348,21 +360,21 @@
 (use-package ob-restclient
   :after org-babel restclient)
 
-;;; pinentry
+;; pinentry
 (use-package pinentry
   :config (pinentry-start))
 
-;;; Gist export
+;; Gist export
 (use-package gist
   :bind ("C-c g" . gist-region-or-buffer-private))
 
-;;; Snippet tool
+;; Snippet tool
 (use-package yasnippet
   :config (yas-global-mode 1))
 
 (use-package yasnippet-snippets)
 
-;;; Org (environment for outlining, todos, literate programming)
+;; Org (environment for outlining, todos, literate programming)
 (setq mcw:org-notes-directory (file-name-as-directory "~/src/org-notes/"))
 (setq mcw:org-notes-inbox-file
       (concat mcw:org-notes-directory "inbox.org")
@@ -456,7 +468,7 @@
 ;; enable Github-flavored Markdown export
 (use-package ox-gfm)
 
-;;; Note-taking
+;; Note-taking
 (use-package deft
   :after org
   :bind ("C-c d" . deft)
