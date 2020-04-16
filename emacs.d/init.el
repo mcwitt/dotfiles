@@ -500,8 +500,9 @@
 
 ;; fast viewing and searching for PDF files
 (use-package pdf-tools
+  :init (defun mcw:disable-linum-mode () (linum-mode -1))
   :mode  ("\\.pdf\\'" . pdf-view-mode)
-  :hook (pdf-view-mode . (lambda () (linum-mode -1)))
+  :hook (pdf-view-mode . mcw:disable-linum-mode)
   :bind (:map pdf-view-mode-map
               ("j" . pdf-view-next-line-or-next-page)
               ("k" . pdf-view-previous-line-or-previous-page))
