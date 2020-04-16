@@ -29,6 +29,9 @@
 
 (setq-default indent-tabs-mode nil)
 
+;; Prompt for y/n instead of yes/no
+(defalias 'yes-or-no-p 'y-or-n-p)
+
 ;;; Show matching parens
 (show-paren-mode 1)
 
