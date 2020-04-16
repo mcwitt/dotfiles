@@ -266,8 +266,7 @@
   :hook (haskell-mode . lsp)
   :init (setq lsp-keymap-prefix "C-c l")
   :config
-  (setq gc-cons-threshold 100000000)
-  (setq lsp-prefer-flymake nil))
+  (setq gc-cons-threshold 100000000))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)
