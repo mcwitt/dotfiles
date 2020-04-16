@@ -199,7 +199,8 @@
   :hook (prog-mode . nlinum-relative-mode))
 
 ;; Fira Code ligatures
-(require 'fira-code-mode)
+(use-package fira-code-mode
+  :hook haskell-mode)
 
 ;; highlighting TODO items in comments
 (use-package hl-todo
@@ -303,8 +304,7 @@
 
 ;; Haskell
 (use-package haskell-mode
-  :hook ((haskell-mode . fira-code-mode)
-         (haskell-mode . interactive-haskell-mode))
+  :hook (haskell-mode . interactive-haskell-mode)
   :bind (:map haskell-mode-map ("C-c C-h" . 'haskell-hoogle-lookup-from-local))
   :init (setq haskell-interactive-popup-errors nil))
 
