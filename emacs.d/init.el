@@ -542,5 +542,8 @@
 
 (use-package ess)
 
+(use-package org-evil
+  :hook (org-mode . org-evil-mode))
+
 (provide 'init)
 ;;; init.el ends here
