@@ -113,9 +113,9 @@
 
 (use-package all-the-icons)
 
+;; Generic completion mechanism
 (use-package ivy
-  :bind (("C-x b" . ivy-switch-buffer)
-         ("C-c C-r" . ivy-resume)
+  :bind (("C-c C-r" . ivy-resume)
          (:map ivy-minibuffer-map
                ("C-j" . ivy-next-line)
                ("C-k" . ivy-previous-line)
@@ -126,14 +126,14 @@
   :config
   (ivy-mode 1))
 
-;; Counsel
+;; Ivy-enhanced Emacs commands
 (use-package counsel
-  :bind (("C-s" . swiper)
-         ("M-x" . counsel-M-x)
-         ("C-x l" . counsel-locate)
-         ("C-x C-f" . counsel-find-file)
-         ("C-x C-r" . counsel-recentf)
-         ("C-c t" . counsel-load-theme)))
+  :config
+  (counsel-mode 1))
+
+;; Ivy-enhanced version of isearch
+(use-package swiper
+  :bind ("C-s" . swiper))
 
 ;; Integration with tramp-mode (remote file editing)
 (use-package counsel-tramp
