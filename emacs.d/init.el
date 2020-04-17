@@ -128,8 +128,7 @@
 
 ;; Ivy-enhanced Emacs commands
 (use-package counsel
-  :config
-  (counsel-mode 1))
+  :config (counsel-mode 1))
 
 ;; Ivy-enhanced version of isearch
 (use-package swiper
@@ -155,7 +154,7 @@
   (setq projectile-require-project-root nil)
   (setq projectile-completion-system 'ivy)
   (setq projectile-project-search-path '("~/src/"))
-  (require 'subr-x)  ;; work around bug similar to https://github.com/alphapapa/org-protocol-capture-html/issues/7
+  (require 'subr-x)  ; work around bug similar to https://github.com/alphapapa/org-protocol-capture-html/issues/7
   :config
   (projectile-mode 1))
 
@@ -435,7 +434,7 @@
 
   :config
   (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
-  (add-to-list 'org-file-apps-gnu '(t . "xdg-open %s")) ;; use xdg-open as default (replaces mailcap)
+  (add-to-list 'org-file-apps-gnu '(t . "xdg-open %s")) ; use xdg-open as default (replaces mailcap)
   (add-to-list 'org-modules 'org-habit)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
 
@@ -451,8 +450,8 @@
      (shell . t)))
 
   ;; Export settings
-  (require 'ox-md)     ;; enable Markdown export
-  (require 'ox-beamer) ;; enable Beamer presentation export
+  (require 'ox-md)     ; enable Markdown export
+  (require 'ox-beamer) ; enable Beamer presentation export
   (with-eval-after-load 'ox-latex
     (setq org-latex-listings 'minted)
     (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
