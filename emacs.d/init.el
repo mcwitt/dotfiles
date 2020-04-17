@@ -44,8 +44,11 @@
 
 ;;; Editing
 
-(setq-default indent-tabs-mode nil) ; Don't use tabs
-(show-paren-mode 1)                 ; Show matching parens
+(setq-default
+ indent-tabs-mode nil        ; Don't use tabs
+ show-trailing-whitespace t) ; Highlight end-of-line whitespace
+
+(show-paren-mode 1)          ; Show matching parens
 
 (defun increment-number-at-point ()
   "Increment integer at the cursor position."
