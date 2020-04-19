@@ -576,5 +576,8 @@
 (use-package org-evil
   :hook (org-mode . org-evil-mode))
 
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
 (provide 'init)
 ;;; init.el ends here
