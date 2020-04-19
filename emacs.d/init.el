@@ -44,11 +44,11 @@
 
 ;;; Editing
 
-(setq-default
- indent-tabs-mode nil        ; Don't use tabs
- show-trailing-whitespace t) ; Highlight end-of-line whitespace
+(setq-default indent-tabs-mode nil) ; Don't insert tabs for indentation
+(show-paren-mode 1)                 ; Highlight matching parens
 
-(show-paren-mode 1)          ; Show matching parens
+;; Highlight end-of-line whitespace only in prog-mode
+(add-hook 'prog-mode-hook (lambda () (setq-local show-trailing-whitespace t)))
 
 (defun increment-number-at-point ()
   "Increment integer at the cursor position."
