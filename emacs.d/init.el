@@ -75,7 +75,10 @@
 
 ;;; Packages
 
-;; Try to utilize use-package wherever possible
+(use-package undo-tree
+  :delight
+  :init
+  (undo-tree-mode))
 
 (use-package imenu
   :bind ("C-c i" . imenu))
@@ -98,6 +101,7 @@
 
 ;; Bind key combination to ESC
 (use-package evil-escape
+  :delight
   :init
   (setq-default evil-escape-key-sequence "fd")
   :config
@@ -118,6 +122,7 @@
 
 ;; Generic completion mechanism
 (use-package ivy
+  :delight
   :bind (("C-c C-r" . ivy-resume)
          (:map ivy-minibuffer-map
                ("C-j" . ivy-next-line)
@@ -131,6 +136,7 @@
 
 ;; Ivy-enhanced Emacs commands
 (use-package counsel
+  :delight
   :config (counsel-mode 1))
 
 ;; Ivy-enhanced version of isearch
@@ -144,6 +150,7 @@
 
 ;; Display key binding hints in minibuffer
 (use-package which-key
+  :delight
   :init
   (setq which-key-separator " ")
   (setq which-key-prefix-prefix "+")
@@ -152,6 +159,7 @@
 
 ;; Project tools
 (use-package projectile
+  :delight
   :bind-keymap ("C-c p" . projectile-command-map)
   :init
   (setq projectile-require-project-root nil)
@@ -170,6 +178,7 @@
 
 ;; Completion
 (use-package company
+  :delight
   :bind
   (:map company-active-map
         ("C-j" . company-select-next)
