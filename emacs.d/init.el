@@ -124,14 +124,10 @@
 ;; Generic completion mechanism
 (use-package ivy
   :delight
-  :bind (("C-c C-r" . ivy-resume)
-         (:map ivy-minibuffer-map
-               ("C-j" . ivy-next-line)
-               ("C-k" . ivy-previous-line)
-               ("C-h" . ivy-backward-kill-word))
-         (:map ivy-switch-buffer-map
-               ("C-j" . ivy-next-line)
-               ("C-k" . ivy-previous-line)))
+  :bind
+  (("C-c C-r" . ivy-resume)
+   (:map ivy-minibuffer-map
+         ("C-w" . ivy-backward-kill-word)))
   :config
   (ivy-mode 1))
 
