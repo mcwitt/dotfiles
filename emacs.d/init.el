@@ -177,10 +177,7 @@
 (use-package company
   :delight
   :bind
-  (:map company-active-map
-        ("C-j" . company-select-next)
-        ("C-k" . company-select-previous)
-        ("jk" . company-complete))
+  (:map company-active-map ("jk" . company-complete))
   :hook (after-init . global-company-mode)
   :config
   (company-mode 1))
