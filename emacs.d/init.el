@@ -88,16 +88,17 @@
 
 ;; Vim emulation
 (use-package evil
-  :general
-  (:states '(normal insert)
-           :keymaps 'comint-mode-map
-           "C-j" 'comint-next-input
-           "C-k" 'comint-previous-input)
   :init
-  (setq evil-want-C-u-scroll t)
-  (setq evil-want-abbrev-expand-on-insert-exit nil)
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
   :config
   (evil-mode 1))
+
+;; Collection of vim-like bindings for major modes
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
 
 ;; Bind key combination to ESC
 (use-package evil-escape
