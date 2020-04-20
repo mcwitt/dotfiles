@@ -248,17 +248,17 @@
               ("C-x t M-t" . treemacs-find-tag)))
 
 (use-package treemacs-evil
-  :after treemacs evil)
+  :after (treemacs evil))
 
 (use-package treemacs-projectile
-  :after treemacs projectile)
+  :after (treemacs projectile))
 
 (use-package treemacs-icons-dired
-  :after treemacs dired
+  :after (treemacs dired)
   :config (treemacs-icons-dired-mode))
 
 (use-package treemacs-magit
-  :after treemacs magit)
+  :after (treemacs magit))
 
 ;; Syntax checking
 (use-package flycheck
@@ -334,7 +334,7 @@
          (python-mode . anaconda-eldoc-mode)))
 
 (use-package company-anaconda
-  :after company anaconda-mode
+  :after (company anaconda-mode)
   :config (add-to-list 'company-backends 'company-anaconda))
 
 (use-package pyenv-mode
@@ -357,7 +357,7 @@
   :after restclient)
 
 (use-package ob-restclient
-  :after org-babel restclient)
+  :after (org-babel restclient))
 
 ;; pinentry
 (use-package pinentry
