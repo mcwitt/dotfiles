@@ -578,5 +578,9 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package org-pomodoro
+  :ensure t
+  :commands (org-pomodoro))
+
 (provide 'init)
 ;;; init.el ends here
