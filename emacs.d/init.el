@@ -268,7 +268,9 @@
 ;; Language Server Protocol support
 (use-package lsp-mode
   :commands lsp
-  :hook (haskell-mode . lsp)
+  :hook ((lsp-mode . lsp-lens-mode)
+         (haskell-mode . lsp)
+         (scala-mode . lsp))
   :init (setq lsp-keymap-prefix "C-c l")
   :config
   (setq gc-cons-threshold 100000000))
@@ -283,7 +285,11 @@
   :commands (lsp-ivy-workspace-symbol lsp-ivy-global-workspace-symbol))
 
 (use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list)
+  :commands lsp-treemacs-errors-list
+  :config
+  ;; Scala-specific
+  (lsp-metals-treeview-enable t)
+  (setq lsp-metals-treeview-show-when-views-received t))
 
 ;; TeX
 (use-package tex
@@ -581,6 +587,34 @@
 (use-package org-pomodoro
   :ensure t
   :commands (org-pomodoro))
+
+;;; Scala
+
+;; Scala highlighting, indentation and motion commands
+(use-package scala-mode
+  :mode "\\.s\\(cala\\|bt\\)$")
+
+;; For executing sbt commands
+(use-package sbt-mode
+  :commands (sbt-start sbt-command)
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map)
+  ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+  (setq sbt:program-options '("-Dsbt.supershell=false")))
+
+;; Use the Debug Adapter Protocol for running tests and debugging
+(use-package posframe
+  ;; Posframe is a pop-up tool that must be manually installed for dap-mode
+  )
+(use-package dap-mode
+  :hook
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode))
 
 (provide 'init)
 ;;; init.el ends here
