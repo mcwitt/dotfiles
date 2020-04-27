@@ -608,9 +608,10 @@
   (setq sbt:program-options '("-Dsbt.supershell=false")))
 
 ;; Use the Debug Adapter Protocol for running tests and debugging
-(use-package posframe
-  ;; Posframe is a pop-up tool that must be manually installed for dap-mode
-  )
+
+;; Posframe is a pop-up tool that must be manually installed for dap-mode
+(use-package posframe)
+
 (use-package dap-mode
   :hook
   (lsp-mode . dap-mode)
