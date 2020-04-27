@@ -434,7 +434,7 @@
            (file+headline mcw:org-notes-bookmarks-file "Bookmarks")
            "* [[%^{url}][%?]]\n%U\n")
           ("j" "Journal" entry
-           (file+datetree mcw:org-notes-journal-file)
+           (file+olp+datetree mcw:org-notes-journal-file)
            "* %?\nEntered on %U\n  %i\n  %a")))
   (setq org-stuck-projects
         '("LEVEL=2+PROJECT-TODO=DONE"
