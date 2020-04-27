@@ -504,10 +504,12 @@
 ;; Note-taking
 (use-package deft
   :after org
-  :bind ("C-c d" . deft)
-  :init
-  (setq deft-extension "org")
-  (setq deft-directory mcw:org-notes-notes-directory))
+  :bind ("C-c n d" . deft)
+  :custom
+  (deft-recursive t)
+  (deft-use-filter-string-for-filename t)
+  (deft-default-extension "org")
+  (deft-directory mcw:org-notes-notes-directory))
 
 ;; fast viewing and searching for PDF files
 (use-package pdf-tools
@@ -616,6 +618,34 @@
   :hook
   (lsp-mode . dap-mode)
   (lsp-mode . dap-ui-mode))
+
+;;; Org-roam: non-hierarchical note-taking
+
+(use-package org-roam
+  :delight
+  :hook
+  (after-init . org-roam-mode)
+  :custom
+  (org-roam-directory mcw:org-notes-directory)
+  :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n g" . org-roam-show-graph))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert)))
+  :config
+  (require 'org-roam-protocol))
+
+(use-package company-org-roam
+  :config (push 'company-org-roam company-backends))
+
+;; Screenshot and yank images (e.g. from the web) into Org documents
+(use-package org-download
+  :after org
+  :bind
+  (:map org-mode-map
+        (("s-Y" . org-download-screenshot)
+         ("s-y" . org-download-yank))))
 
 (provide 'init)
 ;;; init.el ends here
