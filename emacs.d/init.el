@@ -374,9 +374,9 @@
 (use-package org
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
-         ("C-c o l" . org-store-link)
-         ("C-c o s" . mcw:save-and-sync-org-notes)
-         ("C-c o b" . mcw:display-bookmarks-in-side-window)
+         ("C-c n L" . org-store-link)
+         ("C-c n s" . mcw:save-and-sync-org-notes)
+         ("C-c n b" . mcw:display-bookmarks-in-side-window)
          (:map org-mode-map
                ("C-c C-c" .
                 (lambda ()
