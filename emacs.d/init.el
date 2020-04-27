@@ -125,6 +125,7 @@
 ;; Ivy-enhanced Emacs commands
 (use-package counsel
   :delight
+  :bind ("C-c t" . counsel-load-theme)
   :config (counsel-mode 1))
 
 ;; Ivy-enhanced version of isearch
