@@ -384,7 +384,8 @@
                   (org-ctrl-c-ctrl-c)
                   (org-display-inline-images)))))
   :commands mcw:save-and-sync-org-notes
-  :hook ((org-mode . turn-on-flyspell)
+  :hook ((org-mode . visual-line-mode)
+         (org-mode . turn-on-flyspell)
          (org-mode . mcw:sync-org-notes))
   :init
   (defvar mcw:org-notes-directory
@@ -414,6 +415,7 @@
      (display-buffer-in-side-window
       (find-file-noselect mcw:org-notes-bookmarks-file) nil)))
 
+  (setq org-hide-emphasis-markers t)
   (setq org-startup-indented t)
   (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
   (setq org-tag-persistent-alist '(("PROJECT" . ?P) (:startgroup) ("@home" . ?h) ("@work" . ?w)))
@@ -439,6 +441,12 @@
   (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
   (add-to-list 'org-file-apps-gnu '(t . "xdg-open %s")) ; use xdg-open as default (replaces mailcap)
   (add-to-list 'org-modules 'org-habit)
+
+  ;; Display centered dots for list bullets
+  (font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
+
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
 
   (org-babel-do-load-languages
@@ -488,6 +496,15 @@
                              (mcw:org-notes-someday-file . (:maxlevel . 2))
                              (mcw:org-notes-bookmarks-file . (:maxlevel . 1))))
   (setq org-enforce-todo-dependencies t))
+
+;; Unicode bullets for headlines in org-mode
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+;; Mix fixed- and variable-pitch fonts (e.g. in org-mode)
+(use-package mixed-pitch
+  :hook (text-mode . mixed-pitch-mode))
 
 ;; enable Github-flavored Markdown export
 (use-package ox-gfm)
