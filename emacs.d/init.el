@@ -80,6 +80,7 @@
 ;; Vim emulation
 (use-package evil
   :init
+  (setq evil-want-C-u-scroll t)
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   :config
