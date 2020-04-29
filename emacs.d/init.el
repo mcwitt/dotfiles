@@ -418,6 +418,7 @@
 
   (setq org-hide-emphasis-markers t)
   (setq org-startup-indented t)
+  (setq org-tags-column 0) ; don't try to align tags
   (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
   (setq org-tag-persistent-alist '(("PROJECT" . ?P) (:startgroup) ("@home" . ?h) ("@work" . ?w)))
   (setq org-capture-templates
@@ -506,6 +507,11 @@
 ;; Mix fixed- and variable-pitch fonts (e.g. in org-mode)
 (use-package mixed-pitch
   :hook (text-mode . mixed-pitch-mode))
+
+;; Fix for list indentation with variable pitch in org-mode
+(use-package org-variable-pitch
+  :init (setq org-variable-pitch-fixed-faces nil)
+  :hook (org-mode . org-variable-pitch-minor-mode))
 
 ;; enable Github-flavored Markdown export
 (use-package ox-gfm)
