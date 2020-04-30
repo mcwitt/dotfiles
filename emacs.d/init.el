@@ -318,6 +318,12 @@
   ;;(setq lsp-log-io t)
   )
 
+(use-package ormolu
+  :hook (haskell-mode . ormolu-format-on-save-mode)
+  :bind
+  (:map haskell-mode-map
+        ("C-c r" . ormolu-format-buffer)))
+
 ;; Jupyter (REPL, org-babel integration)
 (use-package jupyter
   :bind ("C-c j" . jupyter-run-repl)
@@ -605,8 +611,6 @@
 (use-package org-pomodoro
   :ensure t
   :commands (org-pomodoro))
-
-;;; Scala
 
 ;; Scala highlighting, indentation and motion commands
 (use-package scala-mode
