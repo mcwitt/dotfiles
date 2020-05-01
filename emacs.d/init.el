@@ -303,7 +303,8 @@
 ;; Haskell
 (use-package haskell-mode
   :hook (haskell-mode . interactive-haskell-mode)
-  :bind (:map haskell-mode-map ("C-c C-h" . 'haskell-hoogle-lookup-from-local))
+  :bind ((:map haskell-mode-map ("C-c C-h" . 'haskell-hoogle-lookup-from-local))
+         (:map haskell-cabal-mode-map ("C-c C-f" . stylish-cabal-buffer)))
   :init (setq haskell-interactive-popup-errors nil))
 
 (use-package lsp-haskell
@@ -596,6 +597,12 @@
 
 (use-package format-all
   :bind ("C-c C-f" . format-all-buffer))
+
+(use-package reformatter
+  :config
+  (reformatter-define stylish-cabal
+    :program "stylish-cabal"
+    :lighter " SC"))
 
 (use-package esup
   :commands (esup))
