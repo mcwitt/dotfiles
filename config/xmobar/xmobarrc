@@ -2,11 +2,11 @@ Config {
 
    -- appearance
      font =         "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
-   , bgColor =      "black"
-   , fgColor =      "#646464"
+   , bgColor =      "#002b36"
+   , fgColor =      "#839496"
    , position =     Top
    , border =       BottomB
-   , borderColor =  "#646464"
+   , borderColor =  "#839496"
 
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
@@ -38,25 +38,25 @@ Config {
    , commands =
 
         -- weather monitor
-        [ Run Weather "KSFO" [ "--template", "<skyCondition> | <fc=#4682B4><tempF></fc>°F | <fc=#4682B4><rh></fc>% | <fc=#4682B4><pressure></fc>hPa"
+        [ Run Weather "KSFO" [ "--template", "<skyCondition> | <fc=#268bd2><tempF></fc>°F | <fc=#268bd2><rh></fc>% | <fc=#268bd2><pressure></fc>hPa"
                              ] 36000
 
         -- network activity monitor (dynamic interface resolution)
         , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
                              , "--Low"      , "1000"       -- units: B/s
                              , "--High"     , "5000"       -- units: B/s
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             , "--low"      , "#859900"
+                             , "--normal"   , "#b58900"
+                             , "--high"     , "#dc322f"
                              ] 10
 
         -- cpu activity monitor
         , Run MultiCpu       [ "--template" , "Cpu: <total0>% <total1>% <total2>% <total3>%"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             , "--low"      , "#859900"
+                             , "--normal"   , "#b58900"
+                             , "--high"     , "#dc322f"
                              , "--ppad"     , "3"
                              ] 10
 
@@ -64,23 +64,23 @@ Config {
         , Run CoreTemp       [ "--template" , "Temp: <core0>°C <core1>°C <core2>°C <core3>°C"
                              , "--Low"      , "70"        -- units: °C
                              , "--High"     , "80"        -- units: °C
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             , "--low"      , "#859900"
+                             , "--normal"   , "#b58900"
+                             , "--high"     , "#dc322f"
                              ] 50
 
         -- memory usage monitor
         , Run Memory         [ "--template" ,"Mem: <usedratio>%"
                              , "--Low"      , "20"        -- units: %
                              , "--High"     , "90"        -- units: %
-                             , "--low"      , "darkgreen"
-                             , "--normal"   , "darkorange"
-                             , "--high"     , "darkred"
+                             , "--low"      , "#859900"
+                             , "--normal"   , "#b58900"
+                             , "--high"     , "#dc322f"
                              ] 10
 
         -- time and date indicator
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-        , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
+        , Run Date           "<fc=#93a1a1>%F (%a) %T</fc>" "date" 10
         , Run StdinReader
         ]
    }
