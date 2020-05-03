@@ -407,6 +407,8 @@
     (concat mcw:org-notes-directory "journal.org"))
   (defvar mcw:org-notes-notes-directory
     (concat mcw:org-notes-directory (file-name-as-directory "notes")))
+  (defvar mcw:org-notes-references-directory
+    (concat mcw:org-notes-directory (file-name-as-directory "references")))
 
   (defun mcw:maybe-sync-org-notes ()
     "Sync org notes if the current buffer is visiting an org file in \
@@ -487,7 +489,7 @@ the org-notes directory."
   (require 'ox-beamer) ; enable Beamer presentation export
   (with-eval-after-load 'ox-latex
     (setq org-latex-listings 'minted)
-    (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
+    (setq org-latex-pdf-process '("latexmk -shell-escape -bibtex -f -pdf -output-directory=%o %f"))
     (add-to-list 'org-latex-packages-alist '("newfloat" "minted"))))
 
 (use-package org-agenda
@@ -673,6 +675,31 @@ the org-notes directory."
   (:map org-mode-map
         (("s-Y" . org-download-screenshot)
          ("s-y" . org-download-yank))))
+
+(use-package org-ref
+  :init
+  (setq reftex-default-bibliography (list (concat mcw:org-notes-references-directory "master.bib")))
+
+  ;; see org-ref for use of these variables
+  (setq org-ref-bibliography-notes (concat mcw:org-notes-references-directory "notes.org")
+        org-ref-default-bibliography (list (concat mcw:org-notes-references-directory "master.bib"))
+        org-ref-pdf-directory (concat mcw:org-notes-references-directory (file-name-as-directory "bibtex-pdfs")))
+
+  :config
+  (setq org-ref-completion-library 'org-ref-ivy-cite))
+
+(use-package ivy-bibtex
+  :init
+  (setq bibtex-completion-bibliography (concat mcw:org-notes-references-directory "master.bib")
+        bibtex-completion-library-path (concat mcw:org-notes-references-directory "bibtex-pdfs")
+        bibtex-completion-notes-path (concat mcw:org-notes-references-directory "helm-bibtex-notes")))
+
+;; Integration between org-roam, ivy-bibtex, org-ref
+(use-package org-roam-bibtex
+  :delight
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :bind (:map org-mode-map
+              (("C-c n a" . orb-note-actions))))
 
 (provide 'init)
 ;;; init.el ends here
