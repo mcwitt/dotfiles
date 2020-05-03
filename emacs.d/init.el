@@ -392,7 +392,6 @@
                   (interactive)
                   (org-ctrl-c-ctrl-c)
                   (org-display-inline-images)))))
-  :commands mcw:save-and-sync-org-notes
   :hook ((org-mode . visual-line-mode)
          (org-mode . turn-on-flyspell)
          (org-mode . mcw:sync-org-notes))
@@ -416,6 +415,12 @@
     "Sync org notes repo with upstream."
     (let ((default-directory mcw:org-notes-directory))
       (shell-command "git-sync")))
+
+  (defun mcw:save-and-sync-org-notes ()
+    "Save all org buffers and sync gtd repo."
+    (interactive)
+    (org-save-all-org-buffers)
+    (mcw:sync-org-notes))
 
   (defun mcw:display-bookmarks-in-side-window ()
     "Display org-notes bookmarks file in a side window."
@@ -476,13 +481,7 @@
   (with-eval-after-load 'ox-latex
     (setq org-latex-listings 'minted)
     (setq org-latex-pdf-process '("latexmk -f -pdf -shell-escape -output-directory=%o %f"))
-    (add-to-list 'org-latex-packages-alist '("newfloat" "minted")))
-
-  (defun mcw:save-and-sync-org-notes ()
-    "Save all org buffers and sync gtd repo."
-    (interactive)
-    (org-save-all-org-buffers)
-    (mcw:sync-org-notes)))
+    (add-to-list 'org-latex-packages-alist '("newfloat" "minted"))))
 
 (use-package org-agenda
   :bind (:map org-agenda-mode-map
