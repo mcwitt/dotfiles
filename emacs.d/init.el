@@ -169,11 +169,8 @@
 ;; Completion
 (use-package company
   :delight
-  :bind
-  (:map company-active-map ("jk" . company-complete))
-  :hook (after-init . global-company-mode)
-  :config
-  (company-mode 1))
+  :bind (:map company-active-map ("jk" . company-complete))
+  :hook (after-init . global-company-mode))
 
 ;; direnv integration
 ;; (updates environment based on local .envrc)
@@ -663,7 +660,7 @@
   (require 'org-roam-protocol))
 
 (use-package company-org-roam
-  :config (push 'company-org-roam company-backends))
+  :config (add-to-list 'company-backends 'company-org-roam))
 
 ;; Screenshot and yank images (e.g. from the web) into Org documents
 (use-package org-download
