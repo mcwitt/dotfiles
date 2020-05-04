@@ -390,8 +390,7 @@
                   (org-ctrl-c-ctrl-c)
                   (org-display-inline-images)))))
   :hook ((org-mode . visual-line-mode)
-         (org-mode . turn-on-flyspell)
-         (org-mode . mcw:sync-org-notes))
+         (org-mode . turn-on-flyspell))
   :init
   (defvar mcw:org-notes-directory
     (file-name-as-directory "~/src/org-notes/"))
