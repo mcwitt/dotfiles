@@ -420,7 +420,8 @@ the org-notes directory."
     "Sync org notes repo with upstream."
     (interactive)
     (let ((default-directory mcw:org-notes-directory))
-      (async-shell-command "git-sync")))
+      (require 'git-sync)
+      (git-sync)))
 
   (defun mcw:save-and-sync-org-notes ()
     "Save all org buffers and sync gtd repo."
