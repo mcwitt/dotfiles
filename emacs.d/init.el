@@ -390,7 +390,8 @@
                   (org-ctrl-c-ctrl-c)
                   (org-display-inline-images)))))
   :hook ((org-mode . visual-line-mode)
-         (org-mode . turn-on-flyspell))
+         (org-mode . turn-on-flyspell)
+         (after-save . mcw:maybe-sync-org-notes))
   :init
   (defvar mcw:org-notes-directory
     (file-name-as-directory "~/src/org-notes/"))
@@ -407,10 +408,19 @@
   (defvar mcw:org-notes-notes-directory
     (concat mcw:org-notes-directory (file-name-as-directory "notes")))
 
+  (defun mcw:maybe-sync-org-notes ()
+    "Sync org notes if the current buffer is visiting an org file in \
+the org-notes directory."
+    (when (and (derived-mode-p 'org-mode)
+               (string-prefix-p (expand-file-name mcw:org-notes-directory)
+                                (buffer-file-name)))
+      (mcw:sync-org-notes)))
+
   (defun mcw:sync-org-notes ()
     "Sync org notes repo with upstream."
+    (interactive)
     (let ((default-directory mcw:org-notes-directory))
-      (shell-command "git-sync")))
+      (async-shell-command "git-sync")))
 
   (defun mcw:save-and-sync-org-notes ()
     "Save all org buffers and sync gtd repo."
