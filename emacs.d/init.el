@@ -563,12 +563,6 @@ the org-notes directory."
 ;; Nix
 (use-package nix-mode)
 
-;; Proof General
-(use-package proof-general
-  :bind (:map proof-mode-map
-              ("C-c C-'" . proof-goto-point) ; useful for Kinesis keyboard
-              ))
-
 ;; ERC (IRC client)
 (use-package erc
   :bind ("C-c e" . mcw:erc-freenode)
