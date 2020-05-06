@@ -381,8 +381,9 @@
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
          ("C-c n L" . org-store-link)
-         ("C-c n s" . mcw:save-and-sync-org-notes)
          ("C-c n b" . mcw:display-bookmarks-in-side-window)
+         ("C-c n j" . mcw:org-notes-open-journal)
+         ("C-c n s" . mcw:save-and-sync-org-notes)
          (:map org-mode-map
                ("C-c C-c" .
                 (lambda ()
@@ -437,6 +438,11 @@ the org-notes directory."
     (select-window
      (display-buffer-in-side-window
       (find-file-noselect mcw:org-notes-bookmarks-file) nil)))
+
+  (defun mcw:org-notes-open-journal ()
+    "Open org-notes journal file."
+    (interactive)
+    (find-file mcw:org-notes-journal-file))
 
   (setq org-hide-emphasis-markers t)
   (setq org-startup-indented t)
