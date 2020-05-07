@@ -380,9 +380,9 @@
 (use-package org
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
-         ("C-c n L" . org-store-link)
          ("C-c n b" . mcw:display-bookmarks-in-side-window)
          ("C-c n j" . mcw:org-notes-open-journal)
+         ("C-c n k" . org-store-link)
          ("C-c n s" . mcw:save-and-sync-org-notes)
          (:map org-mode-map
                ("C-c C-c" .
