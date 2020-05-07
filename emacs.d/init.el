@@ -416,11 +416,11 @@ the org-notes directory."
                                 (buffer-file-name)))
       (mcw:sync-org-notes)))
 
+  (require 'git-sync)
   (defun mcw:sync-org-notes ()
     "Sync org notes repo with upstream."
     (interactive)
     (let ((default-directory mcw:org-notes-directory))
-      (require 'git-sync)
       (git-sync)))
 
   (defun mcw:save-and-sync-org-notes ()
