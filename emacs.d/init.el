@@ -684,28 +684,33 @@ the org-notes directory."
 
 (use-package org-ref
   :init
-  (setq reftex-default-bibliography (list (concat mcw:org-notes-references-directory "master.bib")))
+  (setq reftex-default-bibliography
+        (list (concat mcw:org-notes-references-directory "master.bib")))
 
-  ;; see org-ref for use of these variables
-  (setq org-ref-bibliography-notes (concat mcw:org-notes-references-directory "notes.org")
-        org-ref-default-bibliography (list (concat mcw:org-notes-references-directory "master.bib"))
-        org-ref-pdf-directory (concat mcw:org-notes-references-directory (file-name-as-directory "bibtex-pdfs")))
+  (setq org-ref-bibliography-notes
+        (concat mcw:org-notes-references-directory "notes.org"))
+  (setq org-ref-default-bibliography
+        (list (concat mcw:org-notes-references-directory "master.bib")))
+  (setq org-ref-pdf-directory
+        (concat mcw:org-notes-references-directory
+                (file-name-as-directory "bibtex-pdfs")))
 
-  :config
-  (setq org-ref-completion-library 'org-ref-ivy-cite))
+  :config (setq org-ref-completion-library 'org-ref-ivy-cite))
 
 (use-package ivy-bibtex
   :init
-  (setq bibtex-completion-bibliography (concat mcw:org-notes-references-directory "master.bib")
-        bibtex-completion-library-path (concat mcw:org-notes-references-directory "bibtex-pdfs")
-        bibtex-completion-notes-path (concat mcw:org-notes-references-directory "helm-bibtex-notes")))
+  (setq bibtex-completion-bibliography
+        (concat mcw:org-notes-references-directory "master.bib"))
+  (setq bibtex-completion-library-path
+        (concat mcw:org-notes-references-directory "bibtex-pdfs"))
+  (setq bibtex-completion-notes-path
+        (concat mcw:org-notes-references-directory "helm-bibtex-notes")))
 
 ;; Integration between org-roam, ivy-bibtex, org-ref
 (use-package org-roam-bibtex
   :delight
   :hook (org-roam-mode . org-roam-bibtex-mode)
-  :bind (:map org-mode-map
-              (("C-c n a" . orb-note-actions))))
+  :bind (:map org-mode-map (("C-c n a" . orb-note-actions))))
 
 (provide 'init)
 ;;; init.el ends here
