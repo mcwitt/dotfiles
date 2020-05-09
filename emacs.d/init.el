@@ -543,6 +543,7 @@ the org-notes directory."
   :after org
   :bind ("C-c n d" . deft)
   :custom
+  (deft-auto-save-interval 0) ; disable auto-save
   (deft-recursive t)
   (deft-use-filter-string-for-filename t)
   (deft-default-extension "org")
