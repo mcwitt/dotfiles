@@ -201,9 +201,14 @@
 (use-package hl-todo
   :config (global-hl-todo-mode 1))
 
-;; Tools for working with git
+;; Git porcelain
 (use-package magit
-  :bind ("C-x g" . magit-status))
+  :demand
+  :bind (("C-x g" . magit-status)
+         (:map magit-file-mode-map
+               ("C-c g" . magit-file-dispatch)))
+  :config
+  (global-magit-file-mode 1))
 
 (use-package evil-magit
   :after (evil magit))
@@ -367,8 +372,7 @@
   :config (pinentry-start))
 
 ;; Gist export
-(use-package gist
-  :bind ("C-c g" . gist-region-or-buffer-private))
+(use-package gist)
 
 ;; Snippet tool
 (use-package yasnippet
