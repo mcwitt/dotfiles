@@ -717,5 +717,8 @@ the org-notes directory."
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :bind (:map org-mode-map (("C-c n a" . orb-note-actions))))
 
+(use-package agda2-mode
+  :mode ("\\.l?agda\\'" "\\.lagda.md\\'"))
+
 (provide 'init)
 ;;; init.el ends here
