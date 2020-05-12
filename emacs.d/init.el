@@ -470,6 +470,7 @@ the org-notes directory."
           ""))
   (setq org-tags-sort-function #'string<)
   (setq org-confirm-babel-evaluate nil)
+  (setq org-log-into-drawer t)
 
   :config
   (add-to-list 'org-file-apps '("\\.pdf\\'" . emacs))
