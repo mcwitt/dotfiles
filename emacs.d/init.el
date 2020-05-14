@@ -46,6 +46,7 @@
 
 (setq-default indent-tabs-mode nil) ; Don't insert tabs for indentation
 (show-paren-mode 1)                 ; Highlight matching parens
+(column-number-mode)                ; Display column numbers
 
 ;; Highlight end-of-line whitespace only in prog-mode
 (add-hook 'prog-mode-hook (lambda () (setq-local show-trailing-whitespace t)))
