@@ -310,6 +310,9 @@
          (:map haskell-cabal-mode-map ("C-c C-f" . stylish-cabal-buffer)))
   :init (setq haskell-interactive-popup-errors nil))
 
+(use-package flycheck-haskell
+  :hook (haskell-mode . flycheck-haskell-setup))
+
 (use-package lsp-haskell
   :config
   (setq lsp-haskell-process-path-hie "ghcide")
