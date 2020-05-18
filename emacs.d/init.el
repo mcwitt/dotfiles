@@ -21,6 +21,7 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+
 ;;; UI
 
 ;; Minimal UI
@@ -42,6 +43,7 @@
 ;; Prompt for y/n instead of yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+
 ;;; Editing
 
 (setq-default indent-tabs-mode nil) ; Don't insert tabs for indentation
@@ -51,9 +53,9 @@
 ;; Highlight end-of-line whitespace only in prog-mode
 (add-hook 'prog-mode-hook (lambda () (setq-local show-trailing-whitespace t)))
 
+;;;; Packages
 
-;;; Package settings
-
+;;; Configuration tools
 (require 'package)
 
 ;; Make impure packages archives unavailable (packages are managed by Nix)
@@ -65,7 +67,11 @@
 (eval-when-compile
   (require 'use-package))
 
-;;; Packages
+;; Helper for keybindings
+(use-package general)
+
+
+;;; Global modes
 
 (use-package undo-tree
   :delight
@@ -75,10 +81,30 @@
 (use-package imenu
   :bind ("C-c i" . imenu))
 
-;; Helper for keybindings
-(use-package general)
+;; Display key binding hints in minibuffer
+(use-package which-key
+  :delight
+  :init
+  (setq which-key-separator " ")
+  (setq which-key-prefix-prefix "+")
+  :config
+  (which-key-mode 1))
 
-;; Vim emulation
+;; Deal with parens in pairs
+(use-package smartparens)
+
+;; Visually identify matching parens
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+;; Relative line numbering
+(use-package nlinum-relative
+  :config (nlinum-relative-setup-evil)
+  :hook (prog-mode . nlinum-relative-mode))
+
+
+;;; Evil (vim emulation)
+
 (use-package evil
   :init
   (setq evil-want-C-u-scroll t)
@@ -101,7 +127,17 @@
   :config
   (evil-escape-mode 1))
 
-;; Themes
+(use-package evil-smartparens
+  :after smartparens
+  :hook (smartparens-enabled . evil-smartparens-mode))
+
+;; Surround text objects with parens, brackets, quotes, etc.
+(use-package evil-surround
+  :config (global-evil-surround-mode 1))
+
+
+;;; Themes
+
 (use-package doom-themes
   :config
   (doom-themes-visual-bell-config)
@@ -114,7 +150,9 @@
 
 (use-package all-the-icons)
 
-;; Generic completion mechanism
+
+;;; Ivy (command completion framework)
+
 (use-package ivy
   :delight
   :bind
@@ -139,16 +177,9 @@
   :after tramp
   :bind ("C-c f" . counsel-tramp))
 
-;; Display key binding hints in minibuffer
-(use-package which-key
-  :delight
-  :init
-  (setq which-key-separator " ")
-  (setq which-key-prefix-prefix "+")
-  :config
-  (which-key-mode 1))
 
-;; Project tools
+;;; Project tools
+
 (use-package projectile
   :delight
   :bind-keymap ("C-c p" . projectile-command-map)
@@ -164,61 +195,21 @@
   :after projectile
   :config (counsel-projectile-mode 1))
 
-;; Find files with content matching regex
-(use-package ripgrep)
-
-;; Completion
-(use-package company
-  :delight
-  :bind (:map company-active-map ("jk" . company-complete))
-  :hook (after-init . global-company-mode))
-
 ;; direnv integration
-;; (updates environment based on local .envrc)
+;; updates environment based on local .envrc
 (use-package direnv
   :config (direnv-mode))
 
-;; Deal with parens in pairs
-(use-package smartparens)
+;; Find files with content matching regex
+(use-package ripgrep)
 
-(use-package evil-smartparens
-  :after smartparens
-  :hook (smartparens-enabled . evil-smartparens-mode))
-
-;; Surround text objects with parens, brackets, quotes, etc.
-(use-package evil-surround
-  :config (global-evil-surround-mode 1))
-
-;; Relative line numbering
-(use-package nlinum-relative
-  :config (nlinum-relative-setup-evil)
-  :hook (prog-mode . nlinum-relative-mode))
-
-;; Fira Code ligatures
-(use-package fira-code-mode
-  :hook haskell-mode)
-
-;; highlighting TODO items in comments
+;; Highlight TODO items in comments
 (use-package hl-todo
   :config (global-hl-todo-mode 1))
 
-;; Git porcelain
-(use-package magit
-  :demand
-  :bind (("C-x g" . magit-status)
-         (:map magit-file-mode-map
-               ("C-c g" . magit-file-dispatch)))
-  :config
-  (global-magit-file-mode 1))
 
-(use-package evil-magit
-  :after (evil magit))
+;;; Tree view
 
-;; Browse/edit remote files via ssh and ftp
-(use-package browse-at-remote
-  :bind ("C-c b" . browse-at-remote))
-
-;; Tree view
 (use-package treemacs
   :init
   (with-eval-after-load 'winum
@@ -256,12 +247,57 @@
 (use-package treemacs-magit
   :after (treemacs magit))
 
-;; Syntax checking
+
+;;; Code completion
+
+(use-package company
+  :delight
+  :bind (:map company-active-map ("jk" . company-complete))
+  :hook (after-init . global-company-mode))
+
+
+;;; Code formatting
+
+(use-package format-all
+  :bind ("C-c C-f" . format-all-buffer))
+
+(use-package reformatter
+  :config
+  (reformatter-define stylish-cabal
+    :program "stylish-cabal"
+    :lighter " SC"))
+
+
+;;; Git
+
+(use-package magit
+  :demand
+  :bind (("C-x g" . magit-status)
+         (:map magit-file-mode-map
+               ("C-c g" . magit-file-dispatch)))
+  :config
+  (global-magit-file-mode 1))
+
+(use-package evil-magit
+  :after (evil magit))
+
+;; Gist export
+(use-package gist)
+
+;; Browse/edit remote files via ssh and ftp
+(use-package browse-at-remote
+  :bind ("C-c b" . browse-at-remote))
+
+
+;;; Syntax checking
+
 (use-package flycheck
   :init (setq ispell-program-name "aspell")
   :config (global-flycheck-mode t))
 
-;; Language Server Protocol support
+
+;;; Language Server Protocol support
+
 (use-package lsp-mode
   :commands lsp
   :hook ((lsp-mode . lsp-lens-mode)
@@ -287,15 +323,15 @@
   (lsp-metals-treeview-enable t)
   (setq lsp-metals-treeview-show-when-views-received t))
 
-;; TeX
+
+;;; TeX
+
 (use-package tex
   :config (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools")))
 
-;; Minor mode for editing LaTeX inside of org documents
-(use-package cdlatex
-  :hook (org-mode . turn-on-org-cdlatex))
 
-;; Markdown
+;;; Markdown
+
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
@@ -303,7 +339,9 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "pandoc"))
 
-;; Haskell
+
+;;; Haskell
+
 (use-package haskell-mode
   :hook (haskell-mode . interactive-haskell-mode)
   :bind ((:map haskell-mode-map ("C-c C-h" . 'haskell-hoogle-lookup-from-local))
@@ -325,13 +363,20 @@
   ;;(setq lsp-log-io t)
   )
 
+;; Haskell code formatter
 (use-package ormolu
   :hook (haskell-mode . ormolu-format-on-save-mode)
   :bind
   (:map haskell-mode-map
         ("C-c r" . ormolu-format-buffer)))
 
-;; Jupyter (REPL, org-babel integration)
+;; Fira Code ligatures
+(use-package fira-code-mode
+  :hook haskell-mode)
+
+
+;;; Jupyter (REPL, org-babel integration)
+
 (use-package jupyter
   :bind ("C-c j" . jupyter-run-repl)
   :general
@@ -340,7 +385,9 @@
             "C-j" 'jupyter-repl-history-next-matching
             "C-k" 'jupyter-repl-history-previous-matching))
 
-;; Python
+
+;;; Python
+
 (use-package anaconda-mode
   :hook ((python-mode . anaconda-mode)
          (python-mode . anaconda-eldoc-mode)))
@@ -352,39 +399,40 @@
 (use-package pyenv-mode
   :hook python-mode)
 
-;; json
+
+;;; Config files
+
 (use-package json-mode
   :hook (json-mode . flycheck-mode))
 
-;; yaml
 (use-package yaml-mode)
 
-;; Major mode for viewing log files
-(use-package logview)
+(use-package nix-mode)
 
-;; Send HTTP requests
+
+;;; REST tools
+
 (use-package restclient)
 
 (use-package company-restclient
-  :after restclient)
+  :after (company restclient))
 
 (use-package ob-restclient
   :after (org-babel restclient))
 
-;; pinentry
-(use-package pinentry
-  :config (pinentry-start))
+(use-package logview)
 
-;; Gist export
-(use-package gist)
 
-;; Snippet tool
+;;; Snippets
+
 (use-package yasnippet
   :config (yas-global-mode 1))
 
 (use-package yasnippet-snippets)
 
-;; Org (environment for outlining, todos, literate programming)
+
+;;; Org-mode
+
 (use-package org
   :bind (("C-c a" . org-agenda)
          ("C-c c" . org-capture)
@@ -530,6 +578,14 @@ the org-notes directory."
                              (mcw:org-notes-bookmarks-file . (:maxlevel . 1))))
   (setq org-enforce-todo-dependencies t))
 
+;; Vim-like bindings for org-mode
+(use-package org-evil
+  :hook (org-mode . org-evil-mode))
+
+;; Minor mode for editing LaTeX inside of org documents
+(use-package cdlatex
+  :hook (org-mode . turn-on-org-cdlatex))
+
 ;; Unicode bullets for headlines in org-mode
 (use-package org-bullets
   :config
@@ -577,94 +633,6 @@ the org-notes directory."
   :config
   (add-to-list 'org-noter-notes-search-path mcw:org-notes-notes-directory)
   (add-to-list 'org-noter-notes-search-path mcw:library-notes-directory))
-
-;; Nix
-(use-package nix-mode)
-
-;; ERC (IRC client)
-(use-package erc
-  :bind ("C-c e" . mcw:erc-freenode)
-  :commands mcw:erc-freenode
-  :init
-  (setq erc-prompt-for-password nil) ; get login from ~/.authinfo.gpg
-  (setq erc-hide-list '("JOIN" "PART" "QUIT"))
-  (setq erc-autojoin-channels-alist
-        '(("#emacs"
-           "#haskell"
-           "#nixos"
-           "#org-mode"
-           "#python"
-           "freenode.net")))
-  (setq erc-autojoin-timing 'ident)
-
-  :config
-  (add-to-list 'erc-modules 'notifications)
-  (add-to-list 'erc-modules 'spelling)
-  (erc-update-modules)
-
-  (defun mcw:erc-freenode ()
-    "Connect to freenode with ERC."
-    (interactive)
-    (erc :server "irc.freenode.net" :port 6667 :nick "mcwitt")))
-
-(use-package erc-hl-nicks
-  :after erc)
-
-(use-package erc-image
-  :after erc)
-
-(use-package format-all
-  :bind ("C-c C-f" . format-all-buffer))
-
-(use-package reformatter
-  :config
-  (reformatter-define stylish-cabal
-    :program "stylish-cabal"
-    :lighter " SC"))
-
-(use-package esup
-  :commands (esup))
-
-(use-package ess)
-
-(use-package org-evil
-  :hook (org-mode . org-evil-mode))
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-
-(use-package org-pomodoro
-  :ensure t
-  :commands (org-pomodoro))
-
-;; Scala highlighting, indentation and motion commands
-(use-package scala-mode
-  :mode "\\.s\\(cala\\|bt\\)$")
-
-;; For executing sbt commands
-(use-package sbt-mode
-  :commands (sbt-start sbt-command)
-  :config
-  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
-  ;; allows using SPACE when in the minibuffer
-  (substitute-key-definition
-   'minibuffer-complete-word
-   'self-insert-command
-   minibuffer-local-completion-map)
-  ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
-  (setq sbt:program-options '("-Dsbt.supershell=false")))
-
-;; Use the Debug Adapter Protocol for running tests and debugging
-
-;; Posframe is a pop-up tool that must be manually installed for dap-mode
-(use-package posframe)
-
-(use-package dap-mode
-  :hook
-  (lsp-mode . dap-mode)
-  (lsp-mode . dap-ui-mode))
-
-;;; Org-roam: non-hierarchical note-taking
 
 (use-package org-roam
   :delight
@@ -722,8 +690,90 @@ the org-notes directory."
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :bind (:map org-mode-map (("C-c n a" . orb-note-actions))))
 
+(use-package org-pomodoro
+  :ensure t
+  :commands (org-pomodoro))
+
+
+;;; IRC client
+
+(use-package erc
+  :bind ("C-c e" . mcw:erc-freenode)
+  :commands mcw:erc-freenode
+  :init
+  (setq erc-prompt-for-password nil) ; get login from ~/.authinfo.gpg
+  (setq erc-hide-list '("JOIN" "PART" "QUIT"))
+  (setq erc-autojoin-channels-alist
+        '(("#emacs"
+           "#haskell"
+           "#nixos"
+           "#org-mode"
+           "#python"
+           "freenode.net")))
+  (setq erc-autojoin-timing 'ident)
+
+  :config
+  (add-to-list 'erc-modules 'notifications)
+  (add-to-list 'erc-modules 'spelling)
+  (erc-update-modules)
+
+  (defun mcw:erc-freenode ()
+    "Connect to freenode with ERC."
+    (interactive)
+    (erc :server "irc.freenode.net" :port 6667 :nick "mcwitt")))
+
+(use-package erc-hl-nicks
+  :after erc)
+
+(use-package erc-image
+  :after erc)
+
+
+;;; Scala
+
+;; Highlighting, indentation and motion commands
+(use-package scala-mode
+  :mode "\\.s\\(cala\\|bt\\)$")
+
+;; Executing sbt commands
+(use-package sbt-mode
+  :commands (sbt-start sbt-command)
+  :config
+  ;; WORKAROUND: https://github.com/ensime/emacs-sbt-mode/issues/31
+  ;; allows using SPACE when in the minibuffer
+  (substitute-key-definition
+   'minibuffer-complete-word
+   'self-insert-command
+   minibuffer-local-completion-map)
+  ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
+  (setq sbt:program-options '("-Dsbt.supershell=false")))
+
+;; Posframe is a pop-up tool that must be manually installed for dap-mode
+(use-package posframe)
+
+;; Debug Adapter Protocol for running tests and debugging
+(use-package dap-mode
+  :hook
+  (lsp-mode . dap-mode)
+  (lsp-mode . dap-ui-mode))
+
+
+;;; Agda
+
 (use-package agda2-mode
   :mode ("\\.l?agda\\'" "\\.lagda.md\\'"))
+
+
+;;; Misc
+
+(use-package pinentry
+  :config (pinentry-start))
+
+;; Startup profiler
+(use-package esup
+  :commands (esup))
+
+(use-package ess)
 
 (provide 'init)
 ;;; init.el ends here
