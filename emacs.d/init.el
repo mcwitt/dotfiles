@@ -53,16 +53,18 @@
 ;; Highlight end-of-line whitespace only in prog-mode
 (add-hook 'prog-mode-hook (lambda () (setq-local show-trailing-whitespace t)))
 
+
 ;;;; Packages
 
-;;; Configuration tools
 (require 'package)
+(setq package-enable-at-startup nil)
+(package-initialize)
 
 ;; Make impure packages archives unavailable (packages are managed by Nix)
 (setq package-archives nil)
 
-(setq package-enable-at-startup nil)
-(package-initialize)
+
+;;; Configuration tools
 
 (eval-when-compile
   (require 'use-package))
