@@ -434,8 +434,7 @@
 ;;; Org-mode
 
 (use-package org
-  :bind (("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
+  :bind (("C-c c" . org-capture)
          ("C-c n b" . mcw:display-bookmarks-in-side-window)
          ("C-c n j" . mcw:org-notes-open-journal)
          ("C-c n k" . org-store-link)
@@ -556,14 +555,15 @@ the org-notes directory."
     (add-to-list 'org-latex-packages-alist '("newfloat" "minted"))))
 
 (use-package org-agenda
-  :bind (:map org-agenda-mode-map
-              ;; minimal set of evil movements in org-agenda
-              ("j" . evil-next-line)
-              ("k" . evil-previous-line)
-              ("C-u" . evil-scroll-page-up)
-              ("C-d" . evil-scroll-page-down)
-              ("C-w h" . evil-window-left)
-              ("C-w l" . evil-window-right))
+  :bind (("C-c a" . org-agenda)
+         (:map org-agenda-mode-map
+               ;; minimal set of evil movements in org-agenda
+               ("j" . evil-next-line)
+               ("k" . evil-previous-line)
+               ("C-u" . evil-scroll-page-up)
+               ("C-d" . evil-scroll-page-down)
+               ("C-w h" . evil-window-left)
+               ("C-w l" . evil-window-right)))
   :init
   (setq org-agenda-files
         (list mcw:org-notes-inbox-file
@@ -588,8 +588,7 @@ the org-notes directory."
 
 ;; Unicode bullets for headlines in org-mode
 (use-package org-bullets
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+  :hook (org-mode . org-bullets-mode))
 
 ;; Mix fixed- and variable-pitch fonts (e.g. in org-mode)
 (use-package mixed-pitch
@@ -650,6 +649,7 @@ the org-notes directory."
   (require 'org-roam-protocol))
 
 (use-package company-org-roam
+  :after company
   :config (add-to-list 'company-backends 'company-org-roam))
 
 ;; Screenshot and yank images (e.g. from the web) into Org documents
@@ -673,7 +673,8 @@ the org-notes directory."
         (concat mcw:org-notes-references-directory
                 (file-name-as-directory "bibtex-pdfs")))
 
-  :config (setq org-ref-completion-library 'org-ref-ivy-cite))
+  :config
+  (setq org-ref-completion-library 'org-ref-ivy-cite))
 
 (use-package ivy-bibtex
   :init
