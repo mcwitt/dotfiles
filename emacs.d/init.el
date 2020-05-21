@@ -184,7 +184,8 @@
 
 (use-package projectile
   :delight
-  :bind-keymap ("C-c p" . projectile-command-map)
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
   :init
   (setq projectile-require-project-root nil)
   (setq projectile-completion-system 'ivy)
@@ -539,14 +540,14 @@ the org-notes directory."
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((dot . t)
+   '((dot        . t)
      (emacs-lisp . t)
-     (haskell . t)
-     (jupyter . t)
-     (latex . t)
-     (R . t)
+     (haskell    . t)
+     (jupyter    . t)
+     (latex      . t)
+     (R          . t)
      (restclient . t)
-     (shell . t)))
+     (shell      . t)))
 
   ;; Export settings
   (require 'ox-md)     ; enable Markdown export
