@@ -540,7 +540,8 @@ the org-notes directory."
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((dot        . t)
+   '((calc       . t)
+     (dot        . t)
      (emacs-lisp . t)
      (haskell    . t)
      (jupyter    . t)
