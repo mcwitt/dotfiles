@@ -696,8 +696,8 @@ the org-notes directory."
   :bind (:map org-mode-map (("C-c n a" . orb-note-actions))))
 
 (use-package org-pomodoro
-  :ensure t
-  :commands (org-pomodoro))
+  :after org-agenda
+  :bind (:map org-agenda-mode-map ("p" . org-pomodoro)))
 
 
 ;;; IRC client
