@@ -454,12 +454,14 @@
   :init
   (defvar mcw:org-notes-directory
     (file-name-as-directory "~/src/org-notes/"))
-  (defvar mcw:org-notes-inbox-file
-    (concat mcw:org-notes-directory "inbox.org"))
-  (defvar mcw:org-notes-gtd-file
-    (concat mcw:org-notes-directory "gtd.org"))
-  (defvar mcw:org-notes-someday-file
-    (concat mcw:org-notes-directory "someday.org"))
+  (defvar mcw:org-notes-gtd-directory
+    (file-name-as-directory (concat mcw:org-notes-directory "gtd")))
+  (defvar mcw:org-notes-gtd-inbox-file
+    (concat mcw:org-notes-gtd-directory "inbox.org"))
+  (defvar mcw:org-notes-gtd-projects-file
+    (concat mcw:org-notes-gtd-directory "gtd.org"))
+  (defvar mcw:org-notes-gtd-someday-file
+    (concat mcw:org-notes-gtd-directory "someday.org"))
   (defvar mcw:org-notes-bookmarks-file
     (concat mcw:org-notes-directory "bookmarks.org"))
   (defvar mcw:org-notes-journal-file
@@ -509,7 +511,7 @@ the org-notes directory."
   (setq org-tag-persistent-alist '(("PROJECT" . ?P) (:startgroup) ("@home" . ?h) ("@work" . ?w)))
   (setq org-capture-templates
         '(("t" "Todo" entry
-           (file mcw:org-notes-inbox-file)
+           (file mcw:org-notes-gtd-inbox-file)
            "* TODO %?\n%U\n")
           ("b" "Bookmark" entry
            (file+headline mcw:org-notes-bookmarks-file "Bookmarks")
@@ -569,17 +571,12 @@ the org-notes directory."
                ("C-w h" . evil-window-left)
                ("C-w l" . evil-window-right)))
   :init
-  (setq org-agenda-files
-        (list mcw:org-notes-inbox-file
-              mcw:org-notes-gtd-file
-              mcw:org-notes-journal-file))
+  (setq org-agenda-files (list mcw:org-notes-gtd-directory))
   (setq org-agenda-custom-commands
-        '(("i" "Inbox" alltodo "" ((org-agenda-files `(,mcw:org-notes-inbox-file))))
-          ("p" "Projects" tags "LEVEL=2+PROJECT")
+        '(("i" "Inbox" alltodo "" ((org-agenda-files (list mcw:org-notes-gtd-inbox-file))))
+          ("p" "Projects" tags "LEVEL=2+PROJECT" ((org-agenda-files (list mcw:org-notes-gtd-projects-file))))
           ("n" "Next tasks"  tags-todo "TODO=\"NEXT\"")))
-  (setq org-refile-targets '((mcw:org-notes-gtd-file . (:maxlevel . 2))
-                             (mcw:org-notes-someday-file . (:maxlevel . 2))
-                             (mcw:org-notes-bookmarks-file . (:maxlevel . 1))))
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 2)))
   (setq org-enforce-todo-dependencies t))
 
 ;; Vim-like bindings for org-mode
