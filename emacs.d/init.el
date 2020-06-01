@@ -399,9 +399,6 @@
   :after (company anaconda-mode)
   :config (add-to-list 'company-backends 'company-anaconda))
 
-(use-package pyenv-mode
-  :hook python-mode)
-
 
 ;;; Config files
 
