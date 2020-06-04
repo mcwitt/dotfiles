@@ -459,6 +459,8 @@
     (concat mcw:org-notes-gtd-directory "gtd.org"))
   (defvar mcw:org-notes-gtd-someday-file
     (concat mcw:org-notes-gtd-directory "someday.org"))
+  (defvar mcw:org-notes-flashcards-file
+    (concat mcw:org-notes-gtd-directory "flash-cards.org"))
   (defvar mcw:org-notes-bookmarks-file
     (concat mcw:org-notes-directory "bookmarks.org"))
   (defvar mcw:org-notes-journal-file
@@ -515,7 +517,10 @@ the org-notes directory."
            "* [[%^{url}][%?]]\n%U\n")
           ("j" "Journal" entry
            (file+olp+datetree mcw:org-notes-journal-file)
-           "* %?\nEntered on %U\n  %i\n  %a")))
+           "* %?\nEntered on %U\n  %i\n  %a")
+          ("f" "Flash card" entry
+           (file+headline mcw:org-notes-flashcards-file "Flash cards")
+           "* %?\n:PROPERTIES:\n:ANKI_NOTE_TYPE: %^{Note type|Basic}\n:ANKI_DECK: %^{Deck|Misc}\n:END:\n** Front\n** Back")))
   (setq org-stuck-projects
         '("LEVEL=2+PROJECT-TODO=DONE"
           ("NEXT")
