@@ -80,6 +80,9 @@
   :init
   (undo-tree-mode))
 
+(use-package autorevert
+  :delight auto-revert-mode)
+
 (use-package imenu
   :bind ("C-c i" . imenu))
 
@@ -295,6 +298,7 @@
 ;;; Syntax checking
 
 (use-package flycheck
+  :delight
   :init (setq ispell-program-name "aspell")
   :config (global-flycheck-mode t))
 
@@ -426,6 +430,7 @@
 ;;; Snippets
 
 (use-package yasnippet
+  :delight yas-minor-mode
   :config (yas-global-mode 1))
 
 (use-package yasnippet-snippets)
@@ -587,6 +592,7 @@ the org-notes directory."
 
 ;; Minor mode for editing LaTeX inside of org documents
 (use-package cdlatex
+  :delight org-cdlatex-mode
   :hook (org-mode . turn-on-org-cdlatex))
 
 ;; Unicode bullets for headlines in org-mode
