@@ -444,6 +444,7 @@
          ("C-c n j" . mcw:org-notes-open-journal)
          ("C-c n k" . org-store-link)
          ("C-c n s" . mcw:save-and-sync-org-notes)
+         ("C-c C-x l" . org-toggle-link-display)
          (:map org-mode-map
                ("C-c C-c" .
                 (lambda ()
