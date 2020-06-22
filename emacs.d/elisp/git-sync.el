@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(defvar git-sync-command "git-annex sync")
+(defvar git-sync-command "git-annex add . && git-annex sync")
 (defvar git-sync-buffer-name (concat "*async " git-sync-command "*"))
 
 (defun git-sync-sentinel (process event)
