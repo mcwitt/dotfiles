@@ -327,7 +327,6 @@
   :commands lsp-treemacs-errors-list
   :config
   ;; Scala-specific
-  (lsp-metals-treeview-enable t)
   (setq lsp-metals-treeview-show-when-views-received t))
 
 
@@ -758,6 +757,8 @@ the org-notes directory."
    minibuffer-local-completion-map)
   ;; sbt-supershell kills sbt-mode:  https://github.com/hvesalai/emacs-sbt-mode/issues/152
   (setq sbt:program-options '("-Dsbt.supershell=false")))
+
+(use-package lsp-metals)
 
 ;; Posframe is a pop-up tool that must be manually installed for dap-mode
 (use-package posframe)
