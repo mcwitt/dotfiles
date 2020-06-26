@@ -148,10 +148,8 @@
   (doom-themes-visual-bell-config)
   (doom-themes-treemacs-config)
   (setq doom-themes-treemacs-theme "doom-colors")
-  (doom-themes-org-config))
-
-(use-package zenburn-theme
-  :config (load-theme 'zenburn t))
+  (doom-themes-org-config)
+  (load-theme 'doom-solarized-dark t))
 
 (use-package all-the-icons)
 
