@@ -338,6 +338,8 @@
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
+  :hook ((markdown-mode . turn-on-visual-line-mode)
+         (markdown-mode . turn-on-flyspell))
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
@@ -448,7 +450,7 @@
                   (interactive)
                   (org-ctrl-c-ctrl-c)
                   (org-display-inline-images)))))
-  :hook ((org-mode . visual-line-mode)
+  :hook ((org-mode . turn-on-visual-line-mode)
          (org-mode . turn-on-flyspell)
          (after-save . mcw:maybe-sync-org-notes))
   :init
