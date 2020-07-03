@@ -306,11 +306,13 @@
 
 (use-package lsp-mode
   :commands lsp
-  :hook ((lsp-mode . lsp-lens-mode)
+  :hook ((lsp-mode . lsp-enable-which-key-integration)
+         (lsp-mode . lsp-lens-mode)
          (haskell-mode . lsp)
          (scala-mode . lsp))
   :init (setq lsp-keymap-prefix "C-c l")
   :config
+  (setq lsp-file-watch-threshold 10000)
   (setq gc-cons-threshold 100000000))
 
 (use-package lsp-ui
