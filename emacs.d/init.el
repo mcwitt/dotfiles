@@ -15,6 +15,12 @@
 ;; Relocate custom file
 (setq custom-file "~/.emacs.d/emacs-custom.el")
 
+;; Set exec-path from user's shell on macOS
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns))
+  :config
+  (exec-path-from-shell-initialize))
+
 ;; Create backup files in system temp directory
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
