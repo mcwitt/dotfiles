@@ -566,8 +566,6 @@ the org-notes directory."
      (shell      . t)))
 
   ;; Export settings
-  (require 'ox-md)     ; enable Markdown export
-  (require 'ox-beamer) ; enable Beamer presentation export
   (with-eval-after-load 'ox-latex
     (setq org-latex-listings 'minted)
     (setq org-latex-pdf-process '("latexmk -shell-escape -bibtex -f -pdf -output-directory=%o %f"))
@@ -616,6 +614,9 @@ the org-notes directory."
 
 ;; enable Github-flavored Markdown export
 (use-package ox-gfm)
+
+;; Pandoc integration for org-export
+(use-package ox-pandoc)
 
 ;; Note-taking
 (use-package deft
