@@ -458,6 +458,11 @@
                   (org-display-inline-images)))))
   :hook ((org-mode . turn-on-visual-line-mode)
          (org-mode . turn-on-flyspell)
+
+         ;; Temporarily disable org-eldoc to work around incompatibility with Emacs 28
+         ;; https://orgmode.org/list/878sfrnxvp.fsf@gmail.com/
+         (org-mode . (lambda () (setq-local eldoc-documentation-function #'ignore)))
+
          (after-save . mcw:maybe-sync-org-notes))
   :init
   (defvar mcw:org-notes-directory
