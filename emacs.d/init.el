@@ -525,9 +525,13 @@ the org-notes directory."
   (setq org-todo-keywords '((sequence "TODO" "NEXT" "BLOCKED" "REVIEW" "|" "DONE")))
   (setq org-tag-persistent-alist '(("PROJECT" . ?P) (:startgroup) ("@home" . ?h) ("@work" . ?w)))
   (setq org-capture-templates
-        '(("t" "Todo" entry
+        '(("t" "Todo entry")
+          ("tt" "Todo" entry
            (file mcw:org-notes-gtd-inbox-file)
            "* TODO %?\n%U\n")
+          ("tw" "Todo (work)" entry
+           (file mcw:org-notes-gtd-inbox-file)
+           "* TODO %? :@work:\n%U\n")
           ("b" "Bookmark" entry
            (file+headline mcw:org-notes-bookmarks-file "Bookmarks")
            "* [[%^{url}][%?]]\n%U\n")
