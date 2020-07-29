@@ -711,6 +711,12 @@ the org-notes directory."
   :hook (org-roam-mode . org-roam-bibtex-mode)
   :bind (:map org-mode-map (("C-c n a" . orb-note-actions))))
 
+(use-package biblio
+  :config
+  (setq biblio-download-directory
+        (concat mcw:org-notes-references-directory
+                (file-name-as-directory "bibtex-pdfs"))))
+
 (use-package org-pomodoro
   :after org-agenda
   :bind (:map org-agenda-mode-map ("p" . org-pomodoro)))
