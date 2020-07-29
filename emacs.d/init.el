@@ -37,11 +37,7 @@
 (menu-bar-mode -1)
 
 ;; Default font
-(add-to-list 'default-frame-alist
-             `(font . ,(if (string-equal system-type "darwin")
-                           "Fira Code-13"
-                         "FiraCode")))
-
+(add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font-13"))
 (add-to-list 'default-frame-alist '(height . 60))
 (add-to-list 'default-frame-alist '(width . 80))
 (setq split-height-threshold 100)
