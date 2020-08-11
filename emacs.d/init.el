@@ -392,8 +392,9 @@
 ;;; Python
 
 (use-package anaconda-mode
-  :hook ((python-mode . anaconda-mode)
-         (python-mode . anaconda-eldoc-mode)))
+  :hook (python-mode
+         (python-mode . anaconda-eldoc-mode))
+  :bind* ("C-c C-f" . format-all-buffer))
 
 (use-package company-anaconda
   :after (company anaconda-mode)
