@@ -360,11 +360,11 @@
   :hook (haskell-mode . flycheck-haskell-setup))
 
 (use-package lsp-haskell
- :config
- (setq lsp-haskell-process-path-hie "haskell-language-server-wrapper")
- ;; Comment/uncomment this line to see interactions between lsp client/server.
- ;;(setq lsp-log-io t)
-)
+  :config
+  (setq lsp-haskell-process-path-hie "haskell-language-server-wrapper")
+  ;; Comment/uncomment this line to see interactions between lsp client/server.
+  ;;(setq lsp-log-io t)
+  )
 
 ;; Haskell code formatter
 (use-package ormolu
