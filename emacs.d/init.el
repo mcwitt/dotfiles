@@ -7,6 +7,16 @@
 (setq user-full-name "Matthew Wittmann"
       user-mail-address "mcwitt@gmail.com")
 
+
+;;; Configuration tools
+
+(eval-when-compile
+  (require 'use-package))
+
+;; Helper for keybindings
+(use-package general)
+
+
 ;;; File paths
 
 ;; Path to additional elisp files
@@ -64,15 +74,6 @@
 
 ;; Make impure packages archives unavailable (packages are managed by Nix)
 (setq package-archives nil)
-
-
-;;; Configuration tools
-
-(eval-when-compile
-  (require 'use-package))
-
-;; Helper for keybindings
-(use-package general)
 
 
 ;;; Global modes
