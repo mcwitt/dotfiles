@@ -400,6 +400,8 @@
   :after (company anaconda-mode)
   :config (add-to-list 'company-backends 'company-anaconda))
 
+(use-package pyvenv)
+
 
 ;;; Config files
 
