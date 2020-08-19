@@ -443,6 +443,7 @@
          ("C-c n b" . mcw:display-bookmarks-in-side-window)
          ("C-c n j" . mcw:org-notes-open-journal)
          ("C-c n k" . org-store-link)
+         ("C-c n p" . mcw:org-notes-gtd-open-projects)
          ("C-c n s" . mcw:save-and-sync-org-notes)
          ("C-c C-x l" . org-toggle-link-display)
          (:map org-mode-map
@@ -513,6 +514,11 @@ the org-notes directory."
     "Open org-notes journal file."
     (interactive)
     (find-file mcw:org-notes-journal-file))
+
+  (defun mcw:org-notes-gtd-open-projects ()
+    "Open org-notes gtd projects file."
+    (interactive)
+    (find-file mcw:org-notes-gtd-projects-file))
 
   (setq org-hide-emphasis-markers t)
   (setq org-startup-indented t)
