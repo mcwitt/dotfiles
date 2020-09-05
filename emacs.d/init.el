@@ -353,6 +353,10 @@
   :init (setq markdown-command "pandoc"))
 
 
+;; Edit code blocks in dedicated buffers
+(use-package edit-indirect)
+
+
 ;;; Haskell
 
 (use-package haskell-mode
