@@ -301,6 +301,15 @@
   :bind ("C-c b" . browse-at-remote))
 
 
+;;; Kubernetes
+
+(use-package kubernetes
+  :commands kubernetes-overview)
+
+(use-package kubernetes-evil
+  :after kubernetes)
+
+
 ;;; Syntax checking
 
 (use-package flycheck
