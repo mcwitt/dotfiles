@@ -85,7 +85,7 @@
 (use-package undo-tree
   :delight
   :init
-  (undo-tree-mode))
+  (global-undo-tree-mode 1))
 
 (use-package autorevert
   :delight auto-revert-mode)
@@ -123,6 +123,7 @@
   (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   (setq evil-respect-visual-line-mode t)
+  (setq evil-undo-system 'undo-tree)
   :config
   (evil-mode 1))
 
