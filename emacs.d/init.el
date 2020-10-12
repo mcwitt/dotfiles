@@ -418,6 +418,11 @@
 (use-package pyvenv)
 
 
+;;; Golang
+
+(use-package go-mode)
+
+
 ;;; Config files
 
 (use-package json-mode
