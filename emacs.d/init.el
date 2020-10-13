@@ -373,7 +373,9 @@
   :hook (haskell-mode . interactive-haskell-mode)
   :bind ((:map haskell-mode-map ("C-c C-h" . 'haskell-hoogle-lookup-from-local))
          (:map haskell-cabal-mode-map ("C-c C-f" . cabal-fmt-buffer)))
-  :init (setq haskell-interactive-popup-errors nil))
+  :init
+  (setq haskell-interactive-popup-errors nil)
+  (setq-default flycheck-disabled-checkers '(haskell-stack-ghc)))
 
 (use-package flycheck-haskell
   :hook (haskell-mode . flycheck-haskell-setup))
