@@ -814,6 +814,16 @@ the org-notes directory."
   (lsp-mode . dap-ui-mode))
 
 
+;;; SQL
+
+;;;; Local packages
+
+(use-package sql
+  :bind ("C-c s" . sql-connect)
+  :init
+  ;; SQL connections (don't error if not found)
+  (require 'sql-connections nil 'noerror))
+
 ;;; Agda
 
 (use-package agda2-mode
