@@ -21,11 +21,13 @@
 (defun git-sync ()
   "Run git-sync as an async process."
   (interactive)
-  (let* ((process (start-process-shell-command
-                   git-sync-command
-                   git-sync-buffer-name
-                   git-sync-command)))
-    (set-process-sentinel process 'git-sync-sentinel)))
+  (if (get-buffer git-sync-buffer-name)
+      (message "git sync already in progress (kill the `%s' buffer to reset)" git-sync-buffer-name)
+    (let* ((process (start-process-shell-command
+                     git-sync-command
+                     git-sync-buffer-name
+                     git-sync-command)))
+      (set-process-sentinel process 'git-sync-sentinel))))
 
 (provide 'git-sync)
 ;;; git-sync.el ends here
