@@ -835,6 +835,9 @@ the org-notes directory."
 (use-package pinentry
   :config (pinentry-start))
 
+(use-package ivy-pass
+  :bind ("C-c w" . ivy-pass))
+
 ;; Startup profiler
 (use-package esup
   :commands (esup))
