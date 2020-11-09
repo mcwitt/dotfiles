@@ -385,10 +385,7 @@
 
 ;; Haskell code formatter
 (use-package ormolu
-  ;; :hook (haskell-mode . ormolu-format-on-save-mode)
-  :bind
-  (:map haskell-mode-map
-        ("C-c r" . ormolu-format-buffer)))
+  :hook (haskell-mode . ormolu-format-on-save-mode))
 
 ;; Fira Code ligatures
 (use-package fira-code-mode
