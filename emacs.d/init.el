@@ -278,7 +278,10 @@
   :config
   (reformatter-define cabal-fmt
     :program "cabal-fmt"
-    :lighter " CF"))
+    :lighter " CabalFmt")
+  (reformatter-define nixpkgs-fmt
+    :program "nixpkgs-fmt"
+    :lighter " NixpkgsFmt"))
 
 
 ;;; Git
@@ -429,7 +432,8 @@
 
 (use-package yaml-mode)
 
-(use-package nix-mode)
+(use-package nix-mode
+  :hook (nix-mode . nixpkgs-fmt-on-save-mode))
 
 
 ;;; REST tools
