@@ -374,7 +374,7 @@
 
 (use-package haskell-mode
   :hook (haskell-mode . interactive-haskell-mode)
-  :bind ((:map haskell-mode-map ("C-c C-h" . 'haskell-hoogle-lookup-from-local))
+  :bind ((:map haskell-mode-map ("C-c C-h" . haskell-hoogle-lookup-from-local))
          (:map haskell-cabal-mode-map ("C-c C-f" . cabal-fmt-buffer)))
   :init
   (setq haskell-interactive-popup-errors nil)
