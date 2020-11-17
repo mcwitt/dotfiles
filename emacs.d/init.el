@@ -272,7 +272,8 @@
 ;;; Code formatting
 
 (use-package format-all
-  :bind ("C-c C-f" . format-all-buffer))
+  :bind ("C-c C-f" . format-all-buffer)
+  :hook prog-mode)
 
 (use-package reformatter
   :config
