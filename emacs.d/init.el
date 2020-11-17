@@ -302,7 +302,7 @@
 
 ;; Browse/edit remote files via ssh and ftp
 (use-package browse-at-remote
-  :bind ("C-c b" . browse-at-remote))
+  :bind ("C-c r" . browse-at-remote))
 
 
 ;;; Kubernetes
@@ -725,6 +725,7 @@ the org-notes directory."
   (setq org-ref-completion-library 'org-ref-ivy-cite))
 
 (use-package ivy-bibtex
+  :bind ("C-c b" . ivy-bibtex)
   :init
   (setq bibtex-completion-bibliography
         (concat mcw:org-notes-references-directory "master.bib"))
